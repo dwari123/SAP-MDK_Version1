@@ -1,0 +1,13 @@
+{
+    "Service": "/MDKOnlineApp/Services/SampleServiceV4.service",
+    "DefiningRequests": [{
+        "Name": "Customers",
+        "Query": "Customers"
+    }],
+    "_Type": "Action.Type.OfflineOData.Download",
+    "ActionResult": {
+        "_Name": "sync"
+    },
+    "OnFailure": "/MDKOnlineApp/Actions/Service/SyncFailureMessage.action",
+    "OnSuccess": "/MDKOnlineApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js"
+}
