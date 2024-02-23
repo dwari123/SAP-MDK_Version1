@@ -1,4 +1,4 @@
 {
-	"Application": "/home/user/projects/SAP-MDK-V1/DemoSampleApp/Application.app",
-	"Target": "Mobile & Cloud"
+	"Application": "/home/user/projects/MDKOnlineApp/Application.app",
+	"Target": "Cloud Foundry"
 }
