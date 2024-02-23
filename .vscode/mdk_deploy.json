@@ -1,4 +1,4 @@
 {
-	"Application": "/home/user/projects/MDKOnlineApp/Application.app",
-	"Target": "Cloud Foundry"
+	"Application": "/home/user/projects/MDK_Annotations/Application.app",
+	"Target": "Mobile & Cloud"
 }
