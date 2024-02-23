@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, () => {
-return /******/ (() => { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./build.definitions/application-index.js":
@@ -94,9 +84,10 @@ let mdk_i18n_l10n_rules_logging_tracecategories_js = __webpack_require__(/*! ./M
 let mdk_i18n_l10n_rules_logging_userlogsetting_js = __webpack_require__(/*! ./MDK_i18n_l10n/Rules/Logging/UserLogSetting.js */ "./build.definitions/MDK_i18n_l10n/Rules/Logging/UserLogSetting.js")
 let mdk_i18n_l10n_services_sampleservicev4_service = __webpack_require__(/*! ./MDK_i18n_l10n/Services/SampleServiceV4.service */ "./build.definitions/MDK_i18n_l10n/Services/SampleServiceV4.service")
 let mdk_i18n_l10n_styles_styles_css = __webpack_require__(/*! ./MDK_i18n_l10n/Styles/Styles.css */ "./build.definitions/MDK_i18n_l10n/Styles/Styles.css")
-let mdk_i18n_l10n_styles_styles_json = __webpack_require__(/*! ./MDK_i18n_l10n/Styles/Styles.json */ "./build.definitions/MDK_i18n_l10n/Styles/Styles.json")
 let mdk_i18n_l10n_styles_styles_less = __webpack_require__(/*! ./MDK_i18n_l10n/Styles/Styles.less */ "./build.definitions/MDK_i18n_l10n/Styles/Styles.less")
-let mdk_i18n_l10n_styles_styles_nss = __webpack_require__(/*! ./MDK_i18n_l10n/Styles/Styles.nss */ "./build.definitions/MDK_i18n_l10n/Styles/Styles.nss")
+let mdk_i18n_l10n_styles_styles_light_css = __webpack_require__(/*! ./MDK_i18n_l10n/Styles/Styles.light.css */ "./build.definitions/MDK_i18n_l10n/Styles/Styles.light.css")
+let mdk_i18n_l10n_styles_styles_light_json = __webpack_require__(/*! ./MDK_i18n_l10n/Styles/Styles.light.json */ "./build.definitions/MDK_i18n_l10n/Styles/Styles.light.json")
+let mdk_i18n_l10n_styles_styles_light_nss = __webpack_require__(/*! ./MDK_i18n_l10n/Styles/Styles.light.nss */ "./build.definitions/MDK_i18n_l10n/Styles/Styles.light.nss")
 let tsconfig_json = __webpack_require__(/*! ./tsconfig.json */ "./build.definitions/tsconfig.json")
 let version_mdkbundlerversion = __webpack_require__(/*! ./version.mdkbundlerversion */ "./build.definitions/version.mdkbundlerversion")
 
@@ -178,9 +169,10 @@ module.exports = {
 	mdk_i18n_l10n_rules_logging_userlogsetting_js : mdk_i18n_l10n_rules_logging_userlogsetting_js,
 	mdk_i18n_l10n_services_sampleservicev4_service : mdk_i18n_l10n_services_sampleservicev4_service,
 	mdk_i18n_l10n_styles_styles_css : mdk_i18n_l10n_styles_styles_css,
-	mdk_i18n_l10n_styles_styles_json : mdk_i18n_l10n_styles_styles_json,
 	mdk_i18n_l10n_styles_styles_less : mdk_i18n_l10n_styles_styles_less,
-	mdk_i18n_l10n_styles_styles_nss : mdk_i18n_l10n_styles_styles_nss,
+	mdk_i18n_l10n_styles_styles_light_css : mdk_i18n_l10n_styles_styles_light_css,
+	mdk_i18n_l10n_styles_styles_light_json : mdk_i18n_l10n_styles_styles_light_json,
+	mdk_i18n_l10n_styles_styles_light_nss : mdk_i18n_l10n_styles_styles_light_nss,
 	tsconfig_json : tsconfig_json,
 	version_mdkbundlerversion : version_mdkbundlerversion
 }
@@ -776,7 +768,7 @@ Examples:
 @mdkRed1: #ff0000;
 
 //// By-Type style: All Pages in the application will now have a yellow background
-div.MDKPage
+Page
 
 { background-color: @mdkYellow1; }
 //// By-Name style: All Buttons with _Name == "BlueButton" will now have this style
@@ -789,7 +781,7 @@ div.MDKPage
 
 { color: @mdkYellow1; background-color: @mdkRed1; }
 */
-`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_i18n_l10n/Styles/Styles.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;;;;;CAoBC","sourcesContent":["/* The LESS stylesheet provides the ability to define styling styles that can be used to style the UI in the MDK app.\n\nExamples:\n\n@mdkYellow1: #ffbb33;\n@mdkRed1: #ff0000;\n\n//// By-Type style: All Pages in the application will now have a yellow background\ndiv.MDKPage\n\n{ background-color: @mdkYellow1; }\n//// By-Name style: All Buttons with _Name == \"BlueButton\" will now have this style\n#BlueButton\n\n{ color: @mdkYellow1; background-color: #0000FF; }\n//// By-Class style: These style classes can be referenced from rules and set using ClientAPI setStyle function\n\n.MyButton\n\n{ color: @mdkYellow1; background-color: @mdkRed1; }\n*/\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_i18n_l10n/Styles/Styles.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;;;;;;CAoBC","sourcesContent":["/* The LESS stylesheet provides the ability to define styling styles that can be used to style the UI in the MDK app.\n\nExamples:\n\n@mdkYellow1: #ffbb33;\n@mdkRed1: #ff0000;\n\n//// By-Type style: All Pages in the application will now have a yellow background\nPage\n\n{ background-color: @mdkYellow1; }\n//// By-Name style: All Buttons with _Name == \"BlueButton\" will now have this style\n#BlueButton\n\n{ color: @mdkYellow1; background-color: #0000FF; }\n//// By-Class style: These style classes can be referenced from rules and set using ClientAPI setStyle function\n\n.MyButton\n\n{ color: @mdkYellow1; background-color: @mdkRed1; }\n*/\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -834,10 +826,28 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ "./build.definitions/MDK_i18n_l10n/Styles/Styles.nss":
-/*!***********************************************************!*\
-  !*** ./build.definitions/MDK_i18n_l10n/Styles/Styles.nss ***!
-  \***********************************************************/
+/***/ "./build.definitions/MDK_i18n_l10n/Styles/Styles.light.css":
+/*!*****************************************************************!*\
+  !*** ./build.definitions/MDK_i18n_l10n/Styles/Styles.light.css ***!
+  \*****************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// Imports
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ``, "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_i18n_l10n/Styles/Styles.light.nss":
+/*!*****************************************************************!*\
+  !*** ./build.definitions/MDK_i18n_l10n/Styles/Styles.light.nss ***!
+  \*****************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
@@ -979,7 +989,7 @@ module.exports = function (item) {
   \*******************************************/
 /***/ ((module) => {
 
-module.exports = {"_Name":"MDK_i18n_l10n","Version":"/MDK_i18n_l10n/Globals/Application/AppDefinition_Version.global","MainPage":"/MDK_i18n_l10n/Pages/Main.page","OnLaunch":["/MDK_i18n_l10n/Actions/Service/InitializeOffline.action"],"OnWillUpdate":"/MDK_i18n_l10n/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDK_i18n_l10n/Actions/Service/InitializeOffline.action","Styles":"/MDK_i18n_l10n/Styles/Styles.less","Localization":"/MDK_i18n_l10n/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDK_i18n_l10n/Styles/Styles.css","ios":"/MDK_i18n_l10n/Styles/Styles.nss","android":"/MDK_i18n_l10n/Styles/Styles.json"}}}
+module.exports = {"_Name":"MDK_i18n_l10n","Version":"/MDK_i18n_l10n/Globals/Application/AppDefinition_Version.global","MainPage":"/MDK_i18n_l10n/Pages/Main.page","OnLaunch":["/MDK_i18n_l10n/Actions/Service/InitializeOffline.action"],"OnWillUpdate":"/MDK_i18n_l10n/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDK_i18n_l10n/Actions/Service/InitializeOffline.action","Styles":"/MDK_i18n_l10n/Styles/Styles.css","Localization":"/MDK_i18n_l10n/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDK_i18n_l10n/Styles/Styles.light.css","ios":"/MDK_i18n_l10n/Styles/Styles.light.nss","android":"/MDK_i18n_l10n/Styles/Styles.light.json"}},"SDKStyles":{"ios":"/MDK_i18n_l10n/Styles/Styles.light.nss","android":"/MDK_i18n_l10n/Styles/Styles.light.json"}}
 
 /***/ }),
 
@@ -1574,10 +1584,51 @@ module.exports = "1.1\n";
 
 /***/ }),
 
-/***/ "./build.definitions/MDK_i18n_l10n/Styles/Styles.json":
-/*!************************************************************!*\
-  !*** ./build.definitions/MDK_i18n_l10n/Styles/Styles.json ***!
-  \************************************************************/
+/***/ "webpack/container/entry/bundle.js":
+/*!***********************!*\
+  !*** container entry ***!
+  \***********************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+var moduleMap = {
+	".": () => {
+		return Promise.resolve().then(() => (() => ((__webpack_require__(/*! ./build.definitions/application-index.js */ "./build.definitions/application-index.js")))));
+	}
+};
+var get = (module, getScope) => {
+	__webpack_require__.R = getScope;
+	getScope = (
+		__webpack_require__.o(moduleMap, module)
+			? moduleMap[module]()
+			: Promise.resolve().then(() => {
+				throw new Error('Module "' + module + '" does not exist in container.');
+			})
+	);
+	__webpack_require__.R = undefined;
+	return getScope;
+};
+var init = (shareScope, initScope) => {
+	if (!__webpack_require__.S) return;
+	var name = "default"
+	var oldScope = __webpack_require__.S[name];
+	if(oldScope && oldScope !== shareScope) throw new Error("Container initialization failed as it has already been initialized with a different share scope");
+	__webpack_require__.S[name] = shareScope;
+	return __webpack_require__.I(name, initScope);
+};
+
+// This exports getters to disallow modifications
+__webpack_require__.d(exports, {
+	get: () => (get),
+	init: () => (init)
+});
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_i18n_l10n/Styles/Styles.light.json":
+/*!******************************************************************!*\
+  !*** ./build.definitions/MDK_i18n_l10n/Styles/Styles.light.json ***!
+  \******************************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -1633,6 +1684,12 @@ module.exports = JSON.parse('{"compilerOptions":{"target":"es2015","module":"esn
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = __webpack_module_cache__;
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -1662,15 +1719,62 @@ module.exports = JSON.parse('{"compilerOptions":{"target":"es2015","module":"esn
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/sharing */
+/******/ 	(() => {
+/******/ 		__webpack_require__.S = {};
+/******/ 		var initPromises = {};
+/******/ 		var initTokens = {};
+/******/ 		__webpack_require__.I = (name, initScope) => {
+/******/ 			if(!initScope) initScope = [];
+/******/ 			// handling circular init calls
+/******/ 			var initToken = initTokens[name];
+/******/ 			if(!initToken) initToken = initTokens[name] = {};
+/******/ 			if(initScope.indexOf(initToken) >= 0) return;
+/******/ 			initScope.push(initToken);
+/******/ 			// only runs once
+/******/ 			if(initPromises[name]) return initPromises[name];
+/******/ 			// creates a new share scope if needed
+/******/ 			if(!__webpack_require__.o(__webpack_require__.S, name)) __webpack_require__.S[name] = {};
+/******/ 			// runs all init snippets from all modules reachable
+/******/ 			var scope = __webpack_require__.S[name];
+/******/ 			var warn = (msg) => {
+/******/ 				if (typeof console !== "undefined" && console.warn) console.warn(msg);
+/******/ 			};
+/******/ 			var uniqueName = undefined;
+/******/ 			var register = (name, version, factory, eager) => {
+/******/ 				var versions = scope[name] = scope[name] || {};
+/******/ 				var activeVersion = versions[version];
+/******/ 				if(!activeVersion || (!activeVersion.loaded && (!eager != !activeVersion.eager ? eager : uniqueName > activeVersion.from))) versions[version] = { get: factory, from: uniqueName, eager: !!eager };
+/******/ 			};
+/******/ 			var initExternal = (id) => {
+/******/ 				var handleError = (err) => (warn("Initialization of sharing external failed: " + err));
+/******/ 				try {
+/******/ 					var module = __webpack_require__(id);
+/******/ 					if(!module) return;
+/******/ 					var initFn = (module) => (module && module.init && module.init(__webpack_require__.S[name], initScope))
+/******/ 					if(module.then) return promises.push(module.then(initFn, handleError));
+/******/ 					var initResult = initFn(module);
+/******/ 					if(initResult && initResult.then) return promises.push(initResult['catch'](handleError));
+/******/ 				} catch(err) { handleError(err); }
+/******/ 			}
+/******/ 			var promises = [];
+/******/ 			switch(name) {
+/******/ 			}
+/******/ 			if(!promises.length) return initPromises[name] = 1;
+/******/ 			return initPromises[name] = Promise.all(promises).then(() => (initPromises[name] = 1));
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 /******/ 	
+/******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./build.definitions/application-index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("webpack/container/entry/bundle.js");
+/******/ 	var __webpack_export_target__ = exports;
+/******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+/******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
 /******/ 	
-/******/ 	return __webpack_exports__;
 /******/ })()
 ;
-});
 //# sourceMappingURL=bundle.js.map

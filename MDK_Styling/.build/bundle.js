@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, () => {
-return /******/ (() => { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./build.definitions/application-index.js":
@@ -155,9 +145,10 @@ let mdk_styling_rules_salesorderheaders_salesorderheaders_deleteconfirmation_js 
 let mdk_styling_rules_salesorderitems_salesorderitems_deleteconfirmation_js = __webpack_require__(/*! ./MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js */ "./build.definitions/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js")
 let mdk_styling_services_sampleservicev4_service = __webpack_require__(/*! ./MDK_Styling/Services/SampleServiceV4.service */ "./build.definitions/MDK_Styling/Services/SampleServiceV4.service")
 let mdk_styling_styles_styles_css = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.css */ "./build.definitions/MDK_Styling/Styles/Styles.css")
-let mdk_styling_styles_styles_json = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.json */ "./build.definitions/MDK_Styling/Styles/Styles.json")
 let mdk_styling_styles_styles_less = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.less */ "./build.definitions/MDK_Styling/Styles/Styles.less")
-let mdk_styling_styles_styles_nss = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.nss */ "./build.definitions/MDK_Styling/Styles/Styles.nss")
+let mdk_styling_styles_styles_light_css = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.light.css */ "./build.definitions/MDK_Styling/Styles/Styles.light.css")
+let mdk_styling_styles_styles_light_json = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.light.json */ "./build.definitions/MDK_Styling/Styles/Styles.light.json")
+let mdk_styling_styles_styles_light_nss = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.light.nss */ "./build.definitions/MDK_Styling/Styles/Styles.light.nss")
 let tsconfig_json = __webpack_require__(/*! ./tsconfig.json */ "./build.definitions/tsconfig.json")
 let version_mdkbundlerversion = __webpack_require__(/*! ./version.mdkbundlerversion */ "./build.definitions/version.mdkbundlerversion")
 
@@ -300,9 +291,10 @@ module.exports = {
 	mdk_styling_rules_salesorderitems_salesorderitems_deleteconfirmation_js : mdk_styling_rules_salesorderitems_salesorderitems_deleteconfirmation_js,
 	mdk_styling_services_sampleservicev4_service : mdk_styling_services_sampleservicev4_service,
 	mdk_styling_styles_styles_css : mdk_styling_styles_styles_css,
-	mdk_styling_styles_styles_json : mdk_styling_styles_styles_json,
 	mdk_styling_styles_styles_less : mdk_styling_styles_styles_less,
-	mdk_styling_styles_styles_nss : mdk_styling_styles_styles_nss,
+	mdk_styling_styles_styles_light_css : mdk_styling_styles_styles_light_css,
+	mdk_styling_styles_styles_light_json : mdk_styling_styles_styles_light_json,
+	mdk_styling_styles_styles_light_nss : mdk_styling_styles_styles_light_nss,
 	tsconfig_json : tsconfig_json,
 	version_mdkbundlerversion : version_mdkbundlerversion
 }
@@ -1047,11 +1039,11 @@ var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `ui5-mdk-bar.actionbar {
+___CSS_LOADER_EXPORT___.push([module.id, `ActionBar {
   color: white;
   background-color: red;
 }
-ui5-mdk-overflow-toolbar.toolbar {
+ToolBar {
   color: white;
   background-color: gray;
   /* Android */
@@ -1072,15 +1064,15 @@ ui5-mdk-overflow-toolbar.toolbar {
   color: #ffbb33;
 }
 /* Object Header - BodyText */
-.span.ohBodyText {
+.objectHeaderBodyText {
   color: red;
 }
 /* Object Header - Description */
-.span.ohDescription {
+.objectHeaderDescription {
   color: blue;
 }
 /* Object Header - Footnote */
-.span.ohFootnote {
+.objectHeaderFootNote {
   color: green;
 }
 /* Object Header - Headline */
@@ -1098,7 +1090,7 @@ ui5-mdk-overflow-toolbar.toolbar {
   font-size: 18;
 }
 /* Object Header - Subhead */
-.span.ohSubhead {
+.objectHeaderSubhead {
   color: yellow;
 }
 /* Object Header - SubstatusText */
@@ -1107,7 +1099,7 @@ ui5-mdk-overflow-toolbar.toolbar {
   font-style: italic;
   font-size: 18;
 }
-`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,qBAAqB;AACvB;AACA;EACE,YAAY;EACZ,sBAAsB;EACtB,YAAY;EACZ,kBAAkB;EAClB,QAAQ;AACV;AACA;EACE,YAAY;AACd;AACA;EACE,WAAW;AACb;AACA;EACE,mBAAmB;EACnB,sBAAsB;AACxB;AACA;EACE,cAAc;AAChB;AACA,6BAA6B;AAC7B;EACE,UAAU;AACZ;AACA,gCAAgC;AAChC;EACE,WAAW;AACb;AACA,6BAA6B;AAC7B;EACE,YAAY;AACd;AACA,6BAA6B;AAC7B;EACE,cAAc;AAChB;AACA,+BAA+B;AAC/B;EACE,yBAAyB;AAC3B;AACA,+BAA+B;AAC/B;EACE,UAAU;EACV,kBAAkB;EAClB,aAAa;AACf;AACA,4BAA4B;AAC5B;EACE,aAAa;AACf;AACA,kCAAkC;AAClC;EACE,WAAW;EACX,kBAAkB;EAClB,aAAa;AACf","sourcesContent":["ui5-mdk-bar.actionbar {\n  color: white;\n  background-color: red;\n}\nui5-mdk-overflow-toolbar.toolbar {\n  color: white;\n  background-color: gray;\n  /* Android */\n  bartintcolor: gray;\n  /* iOS */\n}\n#LogoutToolbarItem {\n  color: brown;\n}\n#UploadToolbarItem {\n  color: blue;\n}\n.MyCustomerButton {\n  font-color: #ff0000;\n  background-color: cyan;\n}\n.ObjectTableTitle {\n  color: #ffbb33;\n}\n/* Object Header - BodyText */\n.span.ohBodyText {\n  color: red;\n}\n/* Object Header - Description */\n.span.ohDescription {\n  color: blue;\n}\n/* Object Header - Footnote */\n.span.ohFootnote {\n  color: green;\n}\n/* Object Header - Headline */\n.objectHeaderHeadline {\n  color: #ff00ff;\n}\n/* Object Header - Background */\n.objectHeaderBackground {\n  background-color: #DC143C;\n}\n/* Object Header - StatusText */\n.objectHeaderStatus {\n  color: red;\n  font-style: italic;\n  font-size: 18;\n}\n/* Object Header - Subhead */\n.span.ohSubhead {\n  color: yellow;\n}\n/* Object Header - SubstatusText */\n.objectHeaderSubStatus {\n  color: blue;\n  font-style: italic;\n  font-size: 18;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,qBAAqB;AACvB;AACA;EACE,YAAY;EACZ,sBAAsB;EACtB,YAAY;EACZ,kBAAkB;EAClB,QAAQ;AACV;AACA;EACE,YAAY;AACd;AACA;EACE,WAAW;AACb;AACA;EACE,mBAAmB;EACnB,sBAAsB;AACxB;AACA;EACE,cAAc;AAChB;AACA,6BAA6B;AAC7B;EACE,UAAU;AACZ;AACA,gCAAgC;AAChC;EACE,WAAW;AACb;AACA,6BAA6B;AAC7B;EACE,YAAY;AACd;AACA,6BAA6B;AAC7B;EACE,cAAc;AAChB;AACA,+BAA+B;AAC/B;EACE,yBAAyB;AAC3B;AACA,+BAA+B;AAC/B;EACE,UAAU;EACV,kBAAkB;EAClB,aAAa;AACf;AACA,4BAA4B;AAC5B;EACE,aAAa;AACf;AACA,kCAAkC;AAClC;EACE,WAAW;EACX,kBAAkB;EAClB,aAAa;AACf","sourcesContent":["ActionBar {\n  color: white;\n  background-color: red;\n}\nToolBar {\n  color: white;\n  background-color: gray;\n  /* Android */\n  bartintcolor: gray;\n  /* iOS */\n}\n#LogoutToolbarItem {\n  color: brown;\n}\n#UploadToolbarItem {\n  color: blue;\n}\n.MyCustomerButton {\n  font-color: #ff0000;\n  background-color: cyan;\n}\n.ObjectTableTitle {\n  color: #ffbb33;\n}\n/* Object Header - BodyText */\n.objectHeaderBodyText {\n  color: red;\n}\n/* Object Header - Description */\n.objectHeaderDescription {\n  color: blue;\n}\n/* Object Header - Footnote */\n.objectHeaderFootNote {\n  color: green;\n}\n/* Object Header - Headline */\n.objectHeaderHeadline {\n  color: #ff00ff;\n}\n/* Object Header - Background */\n.objectHeaderBackground {\n  background-color: #DC143C;\n}\n/* Object Header - StatusText */\n.objectHeaderStatus {\n  color: red;\n  font-style: italic;\n  font-size: 18;\n}\n/* Object Header - Subhead */\n.objectHeaderSubhead {\n  color: yellow;\n}\n/* Object Header - SubstatusText */\n.objectHeaderSubStatus {\n  color: blue;\n  font-style: italic;\n  font-size: 18;\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -1216,10 +1208,79 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ "./build.definitions/MDK_Styling/Styles/Styles.nss":
-/*!*********************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Styles/Styles.nss ***!
-  \*********************************************************/
+/***/ "./build.definitions/MDK_Styling/Styles/Styles.light.css":
+/*!***************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Styles/Styles.light.css ***!
+  \***************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// Imports
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.ns-light ActionBar {
+	color: white;
+	background-color: red;
+}
+.ns-light ToolBar {
+	color: white;
+	background-color: gray;
+	/* Android */
+  bartintcolor: gray;
+}
+.ns-light #LogoutToolbarItem {
+	color: brown;
+}
+.ns-light #UploadToolbarItem {
+	color: blue;
+}
+.ns-light .MyCustomerButton {
+	font-color: #ff0000;
+	background-color: cyan;
+}
+.ns-light .ObjectTableTitle {
+	color: #ffbb33;
+}
+.ns-light .objectHeaderBodyText {
+	color: red;
+}
+.ns-light .objectHeaderDescription {
+	color: blue;
+}
+.ns-light .objectHeaderFootNote {
+	color: green;
+}
+.ns-light .objectHeaderHeadline {
+	color: #ff00ff;
+}
+.ns-light .objectHeaderBackground {
+	background-color: #DC143C;
+}
+.ns-light .objectHeaderStatus {
+	color: red;
+	font-style: italic;
+	font-size: 18;
+}
+.ns-light .objectHeaderSubhead {
+	color: yellow;
+}
+.ns-light .objectHeaderSubStatus {
+	color: blue;
+	font-style: italic;
+	font-size: 18;
+}
+`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.light.css"],"names":[],"mappings":"AAAA;CACC,YAAY;CACZ,qBAAqB;AACtB;AACA;CACC,YAAY;CACZ,sBAAsB;CACtB,YAAY;EACX,kBAAkB;AACpB;AACA;CACC,YAAY;AACb;AACA;CACC,WAAW;AACZ;AACA;CACC,mBAAmB;CACnB,sBAAsB;AACvB;AACA;CACC,cAAc;AACf;AACA;CACC,UAAU;AACX;AACA;CACC,WAAW;AACZ;AACA;CACC,YAAY;AACb;AACA;CACC,cAAc;AACf;AACA;CACC,yBAAyB;AAC1B;AACA;CACC,UAAU;CACV,kBAAkB;CAClB,aAAa;AACd;AACA;CACC,aAAa;AACd;AACA;CACC,WAAW;CACX,kBAAkB;CAClB,aAAa;AACd","sourcesContent":[".ns-light ActionBar {\n\tcolor: white;\n\tbackground-color: red;\n}\n.ns-light ToolBar {\n\tcolor: white;\n\tbackground-color: gray;\n\t/* Android */\n  bartintcolor: gray;\n}\n.ns-light #LogoutToolbarItem {\n\tcolor: brown;\n}\n.ns-light #UploadToolbarItem {\n\tcolor: blue;\n}\n.ns-light .MyCustomerButton {\n\tfont-color: #ff0000;\n\tbackground-color: cyan;\n}\n.ns-light .ObjectTableTitle {\n\tcolor: #ffbb33;\n}\n.ns-light .objectHeaderBodyText {\n\tcolor: red;\n}\n.ns-light .objectHeaderDescription {\n\tcolor: blue;\n}\n.ns-light .objectHeaderFootNote {\n\tcolor: green;\n}\n.ns-light .objectHeaderHeadline {\n\tcolor: #ff00ff;\n}\n.ns-light .objectHeaderBackground {\n\tbackground-color: #DC143C;\n}\n.ns-light .objectHeaderStatus {\n\tcolor: red;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n.ns-light .objectHeaderSubhead {\n\tcolor: yellow;\n}\n.ns-light .objectHeaderSubStatus {\n\tcolor: blue;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n"],"sourceRoot":""}]);
+// Exports
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Styles/Styles.light.nss":
+/*!***************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Styles/Styles.light.nss ***!
+  \***************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
@@ -1268,7 +1329,7 @@ objectHeaderSubStatus {
 	font-style: italic;
 	font-size: 18;
 }
-`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.nss"],"names":[],"mappings":"AAAA,oBAAoB;AACpB,iBAAiB;AACjB;CACC,iBAAiB;CACjB,qBAAqB;AACtB;AACA;CACC,mBAAmB;CACnB,sBAAsB;AACvB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,eAAe;AAChB;AACA;CACC,gBAAgB;AACjB;AACA;CACC,iBAAiB;AAClB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,yBAAyB;AAC1B;AACA;CACC,eAAe;CACf,kBAAkB;CAClB,aAAa;AACd;AACA;CACC,kBAAkB;AACnB;AACA;CACC,gBAAgB;CAChB,kBAAkB;CAClB,aAAa;AACd","sourcesContent":["@mdkYellow1: #ffbb33;\n@mdkRed1: #ff0000;\nActionBar {\n\tfont-color: white;\n\tbackground-color: red;\n}\nMyCustomerButton {\n\tfont-color: #ff0000;\n\tbackground-color: cyan;\n}\nObjectTableTitle {\n\tfont-color: #ffbb33;\n}\nobjectHeaderBodyText {\n\tfont-color: red;\n}\nobjectHeaderDescription {\n\tfont-color: blue;\n}\nobjectHeaderFootNote {\n\tfont-color: green;\n}\nobjectHeaderHeadline {\n\tfont-color: #ff00ff;\n}\nobjectHeaderBackground {\n\tbackground-color: #DC143C;\n}\nobjectHeaderStatus {\n\tfont-color: red;\n\tfont-style: italic;\n\tfont-size: 18;\n}\nobjectHeaderSubhead {\n\tfont-color: yellow;\n}\nobjectHeaderSubStatus {\n\tfont-color: blue;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.light.nss"],"names":[],"mappings":"AAAA,oBAAoB;AACpB,iBAAiB;AACjB;CACC,iBAAiB;CACjB,qBAAqB;AACtB;AACA;CACC,mBAAmB;CACnB,sBAAsB;AACvB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,eAAe;AAChB;AACA;CACC,gBAAgB;AACjB;AACA;CACC,iBAAiB;AAClB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,yBAAyB;AAC1B;AACA;CACC,eAAe;CACf,kBAAkB;CAClB,aAAa;AACd;AACA;CACC,kBAAkB;AACnB;AACA;CACC,gBAAgB;CAChB,kBAAkB;CAClB,aAAa;AACd","sourcesContent":["@mdkYellow1: #ffbb33;\n@mdkRed1: #ff0000;\nActionBar {\n\tfont-color: white;\n\tbackground-color: red;\n}\nMyCustomerButton {\n\tfont-color: #ff0000;\n\tbackground-color: cyan;\n}\nObjectTableTitle {\n\tfont-color: #ffbb33;\n}\nobjectHeaderBodyText {\n\tfont-color: red;\n}\nobjectHeaderDescription {\n\tfont-color: blue;\n}\nobjectHeaderFootNote {\n\tfont-color: green;\n}\nobjectHeaderHeadline {\n\tfont-color: #ff00ff;\n}\nobjectHeaderBackground {\n\tbackground-color: #DC143C;\n}\nobjectHeaderStatus {\n\tfont-color: red;\n\tfont-style: italic;\n\tfont-size: 18;\n}\nobjectHeaderSubhead {\n\tfont-color: yellow;\n}\nobjectHeaderSubStatus {\n\tfont-color: blue;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -1402,7 +1463,7 @@ module.exports = function (item) {
   \*******************************************/
 /***/ ((module) => {
 
-module.exports = {"_Name":"MDK_Styling","Version":"/MDK_Styling/Globals/Application/AppDefinition_Version.global","MainPage":"/MDK_Styling/Pages/Main.page","OnLaunch":["/MDK_Styling/Actions/Service/InitializeOffline.action"],"OnWillUpdate":"/MDK_Styling/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDK_Styling/Actions/Service/InitializeOffline.action","Styles":"/MDK_Styling/Styles/Styles.less","Localization":"/MDK_Styling/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDK_Styling/Styles/Styles.css","ios":"/MDK_Styling/Styles/Styles.nss","android":"/MDK_Styling/Styles/Styles.json"}}}
+module.exports = {"_Name":"MDK_Styling","Version":"/MDK_Styling/Globals/Application/AppDefinition_Version.global","MainPage":"/MDK_Styling/Pages/Main.page","OnLaunch":["/MDK_Styling/Actions/Service/InitializeOffline.action"],"OnWillUpdate":"/MDK_Styling/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDK_Styling/Actions/Service/InitializeOffline.action","Styles":"/MDK_Styling/Styles/Styles.css","Localization":"/MDK_Styling/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDK_Styling/Styles/Styles.light.css","ios":"/MDK_Styling/Styles/Styles.light.nss","android":"/MDK_Styling/Styles/Styles.light.json"}},"SDKStyles":{"ios":"/MDK_Styling/Styles/Styles.light.nss","android":"/MDK_Styling/Styles/Styles.light.json"}}
 
 /***/ }),
 
@@ -2557,10 +2618,51 @@ module.exports = "1.1\n";
 
 /***/ }),
 
-/***/ "./build.definitions/MDK_Styling/Styles/Styles.json":
-/*!**********************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Styles/Styles.json ***!
-  \**********************************************************/
+/***/ "webpack/container/entry/bundle.js":
+/*!***********************!*\
+  !*** container entry ***!
+  \***********************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+var moduleMap = {
+	".": () => {
+		return Promise.resolve().then(() => (() => ((__webpack_require__(/*! ./build.definitions/application-index.js */ "./build.definitions/application-index.js")))));
+	}
+};
+var get = (module, getScope) => {
+	__webpack_require__.R = getScope;
+	getScope = (
+		__webpack_require__.o(moduleMap, module)
+			? moduleMap[module]()
+			: Promise.resolve().then(() => {
+				throw new Error('Module "' + module + '" does not exist in container.');
+			})
+	);
+	__webpack_require__.R = undefined;
+	return getScope;
+};
+var init = (shareScope, initScope) => {
+	if (!__webpack_require__.S) return;
+	var name = "default"
+	var oldScope = __webpack_require__.S[name];
+	if(oldScope && oldScope !== shareScope) throw new Error("Container initialization failed as it has already been initialized with a different share scope");
+	__webpack_require__.S[name] = shareScope;
+	return __webpack_require__.I(name, initScope);
+};
+
+// This exports getters to disallow modifications
+__webpack_require__.d(exports, {
+	get: () => (get),
+	init: () => (init)
+});
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Styles/Styles.light.json":
+/*!****************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Styles/Styles.light.json ***!
+  \****************************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2616,6 +2718,12 @@ module.exports = JSON.parse('{"compilerOptions":{"target":"es2015","module":"esn
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = __webpack_module_cache__;
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -2645,15 +2753,62 @@ module.exports = JSON.parse('{"compilerOptions":{"target":"es2015","module":"esn
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/sharing */
+/******/ 	(() => {
+/******/ 		__webpack_require__.S = {};
+/******/ 		var initPromises = {};
+/******/ 		var initTokens = {};
+/******/ 		__webpack_require__.I = (name, initScope) => {
+/******/ 			if(!initScope) initScope = [];
+/******/ 			// handling circular init calls
+/******/ 			var initToken = initTokens[name];
+/******/ 			if(!initToken) initToken = initTokens[name] = {};
+/******/ 			if(initScope.indexOf(initToken) >= 0) return;
+/******/ 			initScope.push(initToken);
+/******/ 			// only runs once
+/******/ 			if(initPromises[name]) return initPromises[name];
+/******/ 			// creates a new share scope if needed
+/******/ 			if(!__webpack_require__.o(__webpack_require__.S, name)) __webpack_require__.S[name] = {};
+/******/ 			// runs all init snippets from all modules reachable
+/******/ 			var scope = __webpack_require__.S[name];
+/******/ 			var warn = (msg) => {
+/******/ 				if (typeof console !== "undefined" && console.warn) console.warn(msg);
+/******/ 			};
+/******/ 			var uniqueName = undefined;
+/******/ 			var register = (name, version, factory, eager) => {
+/******/ 				var versions = scope[name] = scope[name] || {};
+/******/ 				var activeVersion = versions[version];
+/******/ 				if(!activeVersion || (!activeVersion.loaded && (!eager != !activeVersion.eager ? eager : uniqueName > activeVersion.from))) versions[version] = { get: factory, from: uniqueName, eager: !!eager };
+/******/ 			};
+/******/ 			var initExternal = (id) => {
+/******/ 				var handleError = (err) => (warn("Initialization of sharing external failed: " + err));
+/******/ 				try {
+/******/ 					var module = __webpack_require__(id);
+/******/ 					if(!module) return;
+/******/ 					var initFn = (module) => (module && module.init && module.init(__webpack_require__.S[name], initScope))
+/******/ 					if(module.then) return promises.push(module.then(initFn, handleError));
+/******/ 					var initResult = initFn(module);
+/******/ 					if(initResult && initResult.then) return promises.push(initResult['catch'](handleError));
+/******/ 				} catch(err) { handleError(err); }
+/******/ 			}
+/******/ 			var promises = [];
+/******/ 			switch(name) {
+/******/ 			}
+/******/ 			if(!promises.length) return initPromises[name] = 1;
+/******/ 			return initPromises[name] = Promise.all(promises).then(() => (initPromises[name] = 1));
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 /******/ 	
+/******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./build.definitions/application-index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("webpack/container/entry/bundle.js");
+/******/ 	var __webpack_export_target__ = exports;
+/******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+/******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
 /******/ 	
-/******/ 	return __webpack_exports__;
 /******/ })()
 ;
-});
 //# sourceMappingURL=bundle.js.map
