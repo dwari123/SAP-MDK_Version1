@@ -1,0 +1,18 @@
+{
+    "folders": [
+        {
+            "path": "MDK_Petstore"
+        }
+    ],
+    "settings": {
+        "mdk.uieditor": {
+            "left": {
+                "visible": true
+            },
+            "right": {
+                "visible": true,
+                "width": 397
+            }
+        }
+    }
+}

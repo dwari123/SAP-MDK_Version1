@@ -34,7 +34,7 @@
 	"Onboarding": {
 		"Schema": "sapmobilesvcs",
 		"TimeZone": "UTC",
-		"URL": "sapmobilesvcs://?AppId=com.sap.mdk.restapi&ClientId=0e1d6d38-6f79-4133-9667-7becf54782fc&ServerUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com&SapCloudPlatformEndpoint=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com&AuthorizationEndpointUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/authorize&RedirectUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com&TokenUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/token&multiUser=false"
+		"URL": "sapmobilesvcs://?AppId=com.sap.mdk.restapi&ClientId=697c8b90-c0c7-4ec7-b753-cee1ffea4050&ServerUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com&SapCloudPlatformEndpoint=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com&AuthorizationEndpointUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/authorize&RedirectUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com&TokenUrl=https://bccbdc89trial-dev-com-sap-mdk-restapi.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/token&multiUser=false"
 	},
 	"Build": {
 		"SourceMap": true,
