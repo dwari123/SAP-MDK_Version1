@@ -1,13 +1,6 @@
 {
     "PopoverItems": [{
             "Enabled": true,
-            "Icon": "sap-icon://synchronize",
-            "OnPress": "/MDKOnlineApp/Actions/Service/SyncStartedMessage.action",
-            "Title": "Sync Changes",
-            "Visible": "$(PLT,true,true,false)"
-        },
-        {
-            "Enabled": true,
             "Icon": "sap-icon://headset",
             "OnPress": "/MDKOnlineApp/Actions/Application/NavToSupport.action",
             "Title": "Support",

@@ -3,7 +3,19 @@
 	"CF": {
 		"Target": "https://api.cf.us10-001.hana.ondemand.com",
 		"Organization": "e2f9390d-5937-4124-8d68-115f0cfca6b0",
-		"Space": "27b4e7d1-f87e-4949-bd80-4cf5b61376c3"
+		"Space": "27b4e7d1-f87e-4949-bd80-4cf5b61376c3",
+		"Deploy": {
+			"Destination": [],
+			"Name": "ns.MDKDeepLink",
+			"Version": "1.0.0",
+			"AppRouter": "standalone",
+			"WebClient": {
+				"Runtime": "production",
+				"URL": "https://mdk-webclient-runtime.cfapps.us10.hana.ondemand.com/runtime/"
+			},
+			"Auth": true,
+			"URL": "https:///nsMDKDeepLink"
+		}
 	},
 	"MobileService": {
 		"AdminAPI": "https://mobile-service-cockpit-api.cfapps.us10.hana.ondemand.com/cockpit/v1/org/e2f9390d-5937-4124-8d68-115f0cfca6b0/space/27b4e7d1-f87e-4949-bd80-4cf5b61376c3",

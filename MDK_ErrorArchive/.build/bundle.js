@@ -29,7 +29,6 @@ let mdk_errorarchive_actions_deleteconfirmation_action = __webpack_require__(/*!
 let mdk_errorarchive_actions_deleteentityfailuremessage_action = __webpack_require__(/*! ./MDK_ErrorArchive/Actions/DeleteEntityFailureMessage.action */ "./build.definitions/MDK_ErrorArchive/Actions/DeleteEntityFailureMessage.action")
 let mdk_errorarchive_actions_deleteentitysuccessmessage_action = __webpack_require__(/*! ./MDK_ErrorArchive/Actions/DeleteEntitySuccessMessage.action */ "./build.definitions/MDK_ErrorArchive/Actions/DeleteEntitySuccessMessage.action")
 let mdk_errorarchive_actions_errorarchive_errorarchive_syncfailure_action = __webpack_require__(/*! ./MDK_ErrorArchive/Actions/ErrorArchive/ErrorArchive_SyncFailure.action */ "./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/ErrorArchive_SyncFailure.action")
-let mdk_errorarchive_actions_errorarchive_errorarchive_unknownaffectedentity_action = __webpack_require__(/*! ./MDK_ErrorArchive/Actions/ErrorArchive/ErrorArchive_UnknownAffectedEntity.action */ "./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/ErrorArchive_UnknownAffectedEntity.action")
 let mdk_errorarchive_actions_errorarchive_navtoerrorarchive_detail_action = __webpack_require__(/*! ./MDK_ErrorArchive/Actions/ErrorArchive/NavToErrorArchive_Detail.action */ "./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/NavToErrorArchive_Detail.action")
 let mdk_errorarchive_actions_errorarchive_navtoerrorarchive_list_action = __webpack_require__(/*! ./MDK_ErrorArchive/Actions/ErrorArchive/NavToErrorArchive_List.action */ "./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/NavToErrorArchive_List.action")
 let mdk_errorarchive_actions_genericbannermessage_action = __webpack_require__(/*! ./MDK_ErrorArchive/Actions/GenericBannerMessage.action */ "./build.definitions/MDK_ErrorArchive/Actions/GenericBannerMessage.action")
@@ -134,7 +133,6 @@ let mdk_errorarchive_rules_application_getclientversion_js = __webpack_require__
 let mdk_errorarchive_rules_application_onwillupdate_js = __webpack_require__(/*! ./MDK_ErrorArchive/Rules/Application/OnWillUpdate.js */ "./build.definitions/MDK_ErrorArchive/Rules/Application/OnWillUpdate.js")
 let mdk_errorarchive_rules_application_resetappsettingsandlogout_js = __webpack_require__(/*! ./MDK_ErrorArchive/Rules/Application/ResetAppSettingsAndLogout.js */ "./build.definitions/MDK_ErrorArchive/Rules/Application/ResetAppSettingsAndLogout.js")
 let mdk_errorarchive_rules_errorarchive_errorarchive_checkforsyncerror_js = __webpack_require__(/*! ./MDK_ErrorArchive/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js */ "./build.definitions/MDK_ErrorArchive/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js")
-let mdk_errorarchive_rules_errorarchive_errorarchive_decidewhicheditpage_js = __webpack_require__(/*! ./MDK_ErrorArchive/Rules/ErrorArchive/ErrorArchive_DecideWhichEditPage.js */ "./build.definitions/MDK_ErrorArchive/Rules/ErrorArchive/ErrorArchive_DecideWhichEditPage.js")
 let mdk_errorarchive_rules_logging_loglevels_js = __webpack_require__(/*! ./MDK_ErrorArchive/Rules/Logging/LogLevels.js */ "./build.definitions/MDK_ErrorArchive/Rules/Logging/LogLevels.js")
 let mdk_errorarchive_rules_logging_settracecategories_js = __webpack_require__(/*! ./MDK_ErrorArchive/Rules/Logging/SetTraceCategories.js */ "./build.definitions/MDK_ErrorArchive/Rules/Logging/SetTraceCategories.js")
 let mdk_errorarchive_rules_logging_setuserloglevel_js = __webpack_require__(/*! ./MDK_ErrorArchive/Rules/Logging/SetUserLogLevel.js */ "./build.definitions/MDK_ErrorArchive/Rules/Logging/SetUserLogLevel.js")
@@ -177,7 +175,6 @@ module.exports = {
 	mdk_errorarchive_actions_deleteentityfailuremessage_action : mdk_errorarchive_actions_deleteentityfailuremessage_action,
 	mdk_errorarchive_actions_deleteentitysuccessmessage_action : mdk_errorarchive_actions_deleteentitysuccessmessage_action,
 	mdk_errorarchive_actions_errorarchive_errorarchive_syncfailure_action : mdk_errorarchive_actions_errorarchive_errorarchive_syncfailure_action,
-	mdk_errorarchive_actions_errorarchive_errorarchive_unknownaffectedentity_action : mdk_errorarchive_actions_errorarchive_errorarchive_unknownaffectedentity_action,
 	mdk_errorarchive_actions_errorarchive_navtoerrorarchive_detail_action : mdk_errorarchive_actions_errorarchive_navtoerrorarchive_detail_action,
 	mdk_errorarchive_actions_errorarchive_navtoerrorarchive_list_action : mdk_errorarchive_actions_errorarchive_navtoerrorarchive_list_action,
 	mdk_errorarchive_actions_genericbannermessage_action : mdk_errorarchive_actions_genericbannermessage_action,
@@ -282,7 +279,6 @@ module.exports = {
 	mdk_errorarchive_rules_application_onwillupdate_js : mdk_errorarchive_rules_application_onwillupdate_js,
 	mdk_errorarchive_rules_application_resetappsettingsandlogout_js : mdk_errorarchive_rules_application_resetappsettingsandlogout_js,
 	mdk_errorarchive_rules_errorarchive_errorarchive_checkforsyncerror_js : mdk_errorarchive_rules_errorarchive_errorarchive_checkforsyncerror_js,
-	mdk_errorarchive_rules_errorarchive_errorarchive_decidewhicheditpage_js : mdk_errorarchive_rules_errorarchive_errorarchive_decidewhicheditpage_js,
 	mdk_errorarchive_rules_logging_loglevels_js : mdk_errorarchive_rules_logging_loglevels_js,
 	mdk_errorarchive_rules_logging_settracecategories_js : mdk_errorarchive_rules_logging_settracecategories_js,
 	mdk_errorarchive_rules_logging_setuserloglevel_js : mdk_errorarchive_rules_logging_setuserloglevel_js,
@@ -311,7 +307,7 @@ module.exports = {
   \*****************************************************************/
 /***/ ((module) => {
 
-module.exports = ""
+module.exports = "PRODUCT_NAME=PRODUCT_NAME\nPRODUCT_CATEGORY=PRODUCT_CATEGORY\nPRODUCT_SHORT_DESCRIPTION=PRODUCT_SHORT_DESCRIPTION\nPRODUCT_LONG_DESCRIPTION=PRODUCT_LONG_DESCRIPTION\nPRODUCT_PRICE=PRODUCT_PRICE\nPRODUCT_WEIGHT=PRODUCT_WEIGHT\nPRODUCT_HEIGHT=PRODUCT_HEIGHT\nPRODUCT_DEPTH=PRODUCT_DEPTH\nPRODUCT_WIDTH=PRODUCT_WIDTH\nPRODUCT_TYPE=PRODUCT_TYPE\nPRODUCT_TYPES=PRODUCT_TYPES\nPRODUCT_PRODUCT_ID=PRODUCT_PRODUCT_ID\nPRODUCT_UNIT=PRODUCT_UNIT\nPRODUCT_WEIGHT_UNIT=PRODUCT_WEIGHT_UNIT\nPRODUCT_QUANTITY_UNIT=PRODUCT_QUANTITY_UNIT\nPRODUCT_CATEGORY_NAME=PRODUCT_CATEGORY_NAME\nPRODUCT_CURENCY_CODE=PRODUCT_CURENCY_CODE\nPRODUCT_PICTURE_URL=PRODUCT_PICTURE_URL\nPRODUCT_SUPPLIER_ID=PRODUCT_SUPPLIER_ID\nPRODUCT_UPDATE_TIMESTAMP=PRODUCT_UPDATE_TIMESTAMP\n"
 
 /***/ }),
 
@@ -595,64 +591,6 @@ function CheckForSyncError(context) {
       });
     }
   });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_ErrorArchive/Rules/ErrorArchive/ErrorArchive_DecideWhichEditPage.js":
-/*!***************************************************************************************************!*\
-  !*** ./build.definitions/MDK_ErrorArchive/Rules/ErrorArchive/ErrorArchive_DecideWhichEditPage.js ***!
-  \***************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ErrorArchive_DecideWhichEditPage)
-/* harmony export */ });
-/**
- * Describe this function...
-* @param {IClientAPI} clientAPI
-*/
-function ErrorArchive_DecideWhichEditPage(clientAPI) {
-  //Current binding's root is the errorArchiveEntity:
-  let errorArchiveEntity = clientAPI.binding;
-  //Get the affectedEntity object out of it
-  let affectedEntity = errorArchiveEntity.AffectedEntity;
-  console.log("Affected Entity Is:");
-  console.log(affectedEntity);
-  let targetAction = null;
-  let id = affectedEntity["@odata.id"]; //e.g. PurchaseOrderHeaders(12345)
-  let affectedEntityType = "Unknown Entity Set"; //By default it's unknown type
-  if (id.indexOf("(") > 0) {
-    //Extracting the entity set type from @odata.id e.g. PurchaseOrderHeaders
-    var patt = /\/?(.+)\(/i;
-    var result = id.match(patt);
-    affectedEntityType = result[1];
-  }
-  console.log("Affected Entity Type Is:");
-  console.log(affectedEntityType);
-  //Here we decide which action to call depends on which affectedEntityType is the affectedEntity
-  // You can add more complex decision logic if needed
-  switch (affectedEntityType) {
-    case "PurchaseOrderHeaders":
-      targetAction = "/MDK_ErrorArchive/Actions/PurchaseOrderHeaders/NavToPurchaseOrderHeaders_Edit.action";
-      break;
-    default:
-      //Save the affected Entity's type in client data so that it can be displayed by the toast
-      clientAPI.getPageProxy().getClientData().AffectedEntityType = affectedEntityType;
-      // Show a toast for affectedEntityType that we do not handle yet
-      return clientAPI.executeAction("/MDK_ErrorArchive/Actions/ErrorArchive/ErrorArchive_UnknownAffectedEntity.action");
-  }
-  if (targetAction) {
-    let pageProxy = clientAPI.getPageProxy();
-    //Set the affectedEntity object to root the binding clientAPI.
-    pageProxy.setActionBinding(affectedEntity);
-    //Note: doing 'return' here is important to chain the current clientAPI to the action.
-    // Without the return the ActionBinding will not be passed to the action because it will consider
-    // you are executing this action independent of the current clientAPI.
-    return clientAPI.executeAction(targetAction);
-  }
 }
 
 /***/ }),
@@ -1485,16 +1423,6 @@ module.exports = {"_Type":"Action.Type.BannerMessage","Message":"Upload failed!"
 
 /***/ }),
 
-/***/ "./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/ErrorArchive_UnknownAffectedEntity.action":
-/*!***********************************************************************************************************!*\
-  !*** ./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/ErrorArchive_UnknownAffectedEntity.action ***!
-  \***********************************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"_Type":"Action.Type.ToastMessage","ActionResult":{"_Name":"ErrorArchive_UnknownAffectedEntity"},"Message":"Affected Entity {AffectedEntity/@odata.id} doesn't have handler yet.","Duration":4,"Animated":true}
-
-/***/ }),
-
 /***/ "./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/NavToErrorArchive_Detail.action":
 /*!*************************************************************************************************!*\
   !*** ./build.definitions/MDK_ErrorArchive/Actions/ErrorArchive/NavToErrorArchive_Detail.action ***!
@@ -2231,7 +2159,7 @@ module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type
   \****************************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"_Type":"Section.Type.ObjectTable","Target":"{AffectedEntity}","_Name":"SectionObjectTable0","Header":{"_Name":"SectionHeader0","AccessoryType":"None","UseTopPadding":true,"Caption":"Affected Entity: {#Page:-Current/AffectedEntity/@odata.type}"},"Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"ObjectCell":{"Title":"Edit Affected Entity","Subhead":"{@odata.id}","DisplayDescriptionInMobile":true,"PreserveIconStackSpacing":false,"AccessoryType":"DisclosureIndicator","Tags":[],"AvatarStack":{"Avatars":[],"ImageIsCircular":true,"ImageHasBorder":false},"AvatarGrid":{"Avatars":[],"ImageIsCircular":true},"OnPress":"/MDK_ErrorArchive/Rules/ErrorArchive/ErrorArchive_DecideWhichEditPage.js","Selected":false,"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true,"LeadingItems":[],"TrailingItems":[]}},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"HighlightSelectedItem":false,"Selection":{"ExitOnLastDeselect":true,"LongPressToEnable":"None","Mode":"None"}},{"KeyAndValues":[{"Value":"{Message}","_Name":"KeyValue0","KeyName":"Error","Visible":true},{"Value":"{RequestBody}","_Name":"KeyValue1","KeyName":"Request Body","Visible":true},{"Value":"{RequestURL}","_Name":"KeyValue2","KeyName":"Request URL","Visible":true},{"Value":"{HTTPStatusCode}","_Name":"KeyValue3","KeyName":"HTTP Status Code","Visible":true},{"Value":"{RequestMethod}","_Name":"KeyValue4","KeyName":"Request Method","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Layout":{"NumberOfColumns":1}}],"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"ErrorArchive_Detail","Caption":"Details","PrefersLargeCaption":true}
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"KeyAndValues":[{"Value":"{Message}","_Name":"KeyValue0","KeyName":"Error","Visible":true},{"Value":"{RequestBody}","_Name":"KeyValue1","KeyName":"Request Body","Visible":true},{"Value":"{RequestURL}","_Name":"KeyValue2","KeyName":"Request URL","Visible":true},{"Value":"{HTTPStatusCode}","_Name":"KeyValue3","KeyName":"HTTP Status Code","Visible":true},{"Value":"{RequestMethod}","_Name":"KeyValue4","KeyName":"Request Method","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"ErrorArchive_Detail","Caption":"Details","PrefersLargeCaption":true}
 
 /***/ }),
 
@@ -2281,7 +2209,7 @@ module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_ErrorArchive/Actions/Cl
   \********************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Caption":"Product Detail","DesignTimeTarget":{"Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_ErrorArchive/Actions/Products/NavToProducts_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_ErrorArchive/Actions/Products/Products_DetailPopover.action","Position":"Right","Caption":"More"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"/MDK_ErrorArchive/Services/SampleServiceV4.service/{@odata.readLink}/Picture","HeadlineText":"{Name}","Subhead":"{Category}","BodyText":"","Footnote":"{CurrencyCode}","Description":"{CategoryName}","StatusText":"{DimensionDepth}","StatusImage":"","SubstatusImage":"","SubstatusText":"{DimensionHeight}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"Category","Value":"{Category}"},{"KeyName":"CategoryName","Value":"{CategoryName}"},{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"DimensionDepth","Value":"{DimensionDepth}"},{"KeyName":"DimensionHeight","Value":"{DimensionHeight}"},{"KeyName":"DimensionUnit","Value":"{DimensionUnit}"},{"KeyName":"DimensionWidth","Value":"{DimensionWidth}"},{"KeyName":"LongDescription","Value":"{LongDescription}"},{"KeyName":"Name","Value":"{Name}"},{"KeyName":"PictureUrl","Value":"{PictureUrl}"},{"KeyName":"Price","Value":"{Price}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"ShortDescription","Value":"{ShortDescription}"},{"KeyName":"SupplierID","Value":"{SupplierID}"},{"KeyName":"Weight","Value":"{Weight}"},{"KeyName":"WeightUnit","Value":"{WeightUnit}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"PurchaseOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{GrossAmount}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{ItemNumber}","PreserveIconStackSpacing":false,"StatusText":"{NetAmount}","Subhead":"{CurrencyCode}","SubstatusText":"{PurchaseOrderID}","OnPress":"/MDK_ErrorArchive/Actions/PurchaseOrderItems/NavToPurchaseOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/PurchaseOrderItems","Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"},{"Header":{"Caption":"SalesOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{DeliveryDate}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{GrossAmount}","PreserveIconStackSpacing":false,"StatusText":"{ItemNumber}","Subhead":"{CurrencyCode}","SubstatusText":"{NetAmount}"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/SalesOrderItems","Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["PurchaseOrderItems","SalesOrderItems"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Products_Detail","PrefersLargeCaption":true}
+module.exports = {"Caption":"$(L,PRODUCT_TYPE)","DesignTimeTarget":{"Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_ErrorArchive/Actions/Products/NavToProducts_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_ErrorArchive/Actions/Products/Products_DetailPopover.action","Position":"Right","Caption":"More"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"/MDK_ErrorArchive/Services/SampleServiceV4.service/{@odata.readLink}/Picture","HeadlineText":"{Name}","Subhead":"{Category}","BodyText":"","Footnote":"{CurrencyCode}","Description":"{CategoryName}","StatusText":"{DimensionDepth}","StatusImage":"","SubstatusImage":"","SubstatusText":"{DimensionHeight}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"Category","Value":"{Category}"},{"KeyName":"CategoryName","Value":"{CategoryName}"},{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"DimensionDepth","Value":"{DimensionDepth}"},{"KeyName":"DimensionHeight","Value":"{DimensionHeight}"},{"KeyName":"DimensionUnit","Value":"{DimensionUnit}"},{"KeyName":"DimensionWidth","Value":"{DimensionWidth}"},{"KeyName":"LongDescription","Value":"{LongDescription}"},{"KeyName":"Name","Value":"{Name}"},{"KeyName":"PictureUrl","Value":"{PictureUrl}"},{"KeyName":"Price","Value":"{Price}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"ShortDescription","Value":"{ShortDescription}"},{"KeyName":"SupplierID","Value":"{SupplierID}"},{"KeyName":"Weight","Value":"{Weight}"},{"KeyName":"WeightUnit","Value":"{WeightUnit}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"PurchaseOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{GrossAmount}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{ItemNumber}","PreserveIconStackSpacing":false,"StatusText":"{NetAmount}","Subhead":"{CurrencyCode}","SubstatusText":"{PurchaseOrderID}","OnPress":"/MDK_ErrorArchive/Actions/PurchaseOrderItems/NavToPurchaseOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/PurchaseOrderItems","Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"},{"Header":{"Caption":"SalesOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{DeliveryDate}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{GrossAmount}","PreserveIconStackSpacing":false,"StatusText":"{ItemNumber}","Subhead":"{CurrencyCode}","SubstatusText":"{NetAmount}"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/SalesOrderItems","Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["PurchaseOrderItems","SalesOrderItems"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Products_Detail","PrefersLargeCaption":true}
 
 /***/ }),
 
@@ -2291,7 +2219,7 @@ module.exports = {"Caption":"Product Detail","DesignTimeTarget":{"Service":"/MDK
   \******************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Caption":"Update Product Detail","DesignTimeTarget":{"Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_ErrorArchive/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_ErrorArchive/Actions/Products/Products_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"Category","_Name":"Category","Value":"{Category}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CategoryName","_Name":"CategoryName","Value":"{CategoryName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionDepth","_Name":"DimensionDepth","Value":"{DimensionDepth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionHeight","_Name":"DimensionHeight","Value":"{DimensionHeight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionUnit","_Name":"DimensionUnit","Value":"{DimensionUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionWidth","_Name":"DimensionWidth","Value":"{DimensionWidth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LongDescription","_Name":"LongDescription","Value":"{LongDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Name","_Name":"Name","Value":"{Name}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PictureUrl","_Name":"PictureUrl","Value":"{PictureUrl}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Price","_Name":"Price","Value":"{Price}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","_Name":"ProductID","Value":"{ProductID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ShortDescription","_Name":"ShortDescription","Value":"{ShortDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SupplierID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SupplierName}","ReturnValue":"{SupplierID}","Target":{"EntitySet":"Suppliers","Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service"}},"Value":"{SupplierID}","_Name":"SupplierID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Weight","_Name":"Weight","Value":"{Weight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"WeightUnit","_Name":"WeightUnit","Value":"{WeightUnit}","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_Edit","PrefersLargeCaption":true}
+module.exports = {"Caption":"Update $(L,PRODUCT_TYPE)","DesignTimeTarget":{"Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_ErrorArchive/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_ErrorArchive/Actions/Products/Products_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"Category","_Name":"Category","Value":"{Category}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CategoryName","_Name":"CategoryName","Value":"{CategoryName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionDepth","_Name":"DimensionDepth","Value":"{DimensionDepth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionHeight","_Name":"DimensionHeight","Value":"{DimensionHeight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionUnit","_Name":"DimensionUnit","Value":"{DimensionUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionWidth","_Name":"DimensionWidth","Value":"{DimensionWidth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LongDescription","_Name":"LongDescription","Value":"{LongDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Name","_Name":"Name","Value":"{Name}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PictureUrl","_Name":"PictureUrl","Value":"{PictureUrl}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Price","_Name":"Price","Value":"{Price}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","_Name":"ProductID","Value":"{ProductID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ShortDescription","_Name":"ShortDescription","Value":"{ShortDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SupplierID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SupplierName}","ReturnValue":"{SupplierID}","Target":{"EntitySet":"Suppliers","Service":"/MDK_ErrorArchive/Services/SampleServiceV4.service"}},"Value":"{SupplierID}","_Name":"SupplierID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Weight","_Name":"Weight","Value":"{Weight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"WeightUnit","_Name":"WeightUnit","Value":"{WeightUnit}","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_Edit","PrefersLargeCaption":true}
 
 /***/ }),
 

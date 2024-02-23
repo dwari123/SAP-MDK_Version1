@@ -30,14 +30,8 @@ let mdkonlineapp_actions_application_onwillupdate_action = __webpack_require__(/
 let mdkonlineapp_actions_application_reset_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Application/Reset.action */ "./build.definitions/MDKOnlineApp/Actions/Application/Reset.action")
 let mdkonlineapp_actions_application_resetmessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Application/ResetMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Application/ResetMessage.action")
 let mdkonlineapp_actions_application_usermenupopover_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Application/UserMenuPopover.action */ "./build.definitions/MDKOnlineApp/Actions/Application/UserMenuPopover.action")
-let mdkonlineapp_actions_closemodalpage_cancel_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/CloseModalPage_Cancel.action */ "./build.definitions/MDKOnlineApp/Actions/CloseModalPage_Cancel.action")
 let mdkonlineapp_actions_closemodalpage_complete_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/CloseModalPage_Complete.action */ "./build.definitions/MDKOnlineApp/Actions/CloseModalPage_Complete.action")
 let mdkonlineapp_actions_closepage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/ClosePage.action */ "./build.definitions/MDKOnlineApp/Actions/ClosePage.action")
-let mdkonlineapp_actions_customers_navtocustomers_detail_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Customers/NavToCustomers_Detail.action */ "./build.definitions/MDKOnlineApp/Actions/Customers/NavToCustomers_Detail.action")
-let mdkonlineapp_actions_customers_navtocustomers_list_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Customers/NavToCustomers_List.action */ "./build.definitions/MDKOnlineApp/Actions/Customers/NavToCustomers_List.action")
-let mdkonlineapp_actions_errorarchive_errorarchive_syncfailure_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/ErrorArchive/ErrorArchive_SyncFailure.action */ "./build.definitions/MDKOnlineApp/Actions/ErrorArchive/ErrorArchive_SyncFailure.action")
-let mdkonlineapp_actions_errorarchive_navtoerrorarchive_detail_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_Detail.action */ "./build.definitions/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_Detail.action")
-let mdkonlineapp_actions_errorarchive_navtoerrorarchive_list_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_List.action */ "./build.definitions/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_List.action")
 let mdkonlineapp_actions_genericbannermessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/GenericBannerMessage.action */ "./build.definitions/MDKOnlineApp/Actions/GenericBannerMessage.action")
 let mdkonlineapp_actions_genericmessagebox_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/GenericMessageBox.action */ "./build.definitions/MDKOnlineApp/Actions/GenericMessageBox.action")
 let mdkonlineapp_actions_genericnavigation_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/GenericNavigation.action */ "./build.definitions/MDKOnlineApp/Actions/GenericNavigation.action")
@@ -46,18 +40,9 @@ let mdkonlineapp_actions_logging_loguploadfailure_action = __webpack_require__(/
 let mdkonlineapp_actions_logging_loguploadsuccessful_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Logging/LogUploadSuccessful.action */ "./build.definitions/MDKOnlineApp/Actions/Logging/LogUploadSuccessful.action")
 let mdkonlineapp_actions_logging_uploadlog_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Logging/UploadLog.action */ "./build.definitions/MDKOnlineApp/Actions/Logging/UploadLog.action")
 let mdkonlineapp_actions_logging_uploadlogprogress_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Logging/UploadLogProgress.action */ "./build.definitions/MDKOnlineApp/Actions/Logging/UploadLogProgress.action")
-let mdkonlineapp_actions_salesorderheaders_navtosalesorderheaders_detail_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Detail.action */ "./build.definitions/MDKOnlineApp/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Detail.action")
-let mdkonlineapp_actions_service_closeoffline_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/CloseOffline.action */ "./build.definitions/MDKOnlineApp/Actions/Service/CloseOffline.action")
-let mdkonlineapp_actions_service_closeofflinefailuremessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/CloseOfflineFailureMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/CloseOfflineFailureMessage.action")
-let mdkonlineapp_actions_service_closeofflinesuccessmessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/CloseOfflineSuccessMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/CloseOfflineSuccessMessage.action")
-let mdkonlineapp_actions_service_downloadoffline_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/DownloadOffline.action */ "./build.definitions/MDKOnlineApp/Actions/Service/DownloadOffline.action")
-let mdkonlineapp_actions_service_downloadstartedmessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/DownloadStartedMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/DownloadStartedMessage.action")
-let mdkonlineapp_actions_service_initializeoffline_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/InitializeOffline.action */ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOffline.action")
-let mdkonlineapp_actions_service_initializeofflinefailuremessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/InitializeOfflineFailureMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOfflineFailureMessage.action")
-let mdkonlineapp_actions_service_initializeofflinesuccessmessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/InitializeOfflineSuccessMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOfflineSuccessMessage.action")
-let mdkonlineapp_actions_service_syncfailuremessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/SyncFailureMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/SyncFailureMessage.action")
-let mdkonlineapp_actions_service_syncstartedmessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/SyncStartedMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/SyncStartedMessage.action")
-let mdkonlineapp_actions_service_uploadoffline_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/UploadOffline.action */ "./build.definitions/MDKOnlineApp/Actions/Service/UploadOffline.action")
+let mdkonlineapp_actions_service_initializeonline_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/InitializeOnline.action */ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnline.action")
+let mdkonlineapp_actions_service_initializeonlinefailuremessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/InitializeOnlineFailureMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnlineFailureMessage.action")
+let mdkonlineapp_actions_service_initializeonlinesuccessmessage_action = __webpack_require__(/*! ./MDKOnlineApp/Actions/Service/InitializeOnlineSuccessMessage.action */ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnlineSuccessMessage.action")
 let mdkonlineapp_globals_application_appdefinition_version_global = __webpack_require__(/*! ./MDKOnlineApp/Globals/Application/AppDefinition_Version.global */ "./build.definitions/MDKOnlineApp/Globals/Application/AppDefinition_Version.global")
 let mdkonlineapp_globals_application_applicationname_global = __webpack_require__(/*! ./MDKOnlineApp/Globals/Application/ApplicationName.global */ "./build.definitions/MDKOnlineApp/Globals/Application/ApplicationName.global")
 let mdkonlineapp_globals_application_supportemail_global = __webpack_require__(/*! ./MDKOnlineApp/Globals/Application/SupportEmail.global */ "./build.definitions/MDKOnlineApp/Globals/Application/SupportEmail.global")
@@ -67,12 +52,7 @@ let mdkonlineapp_jsconfig_json = __webpack_require__(/*! ./MDKOnlineApp/jsconfig
 let mdkonlineapp_pages_application_about_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/Application/About.page */ "./build.definitions/MDKOnlineApp/Pages/Application/About.page")
 let mdkonlineapp_pages_application_support_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/Application/Support.page */ "./build.definitions/MDKOnlineApp/Pages/Application/Support.page")
 let mdkonlineapp_pages_application_useractivitylog_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/Application/UserActivityLog.page */ "./build.definitions/MDKOnlineApp/Pages/Application/UserActivityLog.page")
-let mdkonlineapp_pages_customers_customers_detail_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/Customers/Customers_Detail.page */ "./build.definitions/MDKOnlineApp/Pages/Customers/Customers_Detail.page")
-let mdkonlineapp_pages_customers_customers_list_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/Customers/Customers_List.page */ "./build.definitions/MDKOnlineApp/Pages/Customers/Customers_List.page")
-let mdkonlineapp_pages_errorarchive_errorarchive_detail_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_Detail.page */ "./build.definitions/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_Detail.page")
-let mdkonlineapp_pages_errorarchive_errorarchive_list_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_List.page */ "./build.definitions/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_List.page")
 let mdkonlineapp_pages_main_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/Main.page */ "./build.definitions/MDKOnlineApp/Pages/Main.page")
-let mdkonlineapp_pages_salesorderheaders_salesorderheaders_detail_page = __webpack_require__(/*! ./MDKOnlineApp/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page */ "./build.definitions/MDKOnlineApp/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page")
 let mdkonlineapp_rules_application_appupdatefailure_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Application/AppUpdateFailure.js */ "./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateFailure.js")
 let mdkonlineapp_rules_application_appupdatesuccess_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Application/AppUpdateSuccess.js */ "./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateSuccess.js")
 let mdkonlineapp_rules_application_clientismultiusermode_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js */ "./build.definitions/MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js")
@@ -80,7 +60,6 @@ let mdkonlineapp_rules_application_getclientsupportversions_js = __webpack_requi
 let mdkonlineapp_rules_application_getclientversion_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Application/GetClientVersion.js */ "./build.definitions/MDKOnlineApp/Rules/Application/GetClientVersion.js")
 let mdkonlineapp_rules_application_onwillupdate_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Application/OnWillUpdate.js */ "./build.definitions/MDKOnlineApp/Rules/Application/OnWillUpdate.js")
 let mdkonlineapp_rules_application_resetappsettingsandlogout_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Application/ResetAppSettingsAndLogout.js */ "./build.definitions/MDKOnlineApp/Rules/Application/ResetAppSettingsAndLogout.js")
-let mdkonlineapp_rules_errorarchive_errorarchive_checkforsyncerror_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js */ "./build.definitions/MDKOnlineApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js")
 let mdkonlineapp_rules_logging_loglevels_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Logging/LogLevels.js */ "./build.definitions/MDKOnlineApp/Rules/Logging/LogLevels.js")
 let mdkonlineapp_rules_logging_settracecategories_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Logging/SetTraceCategories.js */ "./build.definitions/MDKOnlineApp/Rules/Logging/SetTraceCategories.js")
 let mdkonlineapp_rules_logging_setuserloglevel_js = __webpack_require__(/*! ./MDKOnlineApp/Rules/Logging/SetUserLogLevel.js */ "./build.definitions/MDKOnlineApp/Rules/Logging/SetUserLogLevel.js")
@@ -109,14 +88,8 @@ module.exports = {
 	mdkonlineapp_actions_application_reset_action : mdkonlineapp_actions_application_reset_action,
 	mdkonlineapp_actions_application_resetmessage_action : mdkonlineapp_actions_application_resetmessage_action,
 	mdkonlineapp_actions_application_usermenupopover_action : mdkonlineapp_actions_application_usermenupopover_action,
-	mdkonlineapp_actions_closemodalpage_cancel_action : mdkonlineapp_actions_closemodalpage_cancel_action,
 	mdkonlineapp_actions_closemodalpage_complete_action : mdkonlineapp_actions_closemodalpage_complete_action,
 	mdkonlineapp_actions_closepage_action : mdkonlineapp_actions_closepage_action,
-	mdkonlineapp_actions_customers_navtocustomers_detail_action : mdkonlineapp_actions_customers_navtocustomers_detail_action,
-	mdkonlineapp_actions_customers_navtocustomers_list_action : mdkonlineapp_actions_customers_navtocustomers_list_action,
-	mdkonlineapp_actions_errorarchive_errorarchive_syncfailure_action : mdkonlineapp_actions_errorarchive_errorarchive_syncfailure_action,
-	mdkonlineapp_actions_errorarchive_navtoerrorarchive_detail_action : mdkonlineapp_actions_errorarchive_navtoerrorarchive_detail_action,
-	mdkonlineapp_actions_errorarchive_navtoerrorarchive_list_action : mdkonlineapp_actions_errorarchive_navtoerrorarchive_list_action,
 	mdkonlineapp_actions_genericbannermessage_action : mdkonlineapp_actions_genericbannermessage_action,
 	mdkonlineapp_actions_genericmessagebox_action : mdkonlineapp_actions_genericmessagebox_action,
 	mdkonlineapp_actions_genericnavigation_action : mdkonlineapp_actions_genericnavigation_action,
@@ -125,18 +98,9 @@ module.exports = {
 	mdkonlineapp_actions_logging_loguploadsuccessful_action : mdkonlineapp_actions_logging_loguploadsuccessful_action,
 	mdkonlineapp_actions_logging_uploadlog_action : mdkonlineapp_actions_logging_uploadlog_action,
 	mdkonlineapp_actions_logging_uploadlogprogress_action : mdkonlineapp_actions_logging_uploadlogprogress_action,
-	mdkonlineapp_actions_salesorderheaders_navtosalesorderheaders_detail_action : mdkonlineapp_actions_salesorderheaders_navtosalesorderheaders_detail_action,
-	mdkonlineapp_actions_service_closeoffline_action : mdkonlineapp_actions_service_closeoffline_action,
-	mdkonlineapp_actions_service_closeofflinefailuremessage_action : mdkonlineapp_actions_service_closeofflinefailuremessage_action,
-	mdkonlineapp_actions_service_closeofflinesuccessmessage_action : mdkonlineapp_actions_service_closeofflinesuccessmessage_action,
-	mdkonlineapp_actions_service_downloadoffline_action : mdkonlineapp_actions_service_downloadoffline_action,
-	mdkonlineapp_actions_service_downloadstartedmessage_action : mdkonlineapp_actions_service_downloadstartedmessage_action,
-	mdkonlineapp_actions_service_initializeoffline_action : mdkonlineapp_actions_service_initializeoffline_action,
-	mdkonlineapp_actions_service_initializeofflinefailuremessage_action : mdkonlineapp_actions_service_initializeofflinefailuremessage_action,
-	mdkonlineapp_actions_service_initializeofflinesuccessmessage_action : mdkonlineapp_actions_service_initializeofflinesuccessmessage_action,
-	mdkonlineapp_actions_service_syncfailuremessage_action : mdkonlineapp_actions_service_syncfailuremessage_action,
-	mdkonlineapp_actions_service_syncstartedmessage_action : mdkonlineapp_actions_service_syncstartedmessage_action,
-	mdkonlineapp_actions_service_uploadoffline_action : mdkonlineapp_actions_service_uploadoffline_action,
+	mdkonlineapp_actions_service_initializeonline_action : mdkonlineapp_actions_service_initializeonline_action,
+	mdkonlineapp_actions_service_initializeonlinefailuremessage_action : mdkonlineapp_actions_service_initializeonlinefailuremessage_action,
+	mdkonlineapp_actions_service_initializeonlinesuccessmessage_action : mdkonlineapp_actions_service_initializeonlinesuccessmessage_action,
 	mdkonlineapp_globals_application_appdefinition_version_global : mdkonlineapp_globals_application_appdefinition_version_global,
 	mdkonlineapp_globals_application_applicationname_global : mdkonlineapp_globals_application_applicationname_global,
 	mdkonlineapp_globals_application_supportemail_global : mdkonlineapp_globals_application_supportemail_global,
@@ -146,12 +110,7 @@ module.exports = {
 	mdkonlineapp_pages_application_about_page : mdkonlineapp_pages_application_about_page,
 	mdkonlineapp_pages_application_support_page : mdkonlineapp_pages_application_support_page,
 	mdkonlineapp_pages_application_useractivitylog_page : mdkonlineapp_pages_application_useractivitylog_page,
-	mdkonlineapp_pages_customers_customers_detail_page : mdkonlineapp_pages_customers_customers_detail_page,
-	mdkonlineapp_pages_customers_customers_list_page : mdkonlineapp_pages_customers_customers_list_page,
-	mdkonlineapp_pages_errorarchive_errorarchive_detail_page : mdkonlineapp_pages_errorarchive_errorarchive_detail_page,
-	mdkonlineapp_pages_errorarchive_errorarchive_list_page : mdkonlineapp_pages_errorarchive_errorarchive_list_page,
 	mdkonlineapp_pages_main_page : mdkonlineapp_pages_main_page,
-	mdkonlineapp_pages_salesorderheaders_salesorderheaders_detail_page : mdkonlineapp_pages_salesorderheaders_salesorderheaders_detail_page,
 	mdkonlineapp_rules_application_appupdatefailure_js : mdkonlineapp_rules_application_appupdatefailure_js,
 	mdkonlineapp_rules_application_appupdatesuccess_js : mdkonlineapp_rules_application_appupdatesuccess_js,
 	mdkonlineapp_rules_application_clientismultiusermode_js : mdkonlineapp_rules_application_clientismultiusermode_js,
@@ -159,7 +118,6 @@ module.exports = {
 	mdkonlineapp_rules_application_getclientversion_js : mdkonlineapp_rules_application_getclientversion_js,
 	mdkonlineapp_rules_application_onwillupdate_js : mdkonlineapp_rules_application_onwillupdate_js,
 	mdkonlineapp_rules_application_resetappsettingsandlogout_js : mdkonlineapp_rules_application_resetappsettingsandlogout_js,
-	mdkonlineapp_rules_errorarchive_errorarchive_checkforsyncerror_js : mdkonlineapp_rules_errorarchive_errorarchive_checkforsyncerror_js,
 	mdkonlineapp_rules_logging_loglevels_js : mdkonlineapp_rules_logging_loglevels_js,
 	mdkonlineapp_rules_logging_settracecategories_js : mdkonlineapp_rules_logging_settracecategories_js,
 	mdkonlineapp_rules_logging_setuserloglevel_js : mdkonlineapp_rules_logging_setuserloglevel_js,
@@ -183,7 +141,7 @@ module.exports = {
   \*************************************************************/
 /***/ ((module) => {
 
-module.exports = ""
+module.exports = "PRODUCT_NAME=PRODUCT_NAME\nPRODUCT_CATEGORY=PRODUCT_CATEGORY\nPRODUCT_SHORT_DESCRIPTION=PRODUCT_SHORT_DESCRIPTION\nPRODUCT_LONG_DESCRIPTION=PRODUCT_LONG_DESCRIPTION\nPRODUCT_PRICE=PRODUCT_PRICE\nPRODUCT_WEIGHT=PRODUCT_WEIGHT\nPRODUCT_HEIGHT=PRODUCT_HEIGHT\nPRODUCT_DEPTH=PRODUCT_DEPTH\nPRODUCT_WIDTH=PRODUCT_WIDTH\nPRODUCT_TYPE=PRODUCT_TYPE\nPRODUCT_TYPES=PRODUCT_TYPES\nPRODUCT_PRODUCT_ID=PRODUCT_PRODUCT_ID\nPRODUCT_UNIT=PRODUCT_UNIT\nPRODUCT_WEIGHT_UNIT=PRODUCT_WEIGHT_UNIT\nPRODUCT_QUANTITY_UNIT=PRODUCT_QUANTITY_UNIT\nPRODUCT_CATEGORY_NAME=PRODUCT_CATEGORY_NAME\nPRODUCT_CURENCY_CODE=PRODUCT_CURENCY_CODE\nPRODUCT_PICTURE_URL=PRODUCT_PICTURE_URL\nPRODUCT_SUPPLIER_ID=PRODUCT_SUPPLIER_ID\nPRODUCT_UPDATE_TIMESTAMP=PRODUCT_UPDATE_TIMESTAMP\n"
 
 /***/ }),
 
@@ -393,7 +351,7 @@ __webpack_require__.r(__webpack_exports__);
 function OnWillUpdate(clientAPI) {
   return clientAPI.executeAction('/MDKOnlineApp/Actions/Application/OnWillUpdate.action').then(result => {
     if (result.data) {
-      return clientAPI.executeAction('/MDKOnlineApp/Actions/Service/CloseOffline.action').then(success => Promise.resolve(success), failure => Promise.reject('Offline Odata Close Failed ' + failure));
+      return Promise.resolve();
     } else {
       return Promise.reject('User Deferred');
     }
@@ -440,33 +398,6 @@ function ResetAppSettingsAndLogout(clientAPI) {
     // Logout 
     return clientAPI.getPageProxy().executeAction('/MDKOnlineApp/Actions/Application/Reset.action');
   }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js":
-/*!*********************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js ***!
-  \*********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ CheckForSyncError)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} context
- */
-function CheckForSyncError(context) {
-  context.count('/MDKOnlineApp/Services/SampleServiceV4.service', 'ErrorArchive', '').then(errorCount => {
-    if (errorCount > 0) {
-      return context.getPageProxy().executeAction('/MDKOnlineApp/Actions/ErrorArchive/ErrorArchive_SyncFailure.action').then(function () {
-        return Promise.reject(false);
-      });
-    }
-  });
 }
 
 /***/ }),
@@ -959,7 +890,7 @@ module.exports = function (item) {
   \*******************************************/
 /***/ ((module) => {
 
-module.exports = {"_Name":"MDKOnlineApp","Version":"/MDKOnlineApp/Globals/Application/AppDefinition_Version.global","MainPage":"/MDKOnlineApp/Pages/Main.page","OnLaunch":["/MDKOnlineApp/Actions/Service/InitializeOffline.action"],"OnWillUpdate":"/MDKOnlineApp/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDKOnlineApp/Actions/Service/InitializeOffline.action","Styles":"/MDKOnlineApp/Styles/Styles.less","Localization":"/MDKOnlineApp/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDKOnlineApp/Styles/Styles.css","ios":"/MDKOnlineApp/Styles/Styles.nss","android":"/MDKOnlineApp/Styles/Styles.json"}}}
+module.exports = {"_Name":"MDKOnlineApp","Version":"/MDKOnlineApp/Globals/Application/AppDefinition_Version.global","MainPage":"/MDKOnlineApp/Pages/Main.page","OnLaunch":["/MDKOnlineApp/Actions/Service/InitializeOnline.action"],"OnWillUpdate":"/MDKOnlineApp/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDKOnlineApp/Actions/Service/InitializeOnline.action","Styles":"/MDKOnlineApp/Styles/Styles.less","Localization":"/MDKOnlineApp/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDKOnlineApp/Styles/Styles.css","ios":"/MDKOnlineApp/Styles/Styles.nss","android":"/MDKOnlineApp/Styles/Styles.json"}}}
 
 /***/ }),
 
@@ -1079,17 +1010,7 @@ module.exports = {"_Type":"Action.Type.Message","Message":"This action will remo
   \***********************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"PopoverItems":[{"Enabled":true,"Icon":"sap-icon://synchronize","OnPress":"/MDKOnlineApp/Actions/Service/SyncStartedMessage.action","Title":"Sync Changes","Visible":"$(PLT,true,true,false)"},{"Enabled":true,"Icon":"sap-icon://headset","OnPress":"/MDKOnlineApp/Actions/Application/NavToSupport.action","Title":"Support","Visible":true},{"Enabled":true,"Icon":"sap-icon://refresh","OnPress":"/MDKOnlineApp/Actions/Application/AppUpdateProgressBanner.action","Title":"Check for Updates","Visible":"$(PLT,true,true,false)"},{"Enabled":true,"Icon":"sap-icon://hint","OnPress":"/MDKOnlineApp/Actions/Application/NavToAbout.action","Title":"About","Visible":true},{"Enabled":true,"Icon":"sap-icon://reset","OnPress":"/MDKOnlineApp/Actions/Application/ResetMessage.action","Title":"Reset","Visible":true},{"Enabled":true,"Icon":"sap-icon://log","OnPress":"/MDKOnlineApp/Actions/Application/Logout.action","Title":"Logout","Visible":"/MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js"}],"_Type":"Action.Type.PopoverMenu"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/CloseModalPage_Cancel.action":
-/*!*****************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/CloseModalPage_Cancel.action ***!
-  \*****************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"DismissModal":"Action.Type.ClosePage.Canceled","CancelPendingActions":true,"_Type":"Action.Type.ClosePage"}
+module.exports = {"PopoverItems":[{"Enabled":true,"Icon":"sap-icon://headset","OnPress":"/MDKOnlineApp/Actions/Application/NavToSupport.action","Title":"Support","Visible":true},{"Enabled":true,"Icon":"sap-icon://refresh","OnPress":"/MDKOnlineApp/Actions/Application/AppUpdateProgressBanner.action","Title":"Check for Updates","Visible":"$(PLT,true,true,false)"},{"Enabled":true,"Icon":"sap-icon://hint","OnPress":"/MDKOnlineApp/Actions/Application/NavToAbout.action","Title":"About","Visible":true},{"Enabled":true,"Icon":"sap-icon://reset","OnPress":"/MDKOnlineApp/Actions/Application/ResetMessage.action","Title":"Reset","Visible":true},{"Enabled":true,"Icon":"sap-icon://log","OnPress":"/MDKOnlineApp/Actions/Application/Logout.action","Title":"Logout","Visible":"/MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js"}],"_Type":"Action.Type.PopoverMenu"}
 
 /***/ }),
 
@@ -1110,56 +1031,6 @@ module.exports = {"DismissModal":"Action.Type.ClosePage.Completed","CancelPendin
 /***/ ((module) => {
 
 module.exports = {"_Type":"Action.Type.ClosePage"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Customers/NavToCustomers_Detail.action":
-/*!***************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Customers/NavToCustomers_Detail.action ***!
-  \***************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"_Type":"Action.Type.Navigation","PageToOpen":"/MDKOnlineApp/Pages/Customers/Customers_Detail.page"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Customers/NavToCustomers_List.action":
-/*!*************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Customers/NavToCustomers_List.action ***!
-  \*************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"_Type":"Action.Type.Navigation","PageToOpen":"/MDKOnlineApp/Pages/Customers/Customers_List.page"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/ErrorArchive/ErrorArchive_SyncFailure.action":
-/*!*********************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/ErrorArchive/ErrorArchive_SyncFailure.action ***!
-  \*********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"_Type":"Action.Type.BannerMessage","Message":"Upload failed!","Duration":0,"Animated":false,"OnActionLabelPress":"/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_List.action","ActionLabel":"View Errors"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_Detail.action":
-/*!*********************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_Detail.action ***!
-  \*********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"_Type":"Action.Type.Navigation","PageToOpen":"/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_Detail.page","NavigationType":"Inner"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_List.action":
-/*!*******************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_List.action ***!
-  \*******************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"_Type":"Action.Type.Navigation","PageToOpen":"/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_List.page","NavigationType":"Inner"}
 
 /***/ }),
 
@@ -1243,123 +1114,33 @@ module.exports = {"Animated":true,"CompletionMessage":"Logs Uploaded","Completio
 
 /***/ }),
 
-/***/ "./build.definitions/MDKOnlineApp/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Detail.action":
-/*!*******************************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Detail.action ***!
-  \*******************************************************************************************************/
+/***/ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnline.action":
+/*!********************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnline.action ***!
+  \********************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.Navigation","PageToOpen":"/MDKOnlineApp/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page"}
+module.exports = {"Service":"/MDKOnlineApp/Services/SampleServiceV4.service","_Type":"Action.Type.ODataService.Initialize","ShowActivityIndicator":true,"OnSuccess":"/MDKOnlineApp/Actions/Service/InitializeOnlineSuccessMessage.action","OnFailure":"/MDKOnlineApp/Actions/Service/InitializeOnlineFailureMessage.action","ActionResult":{"_Name":"init"}}
 
 /***/ }),
 
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/CloseOffline.action":
-/*!****************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/CloseOffline.action ***!
-  \****************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"_Type":"Action.Type.OfflineOData.Close","Service":"/MDKOnlineApp/Services/SampleServiceV4.service","Force":true,"ActionResult":{"_Name":"close"},"OnSuccess":"/MDKOnlineApp/Actions/Service/CloseOfflineSuccessMessage.action","OnFailure":"/MDKOnlineApp/Actions/Service/CloseOfflineFailureMessage.action"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/CloseOfflineFailureMessage.action":
-/*!******************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/CloseOfflineFailureMessage.action ***!
-  \******************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Message":"Failure closing data service - {#ActionResults:close/error}","NumberOfLines":1,"Duration":3,"Animated":true,"IsIconHidden":true,"_Type":"Action.Type.ToastMessage"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/CloseOfflineSuccessMessage.action":
-/*!******************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/CloseOfflineSuccessMessage.action ***!
-  \******************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Message":"Data service closed successfully","NumberOfLines":1,"Duration":3,"Animated":true,"IsIconHidden":true,"_Type":"Action.Type.ToastMessage"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/DownloadOffline.action":
-/*!*******************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/DownloadOffline.action ***!
-  \*******************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Service":"/MDKOnlineApp/Services/SampleServiceV4.service","DefiningRequests":[{"Name":"Customers","Query":"Customers"}],"_Type":"Action.Type.OfflineOData.Download","ActionResult":{"_Name":"sync"},"OnFailure":"/MDKOnlineApp/Actions/Service/SyncFailureMessage.action","OnSuccess":"/MDKOnlineApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/DownloadStartedMessage.action":
-/*!**************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/DownloadStartedMessage.action ***!
-  \**************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Message":"Download in progress...","CompletionMessage":"Download Successful","CompletionTimeout":7,"OnSuccess":"/MDKOnlineApp/Actions/Service/DownloadOffline.action","_Type":"Action.Type.ProgressBanner"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOffline.action":
-/*!*********************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/InitializeOffline.action ***!
-  \*********************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Service":"/MDKOnlineApp/Services/SampleServiceV4.service","DefiningRequests":[{"Name":"Customers","Query":"Customers"}],"_Type":"Action.Type.ODataService.Initialize","ShowActivityIndicator":true,"ActivityIndicatorText":"Downloading...","ActionResult":{"_Name":"init"},"OnSuccess":"/MDKOnlineApp/Actions/Service/InitializeOfflineSuccessMessage.action","OnFailure":"/MDKOnlineApp/Actions/Service/InitializeOfflineFailureMessage.action"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOfflineFailureMessage.action":
-/*!***********************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/InitializeOfflineFailureMessage.action ***!
-  \***********************************************************************************************/
+/***/ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnlineFailureMessage.action":
+/*!**********************************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnlineFailureMessage.action ***!
+  \**********************************************************************************************/
 /***/ ((module) => {
 
 module.exports = {"Message":"Failed to initialize application data service - {#ActionResults:init/error}","Duration":7,"Animated":true,"_Type":"Action.Type.BannerMessage"}
 
 /***/ }),
 
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOfflineSuccessMessage.action":
-/*!***********************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/InitializeOfflineSuccessMessage.action ***!
-  \***********************************************************************************************/
+/***/ "./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnlineSuccessMessage.action":
+/*!**********************************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Actions/Service/InitializeOnlineSuccessMessage.action ***!
+  \**********************************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Animated":true,"Duration":2,"Message":"Application data service initialized","IsIconHidden":true,"_Type":"Action.Type.ToastMessage"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/SyncFailureMessage.action":
-/*!**********************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/SyncFailureMessage.action ***!
-  \**********************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Message":"Sync offline data service failure - {#ActionResults:sync/error}","Duration":7,"Animated":true,"_Type":"Action.Type.BannerMessage"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/SyncStartedMessage.action":
-/*!**********************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/SyncStartedMessage.action ***!
-  \**********************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Message":"Upload in progress...","CompletionMessage":"Sync completed","CompletionTimeout":7,"OnSuccess":"/MDKOnlineApp/Actions/Service/UploadOffline.action","OnFailure":"/MDKOnlineApp/Actions/Service/SyncFailureMessage.action","_Type":"Action.Type.ProgressBanner"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Actions/Service/UploadOffline.action":
-/*!*****************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Actions/Service/UploadOffline.action ***!
-  \*****************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Service":"/MDKOnlineApp/Services/SampleServiceV4.service","_Type":"Action.Type.OfflineOData.Upload","ActionResult":{"_Name":"sync"},"OnSuccess":"/MDKOnlineApp/Actions/Service/DownloadStartedMessage.action","OnFailure":"/MDKOnlineApp/Actions/Service/SyncFailureMessage.action"}
+module.exports = {"Animated":true,"Duration":2,"Message":"Application data service initialized","IsIconHidden":true,"NumberOfLines":2,"_Type":"Action.Type.ToastMessage"}
 
 /***/ }),
 
@@ -1409,7 +1190,7 @@ module.exports = {"Value":"1-800-677-7271","_Type":"String"}
   \*************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"DestinationName":"SampleServiceV4","OfflineEnabled":true,"LanguageURLParam":"","OnlineOptions":{},"PathSuffix":"","SourceType":"Mobile","ServiceUrl":""}
+module.exports = {"DestinationName":"SampleServiceV4","OfflineEnabled":false,"LanguageURLParam":"","OnlineOptions":{},"PathSuffix":"","SourceType":"Mobile","ServiceUrl":""}
 
 /***/ }),
 
@@ -1443,63 +1224,13 @@ module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type
 
 /***/ }),
 
-/***/ "./build.definitions/MDKOnlineApp/Pages/Customers/Customers_Detail.page":
-/*!******************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/Customers/Customers_Detail.page ***!
-  \******************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"Customer Detail","DesignTimeTarget":{"Service":"/MDKOnlineApp/Services/SampleServiceV4.service","EntitySet":"Customers","QueryOptions":""},"ActionBar":{"Items":[]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{FirstName}","Subhead":"{City}","BodyText":"","Footnote":"{CustomerID}","Description":"{Country}","StatusText":"{DateOfBirth}","StatusImage":"","SubstatusImage":"","SubstatusText":"{EmailAddress}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"City","Value":"{City}"},{"KeyName":"Country","Value":"{Country}"},{"KeyName":"CustomerID","Value":"{CustomerID}"},{"KeyName":"DateOfBirth","Value":"{DateOfBirth}"},{"KeyName":"EmailAddress","Value":"{EmailAddress}"},{"KeyName":"FirstName","Value":"{FirstName}"},{"KeyName":"HouseNumber","Value":"{HouseNumber}"},{"KeyName":"LastName","Value":"{LastName}"},{"KeyName":"PhoneNumber","Value":"{PhoneNumber}"},{"KeyName":"PostalCode","Value":"{PostalCode}"},{"KeyName":"Street","Value":"{Street}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"Address"},"KeyAndValues":[{"KeyName":"HouseNumber","Value":"{Address/HouseNumber}"},{"KeyName":"Street","Value":"{Address/Street}"},{"KeyName":"City","Value":"{Address/City}"},{"KeyName":"Country","Value":"{Address/Country}"},{"KeyName":"PostalCode","Value":"{Address/PostalCode}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValueAddress","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"SalesOrders"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{CurrencyCode}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{LifeCycleStatusName}","Footnote":"{CustomerID}","PreserveIconStackSpacing":false,"StatusText":"{GrossAmount}","Subhead":"{CreatedAt}","SubstatusText":"{LifeCycleStatus}","OnPress":"/MDKOnlineApp/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/SalesOrders","Service":"/MDKOnlineApp/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["SalesOrderHeaders"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Customers_Detail","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/Customers/Customers_List.page":
-/*!****************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/Customers/Customers_List.page ***!
-  \****************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"Customers","ActionBar":{"Items":[]},"Controls":[{"Sections":[{"Header":{"UseTopPadding":false},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{Country}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"OnPress":"/MDKOnlineApp/Actions/Customers/NavToCustomers_Detail.action","StatusImage":"","Title":"{FirstName}","Footnote":"{CustomerID}","PreserveIconStackSpacing":false,"StatusText":"{DateOfBirth}","Subhead":"{City}","SubstatusText":"{EmailAddress}"},"EmptySection":{"Caption":"No record found!"},"Search":{"Enabled":true,"Placeholder":"Item Search","BarcodeScanner":true,"Delay":500,"MinimumCharacterThreshold":3},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Loading more items, please wait..."},"Target":{"EntitySet":"Customers","Service":"/MDKOnlineApp/Services/SampleServiceV4.service","QueryOptions":""},"_Type":"Section.Type.ObjectTable"}],"LoadingIndicator":{"Enabled":true,"Text":"Loading, please wait..."},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Customers_List","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_Detail.page":
-/*!************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_Detail.page ***!
-  \************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"KeyAndValues":[{"Value":"{Message}","_Name":"KeyValue0","KeyName":"Error","Visible":true},{"Value":"{RequestBody}","_Name":"KeyValue1","KeyName":"Request Body","Visible":true},{"Value":"{RequestURL}","_Name":"KeyValue2","KeyName":"Request URL","Visible":true},{"Value":"{HTTPStatusCode}","_Name":"KeyValue3","KeyName":"HTTP Status Code","Visible":true},{"Value":"{RequestMethod}","_Name":"KeyValue4","KeyName":"Request Method","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"ErrorArchive_Detail","Caption":"Details","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_List.page":
-/*!**********************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/ErrorArchive/ErrorArchive_List.page ***!
-  \**********************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ObjectTable","Target":{"Service":"/MDKOnlineApp/Services/SampleServiceV4.service","EntitySet":"ErrorArchive"},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"FooterVisible":false,"Caption":"No record found!"},"ObjectCell":{"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true},"Title":"{HTTPStatusCode}","Subhead":"{RequestURL}","Footnote":"{Message}","StatusText":"{RequestMethod}","AvatarStack":{"ImageIsCircular":false},"PreserveIconStackSpacing":false,"AccessoryType":"None","OnPress":"/MDKOnlineApp/Actions/ErrorArchive/NavToErrorArchive_Detail.action","Selected":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"HighlightSelectedItem":false,"Selection":{"ExitOnLastDeselect":true,"LongPressToEnable":"None","Mode":"None"}}]}],"_Type":"Page","_Name":"ErrorArchive_List","Caption":"Error List","PrefersLargeCaption":true}
-
-/***/ }),
-
 /***/ "./build.definitions/MDKOnlineApp/Pages/Main.page":
 /*!********************************************************!*\
   !*** ./build.definitions/MDKOnlineApp/Pages/Main.page ***!
   \********************************************************/
 /***/ ((module) => {
 
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable","Sections":[{"Buttons":[{"OnPress":"/MDKOnlineApp/Actions/Customers/NavToCustomers_List.action","Alignment":"Center","Title":"Customers","ButtonType":"Text","Semantic":"Tint"}],"_Name":"SectionButtonTable0","_Type":"Section.Type.ButtonTable"}]}],"_Name":"Main","_Type":"Page","Caption":"Main","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"User Menu","Icon":"sap-icon://customer","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/Application/UserMenuPopover.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page":
-/*!**********************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page ***!
-  \**********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"SalesOrderHeader Detail","DesignTimeTarget":{"Service":"/MDKOnlineApp/Services/SampleServiceV4.service","EntitySet":"SalesOrderHeaders","QueryOptions":""},"ActionBar":{"Items":[]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{LifeCycleStatusName}","Subhead":"{CreatedAt}","BodyText":"","Footnote":"{CustomerID}","Description":"{CurrencyCode}","StatusText":"{GrossAmount}","StatusImage":"","SubstatusImage":"","SubstatusText":"{LifeCycleStatus}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"CreatedAt","Value":"{CreatedAt}"},{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"CustomerID","Value":"{CustomerID}"},{"KeyName":"GrossAmount","Value":"{GrossAmount}"},{"KeyName":"LifeCycleStatus","Value":"{LifeCycleStatus}"},{"KeyName":"LifeCycleStatusName","Value":"{LifeCycleStatusName}"},{"KeyName":"NetAmount","Value":"{NetAmount}"},{"KeyName":"SalesOrderID","Value":"{SalesOrderID}"},{"KeyName":"TaxAmount","Value":"{TaxAmount}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"Items"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{DeliveryDate}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{GrossAmount}","PreserveIconStackSpacing":false,"StatusText":"{ItemNumber}","Subhead":"{CurrencyCode}","SubstatusText":"{NetAmount}"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/Items","Service":"/MDKOnlineApp/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["SalesOrderItems"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"SalesOrderHeaders_Detail","PrefersLargeCaption":true}
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable","Sections":[]}],"_Name":"Main","_Type":"Page","Caption":"Main","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"User Menu","Icon":"sap-icon://customer","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/Application/UserMenuPopover.action"}],"_Name":"ActionBar1"}}
 
 /***/ }),
 

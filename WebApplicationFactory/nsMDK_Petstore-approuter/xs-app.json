@@ -1,0 +1,12 @@
+{
+	"authenticationMethod": "route",
+	"routes": [
+		{
+			"csrfProtection": false,
+			"source": "^/swagger_petstore/(.*)$",
+			"target": "$1",
+			"destination": "swagger_petstore",
+			"authenticationType": "xsuaa"
+		}
+	]
+}

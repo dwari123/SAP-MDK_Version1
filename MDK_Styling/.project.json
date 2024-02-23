@@ -25,7 +25,8 @@
 			"Name": "ns.MDK_Styling",
 			"Version": "1.0.0",
 			"AppRouter": "standalone",
-			"Auth": true
+			"Auth": true,
+			"URL": "https:///nsMDK_Styling"
 		}
 	},
 	"MobileService": {

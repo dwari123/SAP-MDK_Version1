@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "path": "MDK_i18n_l10n"
+        }
+    ],
+    "settings": {
+        "mdk.i18n": {
+            "displayLanguages": "i18n,i18n_de"
+        }
+    }
+}

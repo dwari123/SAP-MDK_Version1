@@ -1,6 +1,6 @@
 {
     "DestinationName": "SampleServiceV4",
-    "OfflineEnabled": true,
+    "OfflineEnabled": false,
     "LanguageURLParam": "",
     "OnlineOptions": {},
     "PathSuffix": "",
