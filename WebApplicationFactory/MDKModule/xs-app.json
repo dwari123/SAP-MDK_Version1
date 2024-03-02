@@ -8,9 +8,9 @@
 	"routes": [
 		{
 			"csrfProtection": false,
-			"source": "^/swagger_petstore/(.*)$",
+			"source": "^/SampleServiceV4/(.*)$",
 			"target": "$1",
-			"destination": "swagger_petstore",
+			"destination": "SampleServiceV4",
 			"authenticationType": "xsuaa"
 		},
 		{
