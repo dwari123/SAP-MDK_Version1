@@ -1,5 +1,5 @@
 {
 	"local": false,
 	"centralRouter": false,
-	"startUrl": "https://bccbdc89trial-dev-nsmdk-errorarchive-approuter.cfapps.us10-001.hana.ondemand.com/nsMDK_ErrorArchive"
+	"startUrl": "https:///nsMDK_Petstore"
 }

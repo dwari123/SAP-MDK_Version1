@@ -1,5 +1,768 @@
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, () => {
+return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./build.definitions/MDK_Styling/i18n/i18n.properties":
+/*!************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/i18n/i18n.properties ***!
+  \************************************************************/
+/***/ ((module) => {
+
+module.exports = "PRODUCT_NAME=PRODUCT_NAME\nPRODUCT_CATEGORY=PRODUCT_CATEGORY\nPRODUCT_SHORT_DESCRIPTION=PRODUCT_SHORT_DESCRIPTION\nPRODUCT_LONG_DESCRIPTION=PRODUCT_LONG_DESCRIPTION\nPRODUCT_PRICE=PRODUCT_PRICE\nPRODUCT_WEIGHT=PRODUCT_WEIGHT\nPRODUCT_HEIGHT=PRODUCT_HEIGHT\nPRODUCT_DEPTH=PRODUCT_DEPTH\nPRODUCT_WIDTH=PRODUCT_WIDTH\nPRODUCT_TYPE=PRODUCT_TYPE\nPRODUCT_TYPES=PRODUCT_TYPES\nPRODUCT_PRODUCT_ID=PRODUCT_PRODUCT_ID\nPRODUCT_UNIT=PRODUCT_UNIT\nPRODUCT_WEIGHT_UNIT=PRODUCT_WEIGHT_UNIT\nPRODUCT_QUANTITY_UNIT=PRODUCT_QUANTITY_UNIT\nPRODUCT_CATEGORY_NAME=PRODUCT_CATEGORY_NAME\nPRODUCT_CURENCY_CODE=PRODUCT_CURENCY_CODE\nPRODUCT_PICTURE_URL=PRODUCT_PICTURE_URL\nPRODUCT_SUPPLIER_ID=PRODUCT_SUPPLIER_ID\nPRODUCT_UPDATE_TIMESTAMP=PRODUCT_UPDATE_TIMESTAMP\n"
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Application/AppUpdateFailure.js":
+/*!*****************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Application/AppUpdateFailure.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AppUpdateFailure)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function AppUpdateFailure(clientAPI) {
+    let result = clientAPI.actionResults.AppUpdate.error.toString();
+    var message;
+    console.log(result);
+    if (result.startsWith('Error: Uncaught app extraction failure:')) {
+        result = 'Error: Uncaught app extraction failure:';
+    }
+    if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body: 404 Not Found: Requested route')) {
+        result = 'Application instance is not up or running';
+    }
+    if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body')) {
+        result = 'Service instance not found.';
+    }
+
+    switch (result) {
+        case 'Service instance not found.':
+            message = 'Mobile App Update feature is not assigned or not running for your application. Please add the Mobile App Update feature, deploy your application, and try again.';
+            break;
+        case 'Error: LCMS GET Version Response Error Response Status: 404 | Body: Failed to find a matched endpoint':
+            message = 'Mobile App Update feature is not assigned to your application. Please add the Mobile App Update feature, deploy your application, and try again.';
+            break;
+        case 'Error: LCMS GET Version Response failed: Error: Optional(OAuth2Error.tokenRejected: The newly acquired or refreshed token got rejected.)':
+            message = 'The Mobile App Update feature is not assigned to your application or there is no Application metadata deployed. Please check your application in Mobile Services and try again.';
+            break;
+        case 'Error: Uncaught app extraction failure:':
+            message = 'Error extracting metadata. Please redeploy and try again.';
+            break;
+        case 'Application instance is not up or running':
+            message = 'Communication failure. Verify that the BindMobileApplicationRoutesToME Application route is running in your BTP space cockpit.';
+            break;
+        default:
+            message = result;
+            break;
+    }
+    return clientAPI.getPageProxy().executeAction({
+        "Name": "/MDK_Styling/Actions/Application/AppUpdateFailureMessage.action",
+        "Properties": {
+            "Duration": 0,
+            "Message": message
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Application/AppUpdateSuccess.js":
+/*!*****************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Application/AppUpdateSuccess.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AppUpdateSuccess)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function sleep(ms) {
+    return (new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve();
+        }, ms);
+    }));
+}
+function AppUpdateSuccess(clientAPI) {
+    var message;
+    // Force a small pause to let the progress banner show in case there is no new version available
+    return sleep(500).then(function() {
+        let result = clientAPI.actionResults.AppUpdate.data;
+        console.log(result);
+
+        let versionNum = result.split(': ')[1];
+        if (result.startsWith('Current version is already up to date')) {
+            return clientAPI.getPageProxy().executeAction({
+                "Name": "/MDK_Styling/Actions/Application/AppUpdateSuccessMessage.action",
+                "Properties": {
+                    "Message": `You are already using the latest version: ${versionNum}`,
+                    "NumberOfLines": 2
+                }
+            });
+        } else if (result === 'AppUpdate feature is not enabled or no new revision found.') {
+            message = 'No Application metadata found. Please deploy your application and try again.';
+            return clientAPI.getPageProxy().executeAction({
+                "Name": "/MDK_Styling/Actions/Application/AppUpdateSuccessMessage.action",
+                "Properties": {
+                    "Duration": 5,
+                    "Message": message,
+                    "NumberOfLines": 2
+                }
+            });
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Application/ClientIsMultiUserMode.js":
+/*!**********************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Application/ClientIsMultiUserMode.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ClientIsMultiUserMode)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function ClientIsMultiUserMode(clientAPI) {
+    return clientAPI.isAppInMultiUserMode();
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Application/GetClientSupportVersions.js":
+/*!*************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Application/GetClientSupportVersions.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GetClientSupportVersions)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function GetClientSupportVersions(clientAPI) {
+    let versionInfo = clientAPI.getVersionInfo();
+    let versionStr = '';
+    Object.keys(versionInfo).forEach(function(key, index) {
+        // key: the name of the object key
+        // index: the ordinal position of the key within the object
+        //console.log(`Key: ${key}   Index: ${index}`);
+        if (key != 'Application Version') {
+            versionStr += `${key}: ${versionInfo[key]}\n`;
+        }
+    });
+    return versionStr;
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Application/GetClientVersion.js":
+/*!*****************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Application/GetClientVersion.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GetClientVersion)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function GetClientVersion(clientAPI) {
+    let versionInfo = clientAPI.getVersionInfo();
+    if (versionInfo.hasOwnProperty('Application Version')) {
+        return versionInfo['Application Version'];
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Application/OnWillUpdate.js":
+/*!*************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Application/OnWillUpdate.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ OnWillUpdate)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function OnWillUpdate(clientAPI) {
+    return clientAPI.executeAction('/MDK_Styling/Actions/Application/OnWillUpdate.action').then((result) => {
+        if (result.data) {
+            return clientAPI.executeAction('/MDK_Styling/Actions/Service/CloseOffline.action').then(
+                (success) => Promise.resolve(success),
+                (failure) => Promise.reject('Offline Odata Close Failed ' + failure));
+        } else {
+            return Promise.reject('User Deferred');
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Application/ResetAppSettingsAndLogout.js":
+/*!**************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Application/ResetAppSettingsAndLogout.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ResetAppSettingsAndLogout)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function ResetAppSettingsAndLogout(clientAPI) {
+    let logger = clientAPI.getLogger();
+    let platform = clientAPI.nativescript.platformModule;
+    let appSettings = clientAPI.nativescript.appSettingsModule;
+    var appId;
+    if (platform && (platform.isIOS || platform.isAndroid)) {
+        appId = clientAPI.evaluateTargetPath('#Application/#AppData/MobileServiceAppId');
+    } else {
+        appId = 'WindowsClient';
+    }
+    try {
+        // Remove any other app specific settings
+        appSettings.getAllKeys().forEach(key => {
+            if (key.substring(0, appId.length) === appId) {
+                appSettings.remove(key);
+            }
+        });
+    } catch (err) {
+        logger.log(`ERROR: AppSettings cleanup failure - ${err}`, 'ERROR');
+    } finally {
+        // Logout 
+        return clientAPI.getPageProxy().executeAction('/MDK_Styling/Actions/Application/Reset.action');
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Customers/Customers_DeleteConfirmation.js":
+/*!***************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Customers/Customers_DeleteConfirmation.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function DeleteConfirmation(clientAPI) {
+    return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then((result) => {
+        if (result.data) {
+            return clientAPI.executeAction('/MDK_Styling/Actions/Customers/Customers_DeleteEntity.action').then(
+                (success) => Promise.resolve(success),
+                (failure) => Promise.reject('Delete entity failed ' + failure));
+        } else {
+            return Promise.reject('User Deferred');
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js":
+/*!********************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CheckForSyncError)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} context
+ */
+function CheckForSyncError(context) {
+    context.count('/MDK_Styling/Services/SampleServiceV4.service', 'ErrorArchive', '').then(errorCount => {
+        if (errorCount > 0) {
+            return context.getPageProxy().executeAction('/MDK_Styling/Actions/ErrorArchive/ErrorArchive_SyncFailure.action').then(function() {
+                return Promise.reject(false);
+            });
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Logging/LogLevels.js":
+/*!******************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Logging/LogLevels.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LogLevels)
+/* harmony export */ });
+function LogLevels(clientAPI) {
+    var levels = [];
+    levels.push({
+        'DisplayValue': 'Error',
+        'ReturnValue': 'Error',
+    });
+    levels.push({
+        'DisplayValue': 'Warning',
+        'ReturnValue': 'Warn',
+    });
+    levels.push({
+        'DisplayValue': 'Info',
+        'ReturnValue': 'Info',
+    });
+    levels.push({
+        'DisplayValue': 'Debug',
+        'ReturnValue': 'Debug',
+    });
+    levels.push({
+        'DisplayValue': 'Trace',
+        'ReturnValue': 'Trace',
+    });
+    return levels;
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Logging/SetTraceCategories.js":
+/*!***************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Logging/SetTraceCategories.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SetTraceCategories)
+/* harmony export */ });
+function SetTraceCategories(clientAPI) {
+    var logger = clientAPI.getLogger();
+    const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
+    const fcsection = sectionedTable.getSection('FormCellSection0');
+    const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
+    const odataTrace = fcsection.getControl('odataTrace');
+
+    try {
+        if (traceCategory.getValue()) {
+            var values = traceCategory.getValue();
+            var categories = [];
+
+            if (values && values.length) {
+                categories = values.map((value) => {
+                    return 'mdk.trace.' + value.ReturnValue;
+                });
+            }
+            clientAPI.setDebugSettings(odataTrace.getValue(), true, categories);
+        }
+    } catch (exception) {
+        logger.log(String(exception), 'Error');
+        return undefined;
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Logging/SetUserLogLevel.js":
+/*!************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Logging/SetUserLogLevel.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SetUserLogLevel)
+/* harmony export */ });
+function SetUserLogLevel(clientAPI) {
+    try {
+        if (clientAPI.getValue() && clientAPI.getValue()[0]) {
+            var logger = clientAPI.getLogger();
+            var listPickerValue = clientAPI.getValue()[0].ReturnValue;
+            if (listPickerValue) {
+                switch (listPickerValue) {
+                    case 'Debug':
+                        logger.setLevel('Debug');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Error':
+                        logger.setLevel('Error');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Warn':
+                        logger.setLevel('Warn');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Info':
+                        logger.setLevel('Info');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Trace':
+                        logger.setLevel('Trace');
+                        ShowTraceOptions(clientAPI, true);
+                        break;
+                    default:
+                        // eslint-disable-next-line no-console
+                        console.log(`unrecognized key ${listPickerValue}`);
+                }
+                return listPickerValue;
+            }
+        }
+    } catch (exception) {
+        logger.log(String(exception), 'Error');
+        return undefined;
+    }
+}
+
+function ShowTraceOptions(clientAPI, tracingEnabled) {
+    let categories = clientAPI.getPageProxy().getControl('SectionedTable').getControl('TracingCategoriesListPicker');
+    let odataTrace = clientAPI.getPageProxy().getControl('SectionedTable').getControl('odataTrace');
+
+    categories.setVisible(tracingEnabled);
+    odataTrace.setVisible(tracingEnabled);
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Logging/ToggleLogging.js":
+/*!**********************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Logging/ToggleLogging.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ToggleLogging)
+/* harmony export */ });
+function ToggleLogging(clientAPI) {
+    try {
+        var logger = clientAPI.getLogger();
+        const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
+        const fcsection = sectionedTable.getSection('FormCellSection0');
+        const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
+        const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
+        let switchValue = enableLogSwitch.getValue();
+        if (switchValue) {
+            logger.on();
+            logLevelListPicker.setVisible(true);
+            logLevelListPicker.setEditable(true);
+            logLevelListPicker.redraw();
+        } else {
+            logger.off();
+            logLevelListPicker.setEditable(false);
+            logLevelListPicker.setVisible(false);
+            logLevelListPicker.redraw();
+        }
+        return switchValue;
+    } catch (exception) {
+        logger.log(String(exception), 'Error');
+        return undefined;
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Logging/TraceCategories.js":
+/*!************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Logging/TraceCategories.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TraceCategories)
+/* harmony export */ });
+function TraceCategories(clientAPI) {
+    var categories = ['action', 'api', 'app', 'binding', 'branding',
+        'core', 'i18n', 'lcms', 'logging', 'odata', 'onboarding', 'profiling', 'push',
+        'restservice', 'settings', 'targetpath', 'ui'
+    ];
+
+    var values = [];
+    categories.forEach((category) => {
+        values.push({
+            'DisplayValue': category,
+            'ReturnValue': category,
+        });
+    });
+
+    return values;
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Logging/UserLogSetting.js":
+/*!***********************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Logging/UserLogSetting.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ UserLogSetting)
+/* harmony export */ });
+function UserLogSetting(clientAPI) {
+
+    try {
+        var logger = clientAPI.getLogger();
+
+        const sectionedTable = clientAPI.getControl('SectionedTable');
+        const fcsection = sectionedTable.getSection('FormCellSection0');
+        const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
+        const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
+        const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
+        const odataTrace = fcsection.getControl('odataTrace');
+
+
+        //Persist the user logging preferences
+        if (logger) {
+            console.log("in logger state");
+            if (logger.isTurnedOn()) {
+                if (enableLogSwitch) {
+                    enableLogSwitch.setValue(true);
+                }
+                if (logLevelListPicker) {
+                    logLevelListPicker.setEditable(true);
+                }
+            } else {
+                if (enableLogSwitch) {
+                    enableLogSwitch.setValue(false);
+                }
+                if (logLevelListPicker) {
+                    logLevelListPicker.setEditable(false);
+                }
+            }
+            var logLevel = logger.getLevel();
+            if (logLevel) {
+                if (logLevelListPicker) {
+                    logLevelListPicker.setValue([logLevel]);
+                }
+            }
+            if (logLevel === 'Trace') {
+                traceCategory.setVisible(true);
+                odataTrace.setVisible(true);
+            }
+
+            //Upon selecting a value in the List picker and clicking the back button 
+            //will enable the onload page rule. This will set the selected value
+            //in the control
+            if (logLevelListPicker.getValue()[0]) {
+                var returnValue = logLevelListPicker.getValue()[0].ReturnValue;
+                if (returnValue) {
+                    logLevelListPicker.setValue([returnValue]);
+                    logger.setLevel(returnValue);
+                }
+            }
+        }
+    } catch (exception) {
+        // eslint-disable-next-line no-console
+        console.log(String(exception), 'Error User Logger could not be set');
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Products/Products_CreateEntity.js":
+/*!*******************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Products/Products_CreateEntity.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CreateEntity)
+/* harmony export */ });
+function CreateEntity(clientAPI) {
+    return clientAPI.executeAction({
+        'Name': '/MDK_Styling/Actions/Products/Products_CreateEntity.action',
+        'Properties': {
+            'OnSuccess': ''
+        }
+    }).then((result) => {
+        let newEntity = JSON.parse(result.data);
+        return clientAPI.executeAction({
+            'Name': '/MDK_Styling/Actions/Products/Products_UploadStream.action',
+            'Properties': {
+                'Target': {
+                    'ReadLink': newEntity['@odata.readLink']
+                }
+            }
+        });
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/Products/Products_DeleteConfirmation.js":
+/*!*************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/Products/Products_DeleteConfirmation.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function DeleteConfirmation(clientAPI) {
+    return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then((result) => {
+        if (result.data) {
+            return clientAPI.executeAction('/MDK_Styling/Actions/Products/Products_DeleteEntity.action').then(
+                (success) => Promise.resolve(success),
+                (failure) => Promise.reject('Delete entity failed ' + failure));
+        } else {
+            return Promise.reject('User Deferred');
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/PurchaseOrderItems/PurchaseOrderItems_DeleteConfirmation.js":
+/*!*********************************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/PurchaseOrderItems/PurchaseOrderItems_DeleteConfirmation.js ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function DeleteConfirmation(clientAPI) {
+    return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then((result) => {
+        if (result.data) {
+            return clientAPI.executeAction('/MDK_Styling/Actions/PurchaseOrderItems/PurchaseOrderItems_DeleteEntity.action').then(
+                (success) => Promise.resolve(success),
+                (failure) => Promise.reject('Delete entity failed ' + failure));
+        } else {
+            return Promise.reject('User Deferred');
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/SalesOrderHeaders/SalesOrderHeaders_DeleteConfirmation.js":
+/*!*******************************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/SalesOrderHeaders/SalesOrderHeaders_DeleteConfirmation.js ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function DeleteConfirmation(clientAPI) {
+    return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then((result) => {
+        if (result.data) {
+            return clientAPI.executeAction('/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_DeleteEntity.action').then(
+                (success) => Promise.resolve(success),
+                (failure) => Promise.reject('Delete entity failed ' + failure));
+        } else {
+            return Promise.reject('User Deferred');
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js":
+/*!***************************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function DeleteConfirmation(clientAPI) {
+    return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then((result) => {
+        if (result.data) {
+            return clientAPI.executeAction('/MDK_Styling/Actions/SalesOrderItems/SalesOrderItems_DeleteEntity.action').then(
+                (success) => Promise.resolve(success),
+                (failure) => Promise.reject('Delete entity failed ' + failure));
+        } else {
+            return Promise.reject('User Deferred');
+        }
+    });
+}
+
+/***/ }),
 
 /***/ "./build.definitions/application-index.js":
 /*!************************************************!*\
@@ -145,10 +908,9 @@ let mdk_styling_rules_salesorderheaders_salesorderheaders_deleteconfirmation_js 
 let mdk_styling_rules_salesorderitems_salesorderitems_deleteconfirmation_js = __webpack_require__(/*! ./MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js */ "./build.definitions/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js")
 let mdk_styling_services_sampleservicev4_service = __webpack_require__(/*! ./MDK_Styling/Services/SampleServiceV4.service */ "./build.definitions/MDK_Styling/Services/SampleServiceV4.service")
 let mdk_styling_styles_styles_css = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.css */ "./build.definitions/MDK_Styling/Styles/Styles.css")
+let mdk_styling_styles_styles_json = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.json */ "./build.definitions/MDK_Styling/Styles/Styles.json")
 let mdk_styling_styles_styles_less = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.less */ "./build.definitions/MDK_Styling/Styles/Styles.less")
-let mdk_styling_styles_styles_light_css = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.light.css */ "./build.definitions/MDK_Styling/Styles/Styles.light.css")
-let mdk_styling_styles_styles_light_json = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.light.json */ "./build.definitions/MDK_Styling/Styles/Styles.light.json")
-let mdk_styling_styles_styles_light_nss = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.light.nss */ "./build.definitions/MDK_Styling/Styles/Styles.light.nss")
+let mdk_styling_styles_styles_nss = __webpack_require__(/*! ./MDK_Styling/Styles/Styles.nss */ "./build.definitions/MDK_Styling/Styles/Styles.nss")
 let tsconfig_json = __webpack_require__(/*! ./tsconfig.json */ "./build.definitions/tsconfig.json")
 let version_mdkbundlerversion = __webpack_require__(/*! ./version.mdkbundlerversion */ "./build.definitions/version.mdkbundlerversion")
 
@@ -291,739 +1053,11 @@ module.exports = {
 	mdk_styling_rules_salesorderitems_salesorderitems_deleteconfirmation_js : mdk_styling_rules_salesorderitems_salesorderitems_deleteconfirmation_js,
 	mdk_styling_services_sampleservicev4_service : mdk_styling_services_sampleservicev4_service,
 	mdk_styling_styles_styles_css : mdk_styling_styles_styles_css,
+	mdk_styling_styles_styles_json : mdk_styling_styles_styles_json,
 	mdk_styling_styles_styles_less : mdk_styling_styles_styles_less,
-	mdk_styling_styles_styles_light_css : mdk_styling_styles_styles_light_css,
-	mdk_styling_styles_styles_light_json : mdk_styling_styles_styles_light_json,
-	mdk_styling_styles_styles_light_nss : mdk_styling_styles_styles_light_nss,
+	mdk_styling_styles_styles_nss : mdk_styling_styles_styles_nss,
 	tsconfig_json : tsconfig_json,
 	version_mdkbundlerversion : version_mdkbundlerversion
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/i18n/i18n.properties":
-/*!************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/i18n/i18n.properties ***!
-  \************************************************************/
-/***/ ((module) => {
-
-module.exports = "PRODUCT_NAME=PRODUCT_NAME\nPRODUCT_CATEGORY=PRODUCT_CATEGORY\nPRODUCT_SHORT_DESCRIPTION=PRODUCT_SHORT_DESCRIPTION\nPRODUCT_LONG_DESCRIPTION=PRODUCT_LONG_DESCRIPTION\nPRODUCT_PRICE=PRODUCT_PRICE\nPRODUCT_WEIGHT=PRODUCT_WEIGHT\nPRODUCT_HEIGHT=PRODUCT_HEIGHT\nPRODUCT_DEPTH=PRODUCT_DEPTH\nPRODUCT_WIDTH=PRODUCT_WIDTH\nPRODUCT_TYPE=PRODUCT_TYPE\nPRODUCT_TYPES=PRODUCT_TYPES\nPRODUCT_PRODUCT_ID=PRODUCT_PRODUCT_ID\nPRODUCT_UNIT=PRODUCT_UNIT\nPRODUCT_WEIGHT_UNIT=PRODUCT_WEIGHT_UNIT\nPRODUCT_QUANTITY_UNIT=PRODUCT_QUANTITY_UNIT\nPRODUCT_CATEGORY_NAME=PRODUCT_CATEGORY_NAME\nPRODUCT_CURENCY_CODE=PRODUCT_CURENCY_CODE\nPRODUCT_PICTURE_URL=PRODUCT_PICTURE_URL\nPRODUCT_SUPPLIER_ID=PRODUCT_SUPPLIER_ID\nPRODUCT_UPDATE_TIMESTAMP=PRODUCT_UPDATE_TIMESTAMP\n"
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Application/AppUpdateFailure.js":
-/*!*****************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Application/AppUpdateFailure.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AppUpdateFailure)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function AppUpdateFailure(clientAPI) {
-  let result = clientAPI.actionResults.AppUpdate.error.toString();
-  var message;
-  console.log(result);
-  if (result.startsWith('Error: Uncaught app extraction failure:')) {
-    result = 'Error: Uncaught app extraction failure:';
-  }
-  if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body: 404 Not Found: Requested route')) {
-    result = 'Application instance is not up or running';
-  }
-  if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body')) {
-    result = 'Service instance not found.';
-  }
-  switch (result) {
-    case 'Service instance not found.':
-      message = 'Mobile App Update feature is not assigned or not running for your application. Please add the Mobile App Update feature, deploy your application, and try again.';
-      break;
-    case 'Error: LCMS GET Version Response Error Response Status: 404 | Body: Failed to find a matched endpoint':
-      message = 'Mobile App Update feature is not assigned to your application. Please add the Mobile App Update feature, deploy your application, and try again.';
-      break;
-    case 'Error: LCMS GET Version Response failed: Error: Optional(OAuth2Error.tokenRejected: The newly acquired or refreshed token got rejected.)':
-      message = 'The Mobile App Update feature is not assigned to your application or there is no Application metadata deployed. Please check your application in Mobile Services and try again.';
-      break;
-    case 'Error: Uncaught app extraction failure:':
-      message = 'Error extracting metadata. Please redeploy and try again.';
-      break;
-    case 'Application instance is not up or running':
-      message = 'Communication failure. Verify that the BindMobileApplicationRoutesToME Application route is running in your BTP space cockpit.';
-      break;
-    default:
-      message = result;
-      break;
-  }
-  return clientAPI.getPageProxy().executeAction({
-    "Name": "/MDK_Styling/Actions/Application/AppUpdateFailureMessage.action",
-    "Properties": {
-      "Duration": 0,
-      "Message": message
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Application/AppUpdateSuccess.js":
-/*!*****************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Application/AppUpdateSuccess.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AppUpdateSuccess)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function sleep(ms) {
-  return new Promise(function (resolve, reject) {
-    setTimeout(function () {
-      resolve();
-    }, ms);
-  });
-}
-function AppUpdateSuccess(clientAPI) {
-  var message;
-  // Force a small pause to let the progress banner show in case there is no new version available
-  return sleep(500).then(function () {
-    let result = clientAPI.actionResults.AppUpdate.data;
-    console.log(result);
-    let versionNum = result.split(': ')[1];
-    if (result.startsWith('Current version is already up to date')) {
-      return clientAPI.getPageProxy().executeAction({
-        "Name": "/MDK_Styling/Actions/Application/AppUpdateSuccessMessage.action",
-        "Properties": {
-          "Message": `You are already using the latest version: ${versionNum}`,
-          "NumberOfLines": 2
-        }
-      });
-    } else if (result === 'AppUpdate feature is not enabled or no new revision found.') {
-      message = 'No Application metadata found. Please deploy your application and try again.';
-      return clientAPI.getPageProxy().executeAction({
-        "Name": "/MDK_Styling/Actions/Application/AppUpdateSuccessMessage.action",
-        "Properties": {
-          "Duration": 5,
-          "Message": message,
-          "NumberOfLines": 2
-        }
-      });
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Application/ClientIsMultiUserMode.js":
-/*!**********************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Application/ClientIsMultiUserMode.js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ClientIsMultiUserMode)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function ClientIsMultiUserMode(clientAPI) {
-  return clientAPI.isAppInMultiUserMode();
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Application/GetClientSupportVersions.js":
-/*!*************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Application/GetClientSupportVersions.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ GetClientSupportVersions)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function GetClientSupportVersions(clientAPI) {
-  let versionInfo = clientAPI.getVersionInfo();
-  let versionStr = '';
-  Object.keys(versionInfo).forEach(function (key, index) {
-    // key: the name of the object key
-    // index: the ordinal position of the key within the object
-    //console.log(`Key: ${key}   Index: ${index}`);
-    if (key != 'Application Version') {
-      versionStr += `${key}: ${versionInfo[key]}\n`;
-    }
-  });
-  return versionStr;
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Application/GetClientVersion.js":
-/*!*****************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Application/GetClientVersion.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ GetClientVersion)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function GetClientVersion(clientAPI) {
-  let versionInfo = clientAPI.getVersionInfo();
-  if (versionInfo.hasOwnProperty('Application Version')) {
-    return versionInfo['Application Version'];
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Application/OnWillUpdate.js":
-/*!*************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Application/OnWillUpdate.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ OnWillUpdate)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function OnWillUpdate(clientAPI) {
-  return clientAPI.executeAction('/MDK_Styling/Actions/Application/OnWillUpdate.action').then(result => {
-    if (result.data) {
-      return clientAPI.executeAction('/MDK_Styling/Actions/Service/CloseOffline.action').then(success => Promise.resolve(success), failure => Promise.reject('Offline Odata Close Failed ' + failure));
-    } else {
-      return Promise.reject('User Deferred');
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Application/ResetAppSettingsAndLogout.js":
-/*!**************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Application/ResetAppSettingsAndLogout.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ResetAppSettingsAndLogout)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function ResetAppSettingsAndLogout(clientAPI) {
-  let logger = clientAPI.getLogger();
-  let platform = clientAPI.nativescript.platformModule;
-  let appSettings = clientAPI.nativescript.appSettingsModule;
-  var appId;
-  if (platform && (platform.isIOS || platform.isAndroid)) {
-    appId = clientAPI.evaluateTargetPath('#Application/#AppData/MobileServiceAppId');
-  } else {
-    appId = 'WindowsClient';
-  }
-  try {
-    // Remove any other app specific settings
-    appSettings.getAllKeys().forEach(key => {
-      if (key.substring(0, appId.length) === appId) {
-        appSettings.remove(key);
-      }
-    });
-  } catch (err) {
-    logger.log(`ERROR: AppSettings cleanup failure - ${err}`, 'ERROR');
-  } finally {
-    // Logout 
-    return clientAPI.getPageProxy().executeAction('/MDK_Styling/Actions/Application/Reset.action');
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Customers/Customers_DeleteConfirmation.js":
-/*!***************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Customers/Customers_DeleteConfirmation.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function DeleteConfirmation(clientAPI) {
-  return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then(result => {
-    if (result.data) {
-      return clientAPI.executeAction('/MDK_Styling/Actions/Customers/Customers_DeleteEntity.action').then(success => Promise.resolve(success), failure => Promise.reject('Delete entity failed ' + failure));
-    } else {
-      return Promise.reject('User Deferred');
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js":
-/*!********************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ CheckForSyncError)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} context
- */
-function CheckForSyncError(context) {
-  context.count('/MDK_Styling/Services/SampleServiceV4.service', 'ErrorArchive', '').then(errorCount => {
-    if (errorCount > 0) {
-      return context.getPageProxy().executeAction('/MDK_Styling/Actions/ErrorArchive/ErrorArchive_SyncFailure.action').then(function () {
-        return Promise.reject(false);
-      });
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Logging/LogLevels.js":
-/*!******************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Logging/LogLevels.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ LogLevels)
-/* harmony export */ });
-function LogLevels(clientAPI) {
-  var levels = [];
-  levels.push({
-    'DisplayValue': 'Error',
-    'ReturnValue': 'Error'
-  });
-  levels.push({
-    'DisplayValue': 'Warning',
-    'ReturnValue': 'Warn'
-  });
-  levels.push({
-    'DisplayValue': 'Info',
-    'ReturnValue': 'Info'
-  });
-  levels.push({
-    'DisplayValue': 'Debug',
-    'ReturnValue': 'Debug'
-  });
-  levels.push({
-    'DisplayValue': 'Trace',
-    'ReturnValue': 'Trace'
-  });
-  return levels;
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Logging/SetTraceCategories.js":
-/*!***************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Logging/SetTraceCategories.js ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ SetTraceCategories)
-/* harmony export */ });
-function SetTraceCategories(clientAPI) {
-  var logger = clientAPI.getLogger();
-  const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
-  const fcsection = sectionedTable.getSection('FormCellSection0');
-  const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
-  const odataTrace = fcsection.getControl('odataTrace');
-  try {
-    if (traceCategory.getValue()) {
-      var values = traceCategory.getValue();
-      var categories = [];
-      if (values && values.length) {
-        categories = values.map(value => {
-          return 'mdk.trace.' + value.ReturnValue;
-        });
-      }
-      clientAPI.setDebugSettings(odataTrace.getValue(), true, categories);
-    }
-  } catch (exception) {
-    logger.log(String(exception), 'Error');
-    return undefined;
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Logging/SetUserLogLevel.js":
-/*!************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Logging/SetUserLogLevel.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ SetUserLogLevel)
-/* harmony export */ });
-function SetUserLogLevel(clientAPI) {
-  try {
-    if (clientAPI.getValue() && clientAPI.getValue()[0]) {
-      var logger = clientAPI.getLogger();
-      var listPickerValue = clientAPI.getValue()[0].ReturnValue;
-      if (listPickerValue) {
-        switch (listPickerValue) {
-          case 'Debug':
-            logger.setLevel('Debug');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Error':
-            logger.setLevel('Error');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Warn':
-            logger.setLevel('Warn');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Info':
-            logger.setLevel('Info');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Trace':
-            logger.setLevel('Trace');
-            ShowTraceOptions(clientAPI, true);
-            break;
-          default:
-            // eslint-disable-next-line no-console
-            console.log(`unrecognized key ${listPickerValue}`);
-        }
-        return listPickerValue;
-      }
-    }
-  } catch (exception) {
-    logger.log(String(exception), 'Error');
-    return undefined;
-  }
-}
-function ShowTraceOptions(clientAPI, tracingEnabled) {
-  let categories = clientAPI.getPageProxy().getControl('SectionedTable').getControl('TracingCategoriesListPicker');
-  let odataTrace = clientAPI.getPageProxy().getControl('SectionedTable').getControl('odataTrace');
-  categories.setVisible(tracingEnabled);
-  odataTrace.setVisible(tracingEnabled);
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Logging/ToggleLogging.js":
-/*!**********************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Logging/ToggleLogging.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ToggleLogging)
-/* harmony export */ });
-function ToggleLogging(clientAPI) {
-  try {
-    var logger = clientAPI.getLogger();
-    const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
-    const fcsection = sectionedTable.getSection('FormCellSection0');
-    const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
-    const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
-    let switchValue = enableLogSwitch.getValue();
-    if (switchValue) {
-      logger.on();
-      logLevelListPicker.setVisible(true);
-      logLevelListPicker.setEditable(true);
-      logLevelListPicker.redraw();
-    } else {
-      logger.off();
-      logLevelListPicker.setEditable(false);
-      logLevelListPicker.setVisible(false);
-      logLevelListPicker.redraw();
-    }
-    return switchValue;
-  } catch (exception) {
-    logger.log(String(exception), 'Error');
-    return undefined;
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Logging/TraceCategories.js":
-/*!************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Logging/TraceCategories.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ TraceCategories)
-/* harmony export */ });
-function TraceCategories(clientAPI) {
-  var categories = ['action', 'api', 'app', 'binding', 'branding', 'core', 'i18n', 'lcms', 'logging', 'odata', 'onboarding', 'profiling', 'push', 'restservice', 'settings', 'targetpath', 'ui'];
-  var values = [];
-  categories.forEach(category => {
-    values.push({
-      'DisplayValue': category,
-      'ReturnValue': category
-    });
-  });
-  return values;
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Logging/UserLogSetting.js":
-/*!***********************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Logging/UserLogSetting.js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ UserLogSetting)
-/* harmony export */ });
-function UserLogSetting(clientAPI) {
-  try {
-    var logger = clientAPI.getLogger();
-    const sectionedTable = clientAPI.getControl('SectionedTable');
-    const fcsection = sectionedTable.getSection('FormCellSection0');
-    const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
-    const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
-    const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
-    const odataTrace = fcsection.getControl('odataTrace');
-
-    //Persist the user logging preferences
-    if (logger) {
-      console.log("in logger state");
-      if (logger.isTurnedOn()) {
-        if (enableLogSwitch) {
-          enableLogSwitch.setValue(true);
-        }
-        if (logLevelListPicker) {
-          logLevelListPicker.setEditable(true);
-        }
-      } else {
-        if (enableLogSwitch) {
-          enableLogSwitch.setValue(false);
-        }
-        if (logLevelListPicker) {
-          logLevelListPicker.setEditable(false);
-        }
-      }
-      var logLevel = logger.getLevel();
-      if (logLevel) {
-        if (logLevelListPicker) {
-          logLevelListPicker.setValue([logLevel]);
-        }
-      }
-      if (logLevel === 'Trace') {
-        traceCategory.setVisible(true);
-        odataTrace.setVisible(true);
-      }
-
-      //Upon selecting a value in the List picker and clicking the back button 
-      //will enable the onload page rule. This will set the selected value
-      //in the control
-      if (logLevelListPicker.getValue()[0]) {
-        var returnValue = logLevelListPicker.getValue()[0].ReturnValue;
-        if (returnValue) {
-          logLevelListPicker.setValue([returnValue]);
-          logger.setLevel(returnValue);
-        }
-      }
-    }
-  } catch (exception) {
-    // eslint-disable-next-line no-console
-    console.log(String(exception), 'Error User Logger could not be set');
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Products/Products_CreateEntity.js":
-/*!*******************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Products/Products_CreateEntity.js ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ CreateEntity)
-/* harmony export */ });
-function CreateEntity(clientAPI) {
-  return clientAPI.executeAction({
-    'Name': '/MDK_Styling/Actions/Products/Products_CreateEntity.action',
-    'Properties': {
-      'OnSuccess': ''
-    }
-  }).then(result => {
-    let newEntity = JSON.parse(result.data);
-    return clientAPI.executeAction({
-      'Name': '/MDK_Styling/Actions/Products/Products_UploadStream.action',
-      'Properties': {
-        'Target': {
-          'ReadLink': newEntity['@odata.readLink']
-        }
-      }
-    });
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/Products/Products_DeleteConfirmation.js":
-/*!*************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/Products/Products_DeleteConfirmation.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function DeleteConfirmation(clientAPI) {
-  return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then(result => {
-    if (result.data) {
-      return clientAPI.executeAction('/MDK_Styling/Actions/Products/Products_DeleteEntity.action').then(success => Promise.resolve(success), failure => Promise.reject('Delete entity failed ' + failure));
-    } else {
-      return Promise.reject('User Deferred');
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/PurchaseOrderItems/PurchaseOrderItems_DeleteConfirmation.js":
-/*!*********************************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/PurchaseOrderItems/PurchaseOrderItems_DeleteConfirmation.js ***!
-  \*********************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function DeleteConfirmation(clientAPI) {
-  return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then(result => {
-    if (result.data) {
-      return clientAPI.executeAction('/MDK_Styling/Actions/PurchaseOrderItems/PurchaseOrderItems_DeleteEntity.action').then(success => Promise.resolve(success), failure => Promise.reject('Delete entity failed ' + failure));
-    } else {
-      return Promise.reject('User Deferred');
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/SalesOrderHeaders/SalesOrderHeaders_DeleteConfirmation.js":
-/*!*******************************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/SalesOrderHeaders/SalesOrderHeaders_DeleteConfirmation.js ***!
-  \*******************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function DeleteConfirmation(clientAPI) {
-  return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then(result => {
-    if (result.data) {
-      return clientAPI.executeAction('/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_DeleteEntity.action').then(success => Promise.resolve(success), failure => Promise.reject('Delete entity failed ' + failure));
-    } else {
-      return Promise.reject('User Deferred');
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js":
-/*!***************************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js ***!
-  \***************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ DeleteConfirmation)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function DeleteConfirmation(clientAPI) {
-  return clientAPI.executeAction('/MDK_Styling/Actions/DeleteConfirmation.action').then(result => {
-    if (result.data) {
-      return clientAPI.executeAction('/MDK_Styling/Actions/SalesOrderItems/SalesOrderItems_DeleteEntity.action').then(success => Promise.resolve(success), failure => Promise.reject('Delete entity failed ' + failure));
-    } else {
-      return Promise.reject('User Deferred');
-    }
-  });
 }
 
 /***/ }),
@@ -1035,15 +1069,15 @@ function DeleteConfirmation(clientAPI) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
-var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/sourceMaps.js */ "../../../../css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/api.js */ "../../../../css-loader/dist/runtime/api.js");
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `ActionBar {
+___CSS_LOADER_EXPORT___.push([module.id, `ui5-mdk-bar.actionbar {
   color: white;
   background-color: red;
 }
-ToolBar {
+ui5-mdk-overflow-toolbar.toolbar {
   color: white;
   background-color: gray;
   /* Android */
@@ -1064,15 +1098,15 @@ ToolBar {
   color: #ffbb33;
 }
 /* Object Header - BodyText */
-.objectHeaderBodyText {
+.span.ohBodyText {
   color: red;
 }
 /* Object Header - Description */
-.objectHeaderDescription {
+.span.ohDescription {
   color: blue;
 }
 /* Object Header - Footnote */
-.objectHeaderFootNote {
+.span.ohFootnote {
   color: green;
 }
 /* Object Header - Headline */
@@ -1090,7 +1124,7 @@ ToolBar {
   font-size: 18;
 }
 /* Object Header - Subhead */
-.objectHeaderSubhead {
+.span.ohSubhead {
   color: yellow;
 }
 /* Object Header - SubstatusText */
@@ -1099,7 +1133,7 @@ ToolBar {
   font-style: italic;
   font-size: 18;
 }
-`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,qBAAqB;AACvB;AACA;EACE,YAAY;EACZ,sBAAsB;EACtB,YAAY;EACZ,kBAAkB;EAClB,QAAQ;AACV;AACA;EACE,YAAY;AACd;AACA;EACE,WAAW;AACb;AACA;EACE,mBAAmB;EACnB,sBAAsB;AACxB;AACA;EACE,cAAc;AAChB;AACA,6BAA6B;AAC7B;EACE,UAAU;AACZ;AACA,gCAAgC;AAChC;EACE,WAAW;AACb;AACA,6BAA6B;AAC7B;EACE,YAAY;AACd;AACA,6BAA6B;AAC7B;EACE,cAAc;AAChB;AACA,+BAA+B;AAC/B;EACE,yBAAyB;AAC3B;AACA,+BAA+B;AAC/B;EACE,UAAU;EACV,kBAAkB;EAClB,aAAa;AACf;AACA,4BAA4B;AAC5B;EACE,aAAa;AACf;AACA,kCAAkC;AAClC;EACE,WAAW;EACX,kBAAkB;EAClB,aAAa;AACf","sourcesContent":["ActionBar {\n  color: white;\n  background-color: red;\n}\nToolBar {\n  color: white;\n  background-color: gray;\n  /* Android */\n  bartintcolor: gray;\n  /* iOS */\n}\n#LogoutToolbarItem {\n  color: brown;\n}\n#UploadToolbarItem {\n  color: blue;\n}\n.MyCustomerButton {\n  font-color: #ff0000;\n  background-color: cyan;\n}\n.ObjectTableTitle {\n  color: #ffbb33;\n}\n/* Object Header - BodyText */\n.objectHeaderBodyText {\n  color: red;\n}\n/* Object Header - Description */\n.objectHeaderDescription {\n  color: blue;\n}\n/* Object Header - Footnote */\n.objectHeaderFootNote {\n  color: green;\n}\n/* Object Header - Headline */\n.objectHeaderHeadline {\n  color: #ff00ff;\n}\n/* Object Header - Background */\n.objectHeaderBackground {\n  background-color: #DC143C;\n}\n/* Object Header - StatusText */\n.objectHeaderStatus {\n  color: red;\n  font-style: italic;\n  font-size: 18;\n}\n/* Object Header - Subhead */\n.objectHeaderSubhead {\n  color: yellow;\n}\n/* Object Header - SubstatusText */\n.objectHeaderSubStatus {\n  color: blue;\n  font-style: italic;\n  font-size: 18;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,qBAAqB;AACvB;AACA;EACE,YAAY;EACZ,sBAAsB;EACtB,YAAY;EACZ,kBAAkB;EAClB,QAAQ;AACV;AACA;EACE,YAAY;AACd;AACA;EACE,WAAW;AACb;AACA;EACE,mBAAmB;EACnB,sBAAsB;AACxB;AACA;EACE,cAAc;AAChB;AACA,6BAA6B;AAC7B;EACE,UAAU;AACZ;AACA,gCAAgC;AAChC;EACE,WAAW;AACb;AACA,6BAA6B;AAC7B;EACE,YAAY;AACd;AACA,6BAA6B;AAC7B;EACE,cAAc;AAChB;AACA,+BAA+B;AAC/B;EACE,yBAAyB;AAC3B;AACA,+BAA+B;AAC/B;EACE,UAAU;EACV,kBAAkB;EAClB,aAAa;AACf;AACA,4BAA4B;AAC5B;EACE,aAAa;AACf;AACA,kCAAkC;AAClC;EACE,WAAW;EACX,kBAAkB;EAClB,aAAa;AACf","sourcesContent":["ui5-mdk-bar.actionbar {\n  color: white;\n  background-color: red;\n}\nui5-mdk-overflow-toolbar.toolbar {\n  color: white;\n  background-color: gray;\n  /* Android */\n  bartintcolor: gray;\n  /* iOS */\n}\n#LogoutToolbarItem {\n  color: brown;\n}\n#UploadToolbarItem {\n  color: blue;\n}\n.MyCustomerButton {\n  font-color: #ff0000;\n  background-color: cyan;\n}\n.ObjectTableTitle {\n  color: #ffbb33;\n}\n/* Object Header - BodyText */\n.span.ohBodyText {\n  color: red;\n}\n/* Object Header - Description */\n.span.ohDescription {\n  color: blue;\n}\n/* Object Header - Footnote */\n.span.ohFootnote {\n  color: green;\n}\n/* Object Header - Headline */\n.objectHeaderHeadline {\n  color: #ff00ff;\n}\n/* Object Header - Background */\n.objectHeaderBackground {\n  background-color: #DC143C;\n}\n/* Object Header - StatusText */\n.objectHeaderStatus {\n  color: red;\n  font-style: italic;\n  font-size: 18;\n}\n/* Object Header - Subhead */\n.span.ohSubhead {\n  color: yellow;\n}\n/* Object Header - SubstatusText */\n.objectHeaderSubStatus {\n  color: blue;\n  font-style: italic;\n  font-size: 18;\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
@@ -1113,8 +1147,8 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
-var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/sourceMaps.js */ "../../../../css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/api.js */ "../../../../css-loader/dist/runtime/api.js");
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@mdkYellow1: #ffbb33;
@@ -1208,84 +1242,15 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ "./build.definitions/MDK_Styling/Styles/Styles.light.css":
-/*!***************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Styles/Styles.light.css ***!
-  \***************************************************************/
+/***/ "./build.definitions/MDK_Styling/Styles/Styles.nss":
+/*!*********************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Styles/Styles.nss ***!
+  \*********************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
-var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, `.ns-light ActionBar {
-	color: white;
-	background-color: red;
-}
-.ns-light ToolBar {
-	color: white;
-	background-color: gray;
-	/* Android */
-  bartintcolor: gray;
-}
-.ns-light #LogoutToolbarItem {
-	color: brown;
-}
-.ns-light #UploadToolbarItem {
-	color: blue;
-}
-.ns-light .MyCustomerButton {
-	font-color: #ff0000;
-	background-color: cyan;
-}
-.ns-light .ObjectTableTitle {
-	color: #ffbb33;
-}
-.ns-light .objectHeaderBodyText {
-	color: red;
-}
-.ns-light .objectHeaderDescription {
-	color: blue;
-}
-.ns-light .objectHeaderFootNote {
-	color: green;
-}
-.ns-light .objectHeaderHeadline {
-	color: #ff00ff;
-}
-.ns-light .objectHeaderBackground {
-	background-color: #DC143C;
-}
-.ns-light .objectHeaderStatus {
-	color: red;
-	font-style: italic;
-	font-size: 18;
-}
-.ns-light .objectHeaderSubhead {
-	color: yellow;
-}
-.ns-light .objectHeaderSubStatus {
-	color: blue;
-	font-style: italic;
-	font-size: 18;
-}
-`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.light.css"],"names":[],"mappings":"AAAA;CACC,YAAY;CACZ,qBAAqB;AACtB;AACA;CACC,YAAY;CACZ,sBAAsB;CACtB,YAAY;EACX,kBAAkB;AACpB;AACA;CACC,YAAY;AACb;AACA;CACC,WAAW;AACZ;AACA;CACC,mBAAmB;CACnB,sBAAsB;AACvB;AACA;CACC,cAAc;AACf;AACA;CACC,UAAU;AACX;AACA;CACC,WAAW;AACZ;AACA;CACC,YAAY;AACb;AACA;CACC,cAAc;AACf;AACA;CACC,yBAAyB;AAC1B;AACA;CACC,UAAU;CACV,kBAAkB;CAClB,aAAa;AACd;AACA;CACC,aAAa;AACd;AACA;CACC,WAAW;CACX,kBAAkB;CAClB,aAAa;AACd","sourcesContent":[".ns-light ActionBar {\n\tcolor: white;\n\tbackground-color: red;\n}\n.ns-light ToolBar {\n\tcolor: white;\n\tbackground-color: gray;\n\t/* Android */\n  bartintcolor: gray;\n}\n.ns-light #LogoutToolbarItem {\n\tcolor: brown;\n}\n.ns-light #UploadToolbarItem {\n\tcolor: blue;\n}\n.ns-light .MyCustomerButton {\n\tfont-color: #ff0000;\n\tbackground-color: cyan;\n}\n.ns-light .ObjectTableTitle {\n\tcolor: #ffbb33;\n}\n.ns-light .objectHeaderBodyText {\n\tcolor: red;\n}\n.ns-light .objectHeaderDescription {\n\tcolor: blue;\n}\n.ns-light .objectHeaderFootNote {\n\tcolor: green;\n}\n.ns-light .objectHeaderHeadline {\n\tcolor: #ff00ff;\n}\n.ns-light .objectHeaderBackground {\n\tbackground-color: #DC143C;\n}\n.ns-light .objectHeaderStatus {\n\tcolor: red;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n.ns-light .objectHeaderSubhead {\n\tcolor: yellow;\n}\n.ns-light .objectHeaderSubStatus {\n\tcolor: blue;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n"],"sourceRoot":""}]);
-// Exports
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Styles/Styles.light.nss":
-/*!***************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Styles/Styles.light.nss ***!
-  \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// Imports
-var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/sourceMaps.js */ "../../../../css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/api.js */ "../../../../css-loader/dist/runtime/api.js");
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@mdkYellow1: #ffbb33;
@@ -1329,17 +1294,17 @@ objectHeaderSubStatus {
 	font-style: italic;
 	font-size: 18;
 }
-`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.light.nss"],"names":[],"mappings":"AAAA,oBAAoB;AACpB,iBAAiB;AACjB;CACC,iBAAiB;CACjB,qBAAqB;AACtB;AACA;CACC,mBAAmB;CACnB,sBAAsB;AACvB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,eAAe;AAChB;AACA;CACC,gBAAgB;AACjB;AACA;CACC,iBAAiB;AAClB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,yBAAyB;AAC1B;AACA;CACC,eAAe;CACf,kBAAkB;CAClB,aAAa;AACd;AACA;CACC,kBAAkB;AACnB;AACA;CACC,gBAAgB;CAChB,kBAAkB;CAClB,aAAa;AACd","sourcesContent":["@mdkYellow1: #ffbb33;\n@mdkRed1: #ff0000;\nActionBar {\n\tfont-color: white;\n\tbackground-color: red;\n}\nMyCustomerButton {\n\tfont-color: #ff0000;\n\tbackground-color: cyan;\n}\nObjectTableTitle {\n\tfont-color: #ffbb33;\n}\nobjectHeaderBodyText {\n\tfont-color: red;\n}\nobjectHeaderDescription {\n\tfont-color: blue;\n}\nobjectHeaderFootNote {\n\tfont-color: green;\n}\nobjectHeaderHeadline {\n\tfont-color: #ff00ff;\n}\nobjectHeaderBackground {\n\tbackground-color: #DC143C;\n}\nobjectHeaderStatus {\n\tfont-color: red;\n\tfont-style: italic;\n\tfont-size: 18;\n}\nobjectHeaderSubhead {\n\tfont-color: yellow;\n}\nobjectHeaderSubStatus {\n\tfont-color: blue;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./build.definitions/MDK_Styling/Styles/Styles.nss"],"names":[],"mappings":"AAAA,oBAAoB;AACpB,iBAAiB;AACjB;CACC,iBAAiB;CACjB,qBAAqB;AACtB;AACA;CACC,mBAAmB;CACnB,sBAAsB;AACvB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,eAAe;AAChB;AACA;CACC,gBAAgB;AACjB;AACA;CACC,iBAAiB;AAClB;AACA;CACC,mBAAmB;AACpB;AACA;CACC,yBAAyB;AAC1B;AACA;CACC,eAAe;CACf,kBAAkB;CAClB,aAAa;AACd;AACA;CACC,kBAAkB;AACnB;AACA;CACC,gBAAgB;CAChB,kBAAkB;CAClB,aAAa;AACd","sourcesContent":["@mdkYellow1: #ffbb33;\n@mdkRed1: #ff0000;\nActionBar {\n\tfont-color: white;\n\tbackground-color: red;\n}\nMyCustomerButton {\n\tfont-color: #ff0000;\n\tbackground-color: cyan;\n}\nObjectTableTitle {\n\tfont-color: #ffbb33;\n}\nobjectHeaderBodyText {\n\tfont-color: red;\n}\nobjectHeaderDescription {\n\tfont-color: blue;\n}\nobjectHeaderFootNote {\n\tfont-color: green;\n}\nobjectHeaderHeadline {\n\tfont-color: #ff00ff;\n}\nobjectHeaderBackground {\n\tbackground-color: #DC143C;\n}\nobjectHeaderStatus {\n\tfont-color: red;\n\tfont-style: italic;\n\tfont-size: 18;\n}\nobjectHeaderSubhead {\n\tfont-color: yellow;\n}\nobjectHeaderSubStatus {\n\tfont-color: blue;\n\tfont-style: italic;\n\tfont-size: 18;\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___;
 
 
 /***/ }),
 
-/***/ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js":
-/*!**********************************************************************************************************************************************!*\
-  !*** ../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js ***!
-  \**********************************************************************************************************************************************/
+/***/ "../../../../css-loader/dist/runtime/api.js":
+/*!**************************************************!*\
+  !*** ../../../../css-loader/dist/runtime/api.js ***!
+  \**************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -1431,10 +1396,10 @@ module.exports = function (cssWithMappingToString) {
 
 /***/ }),
 
-/***/ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js":
-/*!*****************************************************************************************************************************************************!*\
-  !*** ../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js ***!
-  \*****************************************************************************************************************************************************/
+/***/ "../../../../css-loader/dist/runtime/sourceMaps.js":
+/*!*********************************************************!*\
+  !*** ../../../../css-loader/dist/runtime/sourceMaps.js ***!
+  \*********************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -1457,13 +1422,253 @@ module.exports = function (item) {
 
 /***/ }),
 
+/***/ "./build.definitions/MDK_Styling/Pages/Application/About.page":
+/*!********************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Application/About.page ***!
+  \********************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"KeyAndValues":[{"_Name":"KeyValue0","KeyName":"User ID","Value":"#Application/#AppData/UserId","Visible":true},{"Value":"#Application/#AppData/DeviceId","_Name":"KeyValue1","KeyName":"Device ID","Visible":true},{"Value":"/MDK_Styling/Globals/Application/ApplicationName.global","_Name":"KeyValue2","KeyName":"Application","Visible":true},{"Value":"/MDK_Styling/Globals/Application/AppDefinition_Version.global","_Name":"KeyValue3","KeyName":"Application Metadata Version","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}},{"KeyAndValues":[{"Value":"/MDK_Styling/Rules/Application/GetClientVersion.js","_Name":"KeyValue4","KeyName":"Client Version","Visible":"$(PLT,true,true,false)"},{"Value":"/MDK_Styling/Rules/Application/GetClientSupportVersions.js","_Name":"KeyValue5","KeyName":"Client Support Versions","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue1","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"About","Caption":"About","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDK_Styling/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Application/Support.page":
+/*!**********************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Application/Support.page ***!
+  \**********************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ContactCell","_Name":"SectionContactCellTable1","EmptySection":{"FooterVisible":false},"ContactCells":[{"ContactCell":{"_Name":"ContactCellItem0","Headline":"Contact Support","ActivityItems":[{"ActivityType":"Phone","ActivityValue":"/MDK_Styling/Globals/Application/SupportPhone.global"},{"ActivityType":"Email","ActivityValue":"/MDK_Styling/Globals/Application/SupportEmail.global"},{"ActivityType":"Message","ActivityValue":"/MDK_Styling/Globals/Application/SupportPhone.global"}]}}]},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":false,"FooterSeparator":true,"ControlSeparator":true},"_Type":"Section.Type.SimplePropertyCollection","_Name":"SectionSimplePropertyCollection0","Visible":"$(PLT,true,true,false)","EmptySection":{"FooterVisible":false},"SimplePropertyCells":[{"SimplePropertyCell":{"_Name":"SectionSimplePropertyCell0","KeyName":"Activity Log","AccessoryType":"DisclosureIndicator","Visible":"$(PLT,true,true,false)","OnPress":"/MDK_Styling/Actions/Application/NavToActivityLog.action"}}],"Layout":{"NumberOfColumns":1,"MinimumInteritemSpacing":66}}]}],"_Type":"Page","_Name":"Settings","Caption":"Settings","PrefersLargeCaption":false,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDK_Styling/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Application/UserActivityLog.page":
+/*!******************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Application/UserActivityLog.page ***!
+  \******************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"Controls":[{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"EnableLogSwitch","IsVisible":true,"Separator":true,"Caption":"Enable Logging","OnValueChange":"/MDK_Styling/Rules/Logging/ToggleLogging.js","IsEditable":true},{"IsSearchEnabled":false,"_Type":"Control.Type.FormCell.ListPicker","_Name":"LogLevelListPicker","IsVisible":true,"Separator":true,"AllowMultipleSelection":false,"AllowEmptySelection":false,"Caption":"Log Level","OnValueChange":"/MDK_Styling/Rules/Logging/SetUserLogLevel.js","IsSelectedSectionEnabled":false,"IsPickerDismissedOnSelection":true,"AllowDefaultValueIfOneItem":false,"IsEditable":false,"PickerItems":"/MDK_Styling/Rules/Logging/LogLevels.js"},{"_Type":"Control.Type.FormCell.ListPicker","_Name":"TracingCategoriesListPicker","IsVisible":false,"Separator":true,"AllowMultipleSelection":true,"AllowEmptySelection":true,"Caption":"Tracing Categories","PickerPrompt":"Select Categories for Tracing","OnValueChange":"/MDK_Styling/Rules/Logging/SetTraceCategories.js","IsSelectedSectionEnabled":true,"IsPickerDismissedOnSelection":false,"IsSearchCancelledAfterSelection":false,"AllowDefaultValueIfOneItem":false,"IsEditable":true,"PickerItems":"/MDK_Styling/Rules/Logging/TraceCategories.js"},{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"odataTrace","IsVisible":false,"Separator":true,"Caption":"OData Tracing","OnValueChange":"/MDK_Styling/Rules/Logging/SetTraceCategories.js","IsEditable":true}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection0"},{"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"Send","IsVisible":true,"Separator":true,"Title":"Send Activity Log","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","Enabled":true,"OnPress":"/MDK_Styling/Actions/Logging/UploadLogProgress.action"}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection1"}]}],"_Type":"Page","_Name":"UserActivityLog","Caption":"Activity Log","PrefersLargeCaption":false,"OnLoaded":"/MDK_Styling/Rules/Logging/UserLogSetting.js"}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_Create.page":
+/*!*****************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_Create.page ***!
+  \*****************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Customers/Customers_CreateEntity.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create Customer Detail","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"City","_Name":"City","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Country","_Name":"Country","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","KeyboardType":"Number","_Name":"CustomerID","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DateOfBirth","Caption":"DateOfBirth","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"EmailAddress","_Name":"EmailAddress","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Gender","_Name":"Gender","Segments":["Male","Female","Other","None","Unknown"],"_Type":"Control.Type.FormCell.SegmentedControl"},{"Caption":"FirstName","_Name":"FirstName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"HouseNumber","_Name":"HouseNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LastName","_Name":"LastName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PhoneNumber","_Name":"PhoneNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PostalCode","_Name":"PostalCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Street","_Name":"Street","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Customers_Create","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_CreateSalesOrderHeader.page":
+/*!*********************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_CreateSalesOrderHeader.page ***!
+  \*********************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Customers/Customers_CreateSalesOrderHeader.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create SalesOrderHeader","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Mode":"Datetime","_Name":"CreatedAt","Caption":"CreatedAt","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{CustomerID}","ReturnValue":"{CustomerID}","Target":{"EntitySet":"Customers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"CustomerID","_Type":"Control.Type.FormCell.ListPicker","Value":"{CustomerID}"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatus","_Name":"LifeCycleStatus","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatusName","_Name":"LifeCycleStatusName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","KeyboardType":"Number","_Name":"SalesOrderID","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Customers_CreateSalesOrderHeader","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_Detail.page":
+/*!*****************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_Detail.page ***!
+  \*****************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Customers","QueryOptions":""},"Controls":[{"DataSubscriptions":["SalesOrderHeaders"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"ObjectHeader":{"Subhead":"{City}","Footnote":"{CustomerID}","Description":"{Country}","StatusText":"{DateOfBirth}","SubstatusText":"{EmailAddress}","HeadlineText":"{FirstName}","StatusPosition":"Stacked","StatusImagePosition":"Leading","SubstatusImagePosition":"Leading","Styles":{"ObjectHeader":"objectHeaderBackground","BodyText":"objectHeaderBodyText","Description":"objectHeaderDescription","Footnote":"objectHeaderFootNote","HeadlineText":"objectHeaderHeadline","StatusText":"objectHeaderStatus","Subhead":"objectHeaderSubhead","SubstatusText":"objectHeaderSubStatus"}},"_Type":"Section.Type.ObjectHeader","_Name":"SectionObjectHeader0","Visible":true},{"KeyAndValues":[{"Value":"{City}","_Name":"KeyValue0","KeyName":"City","Visible":true},{"Value":"{Country}","_Name":"KeyValue1","KeyName":"Country","Visible":true},{"Value":"{CustomerID}","_Name":"KeyValue2","KeyName":"CustomerID","Visible":true},{"Value":"{DateOfBirth}","_Name":"KeyValue3","KeyName":"DateOfBirth","Visible":true},{"Value":"{EmailAddress}","_Name":"KeyValue4","KeyName":"EmailAddress","Visible":true},{"Value":"{FirstName}","_Name":"KeyValue5","KeyName":"FirstName","Visible":true},{"Value":"{HouseNumber}","_Name":"KeyValue6","KeyName":"HouseNumber","Visible":true},{"Value":"{LastName}","_Name":"KeyValue7","KeyName":"LastName","Visible":true},{"Value":"{PhoneNumber}","_Name":"KeyValue8","KeyName":"PhoneNumber","Visible":true},{"Value":"{PostalCode}","_Name":"KeyValue9","KeyName":"PostalCode","Visible":true},{"Value":"{Street}","_Name":"KeyValue10","KeyName":"Street","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Layout":{"NumberOfColumns":2}},{"KeyAndValues":[{"Value":"{Address/HouseNumber}","_Name":"KeyValue11","KeyName":"HouseNumber","Visible":true},{"Value":"{Address/Street}","_Name":"KeyValue12","KeyName":"Street","Visible":true},{"Value":"{Address/City}","_Name":"KeyValue13","KeyName":"City","Visible":true},{"Value":"{Address/Country}","_Name":"KeyValue14","KeyName":"Country","Visible":true},{"Value":"{Address/PostalCode}","_Name":"KeyValue15","KeyName":"PostalCode","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValueAddress","Header":{"_Name":"SectionHeader0","AccessoryType":"None","UseTopPadding":true,"Caption":"Address"},"Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Layout":{"NumberOfColumns":2}},{"Header":{"_Name":"SectionHeader1","AccessoryType":"None","UseTopPadding":true,"Caption":"SalesOrders"},"_Type":"Section.Type.ObjectTable","Target":{"EntitySet":"{@odata.readLink}/SalesOrders","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"Caption":"No record found!","FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"ObjectCell":{"Title":"{LifeCycleStatusName}","Subhead":"{CreatedAt}","Footnote":"{CustomerID}","Description":"{CurrencyCode}","StatusText":"{GrossAmount}","SubstatusText":"{LifeCycleStatus}","PreserveIconStackSpacing":false,"AccessoryType":"DisclosureIndicator","Tags":[],"AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false,"ImageHasBorder":false},"AvatarGrid":{"ImageIsCircular":true},"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Detail.action","Selected":false,"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true,"LeadingItems":[],"TrailingItems":[]}},"HighlightSelectedItem":false}],"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"Customers_Detail","Caption":"Customer Detail","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"","SystemItem":"Edit","Position":"Right","IsIconCircular":false,"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_Edit.action"},{"_Name":"ActionBarItem1","Caption":"More","Position":"Right","IsIconCircular":false,"OnPress":"/MDK_Styling/Actions/Customers/Customers_DetailPopover.action"}],"_Name":"ActionBar1"}}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_Edit.page":
+/*!***************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_Edit.page ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"Update Customer Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Customers","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/Customers/Customers_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"City","_Name":"City","Value":"{City}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Country","_Name":"Country","Value":"{Country}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","_Name":"CustomerID","Value":"{CustomerID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Mode":"Date","_Name":"DateOfBirth","Value":"{DateOfBirth}","Caption":"DateOfBirth","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"EmailAddress","_Name":"EmailAddress","Value":"{EmailAddress}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Gender","_Name":"Gender","Value":"{Gender}","Segments":["Male","Female","Other","None","Unknown"],"_Type":"Control.Type.FormCell.SegmentedControl"},{"Caption":"FirstName","_Name":"FirstName","Value":"{FirstName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"HouseNumber","_Name":"HouseNumber","Value":"{HouseNumber}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LastName","_Name":"LastName","Value":"{LastName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PhoneNumber","_Name":"PhoneNumber","Value":"{PhoneNumber}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PostalCode","_Name":"PostalCode","Value":"{PostalCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Street","_Name":"Street","Value":"{Street}","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Customers_Edit","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_List.page":
+/*!***************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_List.page ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"Header":{"_Name":"SectionHeader0","AccessoryType":"None","UseTopPadding":false},"_Type":"Section.Type.ObjectTable","Target":{"EntitySet":"Customers","Service":"/MDK_Styling/Services/SampleServiceV4.service","QueryOptions":""},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"Caption":"No record found!","FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"ObjectCell":{"Title":"{FirstName}","Subhead":"{City}","Footnote":"{CustomerID}","Description":"{Country}","StatusText":"{DateOfBirth}","SubstatusText":"{EmailAddress}","PreserveIconStackSpacing":false,"AccessoryType":"DisclosureIndicator","Tags":[],"AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false,"ImageHasBorder":false},"AvatarGrid":{"ImageIsCircular":true},"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_Detail.action","Styles":{"Title":"ObjectTableTitle"},"Selected":false,"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true,"LeadingItems":[],"TrailingItems":[]}},"Search":{"Enabled":true,"Placeholder":"Item Search","BarcodeScanner":true,"Delay":500,"MinimumCharacterThreshold":3},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Loading more items, please wait..."},"HighlightSelectedItem":false}],"LoadingIndicator":{"Enabled":true,"Text":"Loading, please wait..."},"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"Customers_List","Caption":"Customers","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"","SystemItem":"Add","Position":"Right","IsIconCircular":false,"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_Create.action"}],"_Name":"ActionBar1"}}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_Detail.page":
+/*!***********************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_Detail.page ***!
+  \***********************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"KeyAndValues":[{"Value":"{Message}","_Name":"KeyValue0","KeyName":"Error","Visible":true},{"Value":"{RequestBody}","_Name":"KeyValue1","KeyName":"Request Body","Visible":true},{"Value":"{RequestURL}","_Name":"KeyValue2","KeyName":"Request URL","Visible":true},{"Value":"{HTTPStatusCode}","_Name":"KeyValue3","KeyName":"HTTP Status Code","Visible":true},{"Value":"{RequestMethod}","_Name":"KeyValue4","KeyName":"Request Method","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"ErrorArchive_Detail","Caption":"Details","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_List.page":
+/*!*********************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_List.page ***!
+  \*********************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ObjectTable","Target":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"ErrorArchive"},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"FooterVisible":false,"Caption":"No record found!"},"ObjectCell":{"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true},"Title":"{HTTPStatusCode}","Subhead":"{RequestURL}","Footnote":"{Message}","StatusText":"{RequestMethod}","AvatarStack":{"ImageIsCircular":false},"PreserveIconStackSpacing":false,"AccessoryType":"None","OnPress":"/MDK_Styling/Actions/ErrorArchive/NavToErrorArchive_Detail.action","Selected":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"HighlightSelectedItem":false,"Selection":{"ExitOnLastDeselect":true,"LongPressToEnable":"None","Mode":"None"}}]}],"_Type":"Page","_Name":"ErrorArchive_List","Caption":"Error List","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Main.page":
+/*!*******************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Main.page ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ButtonTable","_Name":"SectionButtonTable0","Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Buttons":[{"_Name":"SectionButton0","Title":"Customers","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","FullWidth":false,"Visible":true,"Enabled":true,"Styles":{"Button":"MyCustomerButton"},"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_List.action"},{"_Name":"SectionButton1","Title":"Products","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","FullWidth":false,"Visible":true,"Enabled":true,"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_List.action"}],"Layout":{"LayoutType":"Vertical","HorizontalAlignment":"Leading"}}]}],"_Type":"Page","_Name":"Main","Caption":"Main","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"User Menu","Icon":"sap-icon://customer","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDK_Styling/Actions/Application/UserMenuPopover.action"}],"_Name":"ActionBar1"}}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_Create.page":
+/*!***************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_Create.page ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Rules/Products/Products_CreateEntity.js","Position":"Right","SystemItem":"Save"}]},"Caption":"Create $(L,PRODUCT_TYPE)","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"Category","_Name":"Category","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CategoryName","_Name":"CategoryName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionDepth","KeyboardType":"Number","_Name":"DimensionDepth","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionHeight","KeyboardType":"Number","_Name":"DimensionHeight","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionUnit","_Name":"DimensionUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionWidth","KeyboardType":"Number","_Name":"DimensionWidth","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LongDescription","_Name":"LongDescription","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Name","_Name":"Name","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PictureUrl","_Name":"PictureUrl","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Price","KeyboardType":"Number","_Name":"Price","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","KeyboardType":"Number","_Name":"ProductID","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ShortDescription","_Name":"ShortDescription","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SupplierID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SupplierName}","ReturnValue":"{SupplierID}","Target":{"EntitySet":"Suppliers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"SupplierID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Weight","KeyboardType":"Number","_Name":"Weight","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"WeightUnit","_Name":"WeightUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"AttachmentTitle":"Picture","AttachmentAddTitle":"Browse","AttachmentActionType":["AddPhoto","TakePhoto","SelectFile"],"AllowedFileTypes":["jpg","png","gif"],"_Name":"Picture","_Type":"Control.Type.FormCell.Attachment"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_Create","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_CreatePurchaseOrderItem.page":
+/*!********************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_CreatePurchaseOrderItem.page ***!
+  \********************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Products/Products_CreatePurchaseOrderItem.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create PurchaseOrderItem","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","KeyboardType":"Number","_Name":"ItemNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker","Value":"{ProductID}"},{"Caption":"PurchaseOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{PurchaseOrderID}","ReturnValue":"{PurchaseOrderID}","Target":{"EntitySet":"PurchaseOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"PurchaseOrderID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Quantity","KeyboardType":"Number","_Name":"Quantity","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_CreatePurchaseOrderItem","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_CreateSalesOrderItem.page":
+/*!*****************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_CreateSalesOrderItem.page ***!
+  \*****************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Products/Products_CreateSalesOrderItem.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create SalesOrderItem","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DeliveryDate","Caption":"DeliveryDate","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","KeyboardType":"Number","_Name":"ItemNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker","Value":"{ProductID}"},{"Caption":"Quantity","KeyboardType":"Number","_Name":"Quantity","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SalesOrderID}","ReturnValue":"{SalesOrderID}","Target":{"EntitySet":"SalesOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"SalesOrderID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_CreateSalesOrderItem","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_Detail.page":
+/*!***************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_Detail.page ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"$(L,PRODUCT_TYPE)","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Actions/Products/Products_DetailPopover.action","Position":"Right","Caption":"More"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"/MDK_Styling/Services/SampleServiceV4.service/{@odata.readLink}/Picture","HeadlineText":"{Name}","Subhead":"{Category}","BodyText":"","Footnote":"{CurrencyCode}","Description":"{CategoryName}","StatusText":"{DimensionDepth}","StatusImage":"","SubstatusImage":"","SubstatusText":"{DimensionHeight}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"Category","Value":"{Category}"},{"KeyName":"CategoryName","Value":"{CategoryName}"},{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"DimensionDepth","Value":"{DimensionDepth}"},{"KeyName":"DimensionHeight","Value":"{DimensionHeight}"},{"KeyName":"DimensionUnit","Value":"{DimensionUnit}"},{"KeyName":"DimensionWidth","Value":"{DimensionWidth}"},{"KeyName":"LongDescription","Value":"{LongDescription}"},{"KeyName":"Name","Value":"{Name}"},{"KeyName":"PictureUrl","Value":"{PictureUrl}"},{"KeyName":"Price","Value":"{Price}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"ShortDescription","Value":"{ShortDescription}"},{"KeyName":"SupplierID","Value":"{SupplierID}"},{"KeyName":"Weight","Value":"{Weight}"},{"KeyName":"WeightUnit","Value":"{WeightUnit}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"PurchaseOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{GrossAmount}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{ItemNumber}","PreserveIconStackSpacing":false,"StatusText":"{NetAmount}","Subhead":"{CurrencyCode}","SubstatusText":"{PurchaseOrderID}","OnPress":"/MDK_Styling/Actions/PurchaseOrderItems/NavToPurchaseOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/PurchaseOrderItems","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"},{"Header":{"Caption":"SalesOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{DeliveryDate}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{GrossAmount}","PreserveIconStackSpacing":false,"StatusText":"{ItemNumber}","Subhead":"{CurrencyCode}","SubstatusText":"{NetAmount}","OnPress":"/MDK_Styling/Actions/SalesOrderItems/NavToSalesOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/SalesOrderItems","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["PurchaseOrderItems","SalesOrderItems"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Products_Detail","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_Edit.page":
+/*!*************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_Edit.page ***!
+  \*************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"Update $(L,PRODUCT_TYPE)","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/Products/Products_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"Category","_Name":"Category","Value":"{Category}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CategoryName","_Name":"CategoryName","Value":"{CategoryName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionDepth","_Name":"DimensionDepth","Value":"{DimensionDepth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionHeight","_Name":"DimensionHeight","Value":"{DimensionHeight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionUnit","_Name":"DimensionUnit","Value":"{DimensionUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionWidth","_Name":"DimensionWidth","Value":"{DimensionWidth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LongDescription","_Name":"LongDescription","Value":"{LongDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Name","_Name":"Name","Value":"{Name}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PictureUrl","_Name":"PictureUrl","Value":"{PictureUrl}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Price","_Name":"Price","Value":"{Price}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","_Name":"ProductID","Value":"{ProductID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ShortDescription","_Name":"ShortDescription","Value":"{ShortDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SupplierID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SupplierName}","ReturnValue":"{SupplierID}","Target":{"EntitySet":"Suppliers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{SupplierID}","_Name":"SupplierID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Weight","_Name":"Weight","Value":"{Weight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"WeightUnit","_Name":"WeightUnit","Value":"{WeightUnit}","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_Edit","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_List.page":
+/*!*************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_List.page ***!
+  \*************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"$(L,PRODUCT_TYPES)","ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_Create.action","Position":"Right","SystemItem":"Add"}]},"Controls":[{"Sections":[{"Header":{"UseTopPadding":false},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{CategoryName}","AvatarStack":{"Avatars":[{"Image":"/MDK_Styling/Services/SampleServiceV4.service/{@odata.readLink}/Picture"}],"ImageIsCircular":false},"Icons":[],"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_Detail.action","StatusImage":"","Title":"{Name}","Footnote":"{CurrencyCode}","PreserveIconStackSpacing":false,"StatusText":"{DimensionDepth}","Subhead":"{Category}","SubstatusText":"{DimensionHeight}"},"EmptySection":{"Caption":"No record found!"},"Search":{"Enabled":true,"Placeholder":"Item Search","BarcodeScanner":true,"Delay":500,"MinimumCharacterThreshold":3},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Loading more items, please wait..."},"Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service","QueryOptions":""},"_Type":"Section.Type.ObjectTable"}],"LoadingIndicator":{"Enabled":true,"Text":"Loading, please wait..."},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Products_List","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Detail.page":
+/*!***********************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Detail.page ***!
+  \***********************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"PurchaseOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"PurchaseOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/PurchaseOrderItems/NavToPurchaseOrderItems_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Rules/PurchaseOrderItems/PurchaseOrderItems_DeleteConfirmation.js","Position":"Right","SystemItem":"Trash"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{ProductID}","Subhead":"{CurrencyCode}","BodyText":"","Footnote":"{ItemNumber}","Description":"{GrossAmount}","StatusText":"{NetAmount}","StatusImage":"","SubstatusImage":"","SubstatusText":"{PurchaseOrderID}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"GrossAmount","Value":"{GrossAmount}"},{"KeyName":"ItemNumber","Value":"{ItemNumber}"},{"KeyName":"NetAmount","Value":"{NetAmount}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"PurchaseOrderID","Value":"{PurchaseOrderID}"},{"KeyName":"Quantity","Value":"{Quantity}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"TaxAmount","Value":"{TaxAmount}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"}],"DataSubscriptions":[],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"PurchaseOrderItems_Detail","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Edit.page":
+/*!*********************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Edit.page ***!
+  \*********************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"Update PurchaseOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"PurchaseOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/PurchaseOrderItems/PurchaseOrderItems_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"GrossAmount","_Name":"GrossAmount","Value":"{GrossAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","_Name":"ItemNumber","Value":"{ItemNumber}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"NetAmount","_Name":"NetAmount","Value":"{NetAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{ProductID}","_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"PurchaseOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{PurchaseOrderID}","ReturnValue":"{PurchaseOrderID}","Target":{"EntitySet":"PurchaseOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{PurchaseOrderID}","_Name":"PurchaseOrderID","_Type":"Control.Type.FormCell.ListPicker","IsEditable":false},{"Caption":"Quantity","_Name":"Quantity","Value":"{Quantity}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"TaxAmount","_Name":"TaxAmount","Value":"{TaxAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"PurchaseOrderItems_Edit","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_CreateSalesOrderItem.page":
+/*!***********************************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_CreateSalesOrderItem.page ***!
+  \***********************************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_CreateSalesOrderItem.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create SalesOrderItem","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DeliveryDate","Caption":"DeliveryDate","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","KeyboardType":"Number","_Name":"ItemNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Quantity","KeyboardType":"Number","_Name":"Quantity","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SalesOrderID}","ReturnValue":"{SalesOrderID}","Target":{"EntitySet":"SalesOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"SalesOrderID","_Type":"Control.Type.FormCell.ListPicker","Value":"{SalesOrderID}"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"SalesOrderHeaders_CreateSalesOrderItem","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page":
+/*!*********************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page ***!
+  \*********************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"SalesOrderHeader Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderHeaders","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_DetailPopover.action","Position":"Right","Caption":"More"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{LifeCycleStatusName}","Subhead":"{CreatedAt}","BodyText":"","Footnote":"{CustomerID}","Description":"{CurrencyCode}","StatusText":"{GrossAmount}","StatusImage":"","SubstatusImage":"","SubstatusText":"{LifeCycleStatus}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"CreatedAt","Value":"{CreatedAt}"},{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"CustomerID","Value":"{CustomerID}"},{"KeyName":"GrossAmount","Value":"{GrossAmount}"},{"KeyName":"LifeCycleStatus","Value":"{LifeCycleStatus}"},{"KeyName":"LifeCycleStatusName","Value":"{LifeCycleStatusName}"},{"KeyName":"NetAmount","Value":"{NetAmount}"},{"KeyName":"SalesOrderID","Value":"{SalesOrderID}"},{"KeyName":"TaxAmount","Value":"{TaxAmount}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"Items"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{DeliveryDate}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{GrossAmount}","PreserveIconStackSpacing":false,"StatusText":"{ItemNumber}","Subhead":"{CurrencyCode}","SubstatusText":"{NetAmount}","OnPress":"/MDK_Styling/Actions/SalesOrderItems/NavToSalesOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/Items","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["SalesOrderItems"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"SalesOrderHeaders_Detail","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Edit.page":
+/*!*******************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Edit.page ***!
+  \*******************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"Update SalesOrderHeader Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderHeaders","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Mode":"Datetime","_Name":"CreatedAt","Value":"{CreatedAt}","Caption":"CreatedAt","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{CustomerID}","ReturnValue":"{CustomerID}","Target":{"EntitySet":"Customers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{CustomerID}","_Name":"CustomerID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"GrossAmount","_Name":"GrossAmount","Value":"{GrossAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatus","_Name":"LifeCycleStatus","Value":"{LifeCycleStatus}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatusName","_Name":"LifeCycleStatusName","Value":"{LifeCycleStatusName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","_Name":"NetAmount","Value":"{NetAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","_Name":"SalesOrderID","Value":"{SalesOrderID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"TaxAmount","_Name":"TaxAmount","Value":"{TaxAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"SalesOrderHeaders_Edit","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Detail.page":
+/*!*****************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Detail.page ***!
+  \*****************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"SalesOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/SalesOrderItems/NavToSalesOrderItems_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js","Position":"Right","SystemItem":"Trash"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{ProductID}","Subhead":"{CurrencyCode}","BodyText":"","Footnote":"{GrossAmount}","Description":"{DeliveryDate}","StatusText":"{ItemNumber}","StatusImage":"","SubstatusImage":"","SubstatusText":"{NetAmount}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"DeliveryDate","Value":"{DeliveryDate}"},{"KeyName":"GrossAmount","Value":"{GrossAmount}"},{"KeyName":"ItemNumber","Value":"{ItemNumber}"},{"KeyName":"NetAmount","Value":"{NetAmount}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"Quantity","Value":"{Quantity}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"SalesOrderID","Value":"{SalesOrderID}"},{"KeyName":"TaxAmount","Value":"{TaxAmount}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"}],"DataSubscriptions":[],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"SalesOrderItems_Detail","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Edit.page":
+/*!***************************************************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Edit.page ***!
+  \***************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Caption":"Update SalesOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/SalesOrderItems/SalesOrderItems_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DeliveryDate","Value":"{DeliveryDate}","Caption":"DeliveryDate","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"GrossAmount","_Name":"GrossAmount","Value":"{GrossAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","_Name":"ItemNumber","Value":"{ItemNumber}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"NetAmount","_Name":"NetAmount","Value":"{NetAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{ProductID}","_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Quantity","_Name":"Quantity","Value":"{Quantity}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SalesOrderID}","ReturnValue":"{SalesOrderID}","Target":{"EntitySet":"SalesOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{SalesOrderID}","_Name":"SalesOrderID","_Type":"Control.Type.FormCell.ListPicker","IsEditable":false},{"Caption":"TaxAmount","_Name":"TaxAmount","Value":"{TaxAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"SalesOrderItems_Edit","PrefersLargeCaption":true}
+
+/***/ }),
+
 /***/ "./build.definitions/Application.app":
 /*!*******************************************!*\
   !*** ./build.definitions/Application.app ***!
   \*******************************************/
 /***/ ((module) => {
 
-module.exports = {"_Name":"MDK_Styling","Version":"/MDK_Styling/Globals/Application/AppDefinition_Version.global","MainPage":"/MDK_Styling/Pages/Main.page","OnLaunch":["/MDK_Styling/Actions/Service/InitializeOffline.action"],"OnWillUpdate":"/MDK_Styling/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDK_Styling/Actions/Service/InitializeOffline.action","Styles":"/MDK_Styling/Styles/Styles.css","Localization":"/MDK_Styling/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDK_Styling/Styles/Styles.light.css","ios":"/MDK_Styling/Styles/Styles.light.nss","android":"/MDK_Styling/Styles/Styles.light.json"}},"SDKStyles":{"ios":"/MDK_Styling/Styles/Styles.light.nss","android":"/MDK_Styling/Styles/Styles.light.json"}}
+module.exports = {"_Name":"MDK_Styling","Version":"/MDK_Styling/Globals/Application/AppDefinition_Version.global","MainPage":"/MDK_Styling/Pages/Main.page","OnLaunch":["/MDK_Styling/Actions/Service/InitializeOffline.action"],"OnWillUpdate":"/MDK_Styling/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/MDK_Styling/Actions/Service/InitializeOffline.action","Styles":"/MDK_Styling/Styles/Styles.less","Localization":"/MDK_Styling/i18n/i18n.properties","_SchemaVersion":"23.12","StyleSheets":{"Styles":{"css":"/MDK_Styling/Styles/Styles.css","ios":"/MDK_Styling/Styles/Styles.nss","android":"/MDK_Styling/Styles/Styles.json"}}}
 
 /***/ }),
 
@@ -2367,246 +2572,6 @@ module.exports = {"DestinationName":"SampleServiceV4","OfflineEnabled":true,"Lan
 
 /***/ }),
 
-/***/ "./build.definitions/MDK_Styling/Pages/Application/About.page":
-/*!********************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Application/About.page ***!
-  \********************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"KeyAndValues":[{"_Name":"KeyValue0","KeyName":"User ID","Value":"#Application/#AppData/UserId","Visible":true},{"Value":"#Application/#AppData/DeviceId","_Name":"KeyValue1","KeyName":"Device ID","Visible":true},{"Value":"/MDK_Styling/Globals/Application/ApplicationName.global","_Name":"KeyValue2","KeyName":"Application","Visible":true},{"Value":"/MDK_Styling/Globals/Application/AppDefinition_Version.global","_Name":"KeyValue3","KeyName":"Application Metadata Version","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}},{"KeyAndValues":[{"Value":"/MDK_Styling/Rules/Application/GetClientVersion.js","_Name":"KeyValue4","KeyName":"Client Version","Visible":"$(PLT,true,true,false)"},{"Value":"/MDK_Styling/Rules/Application/GetClientSupportVersions.js","_Name":"KeyValue5","KeyName":"Client Support Versions","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue1","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"About","Caption":"About","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDK_Styling/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Application/Support.page":
-/*!**********************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Application/Support.page ***!
-  \**********************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ContactCell","_Name":"SectionContactCellTable1","EmptySection":{"FooterVisible":false},"ContactCells":[{"ContactCell":{"_Name":"ContactCellItem0","Headline":"Contact Support","ActivityItems":[{"ActivityType":"Phone","ActivityValue":"/MDK_Styling/Globals/Application/SupportPhone.global"},{"ActivityType":"Email","ActivityValue":"/MDK_Styling/Globals/Application/SupportEmail.global"},{"ActivityType":"Message","ActivityValue":"/MDK_Styling/Globals/Application/SupportPhone.global"}]}}]},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":false,"FooterSeparator":true,"ControlSeparator":true},"_Type":"Section.Type.SimplePropertyCollection","_Name":"SectionSimplePropertyCollection0","Visible":"$(PLT,true,true,false)","EmptySection":{"FooterVisible":false},"SimplePropertyCells":[{"SimplePropertyCell":{"_Name":"SectionSimplePropertyCell0","KeyName":"Activity Log","AccessoryType":"DisclosureIndicator","Visible":"$(PLT,true,true,false)","OnPress":"/MDK_Styling/Actions/Application/NavToActivityLog.action"}}],"Layout":{"NumberOfColumns":1,"MinimumInteritemSpacing":66}}]}],"_Type":"Page","_Name":"Settings","Caption":"Settings","PrefersLargeCaption":false,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDK_Styling/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Application/UserActivityLog.page":
-/*!******************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Application/UserActivityLog.page ***!
-  \******************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"Controls":[{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"EnableLogSwitch","IsVisible":true,"Separator":true,"Caption":"Enable Logging","OnValueChange":"/MDK_Styling/Rules/Logging/ToggleLogging.js","IsEditable":true},{"IsSearchEnabled":false,"_Type":"Control.Type.FormCell.ListPicker","_Name":"LogLevelListPicker","IsVisible":true,"Separator":true,"AllowMultipleSelection":false,"AllowEmptySelection":false,"Caption":"Log Level","OnValueChange":"/MDK_Styling/Rules/Logging/SetUserLogLevel.js","IsSelectedSectionEnabled":false,"IsPickerDismissedOnSelection":true,"AllowDefaultValueIfOneItem":false,"IsEditable":false,"PickerItems":"/MDK_Styling/Rules/Logging/LogLevels.js"},{"_Type":"Control.Type.FormCell.ListPicker","_Name":"TracingCategoriesListPicker","IsVisible":false,"Separator":true,"AllowMultipleSelection":true,"AllowEmptySelection":true,"Caption":"Tracing Categories","PickerPrompt":"Select Categories for Tracing","OnValueChange":"/MDK_Styling/Rules/Logging/SetTraceCategories.js","IsSelectedSectionEnabled":true,"IsPickerDismissedOnSelection":false,"IsSearchCancelledAfterSelection":false,"AllowDefaultValueIfOneItem":false,"IsEditable":true,"PickerItems":"/MDK_Styling/Rules/Logging/TraceCategories.js"},{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"odataTrace","IsVisible":false,"Separator":true,"Caption":"OData Tracing","OnValueChange":"/MDK_Styling/Rules/Logging/SetTraceCategories.js","IsEditable":true}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection0"},{"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"Send","IsVisible":true,"Separator":true,"Title":"Send Activity Log","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","Enabled":true,"OnPress":"/MDK_Styling/Actions/Logging/UploadLogProgress.action"}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection1"}]}],"_Type":"Page","_Name":"UserActivityLog","Caption":"Activity Log","PrefersLargeCaption":false,"OnLoaded":"/MDK_Styling/Rules/Logging/UserLogSetting.js"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_Create.page":
-/*!*****************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_Create.page ***!
-  \*****************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Customers/Customers_CreateEntity.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create Customer Detail","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"City","_Name":"City","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Country","_Name":"Country","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","KeyboardType":"Number","_Name":"CustomerID","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DateOfBirth","Caption":"DateOfBirth","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"EmailAddress","_Name":"EmailAddress","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Gender","_Name":"Gender","Segments":["Male","Female","Other","None","Unknown"],"_Type":"Control.Type.FormCell.SegmentedControl"},{"Caption":"FirstName","_Name":"FirstName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"HouseNumber","_Name":"HouseNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LastName","_Name":"LastName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PhoneNumber","_Name":"PhoneNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PostalCode","_Name":"PostalCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Street","_Name":"Street","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Customers_Create","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_CreateSalesOrderHeader.page":
-/*!*********************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_CreateSalesOrderHeader.page ***!
-  \*********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Customers/Customers_CreateSalesOrderHeader.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create SalesOrderHeader","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Mode":"Datetime","_Name":"CreatedAt","Caption":"CreatedAt","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{CustomerID}","ReturnValue":"{CustomerID}","Target":{"EntitySet":"Customers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"CustomerID","_Type":"Control.Type.FormCell.ListPicker","Value":"{CustomerID}"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatus","_Name":"LifeCycleStatus","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatusName","_Name":"LifeCycleStatusName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","KeyboardType":"Number","_Name":"SalesOrderID","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Customers_CreateSalesOrderHeader","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_Detail.page":
-/*!*****************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_Detail.page ***!
-  \*****************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Customers","QueryOptions":""},"Controls":[{"DataSubscriptions":["SalesOrderHeaders"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"ObjectHeader":{"Subhead":"{City}","Footnote":"{CustomerID}","Description":"{Country}","StatusText":"{DateOfBirth}","SubstatusText":"{EmailAddress}","HeadlineText":"{FirstName}","StatusPosition":"Stacked","StatusImagePosition":"Leading","SubstatusImagePosition":"Leading","Styles":{"ObjectHeader":"objectHeaderBackground","BodyText":"objectHeaderBodyText","Description":"objectHeaderDescription","Footnote":"objectHeaderFootNote","HeadlineText":"objectHeaderHeadline","StatusText":"objectHeaderStatus","Subhead":"objectHeaderSubhead","SubstatusText":"objectHeaderSubStatus"}},"_Type":"Section.Type.ObjectHeader","_Name":"SectionObjectHeader0","Visible":true},{"KeyAndValues":[{"Value":"{City}","_Name":"KeyValue0","KeyName":"City","Visible":true},{"Value":"{Country}","_Name":"KeyValue1","KeyName":"Country","Visible":true},{"Value":"{CustomerID}","_Name":"KeyValue2","KeyName":"CustomerID","Visible":true},{"Value":"{DateOfBirth}","_Name":"KeyValue3","KeyName":"DateOfBirth","Visible":true},{"Value":"{EmailAddress}","_Name":"KeyValue4","KeyName":"EmailAddress","Visible":true},{"Value":"{FirstName}","_Name":"KeyValue5","KeyName":"FirstName","Visible":true},{"Value":"{HouseNumber}","_Name":"KeyValue6","KeyName":"HouseNumber","Visible":true},{"Value":"{LastName}","_Name":"KeyValue7","KeyName":"LastName","Visible":true},{"Value":"{PhoneNumber}","_Name":"KeyValue8","KeyName":"PhoneNumber","Visible":true},{"Value":"{PostalCode}","_Name":"KeyValue9","KeyName":"PostalCode","Visible":true},{"Value":"{Street}","_Name":"KeyValue10","KeyName":"Street","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Layout":{"NumberOfColumns":2}},{"KeyAndValues":[{"Value":"{Address/HouseNumber}","_Name":"KeyValue11","KeyName":"HouseNumber","Visible":true},{"Value":"{Address/Street}","_Name":"KeyValue12","KeyName":"Street","Visible":true},{"Value":"{Address/City}","_Name":"KeyValue13","KeyName":"City","Visible":true},{"Value":"{Address/Country}","_Name":"KeyValue14","KeyName":"Country","Visible":true},{"Value":"{Address/PostalCode}","_Name":"KeyValue15","KeyName":"PostalCode","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValueAddress","Header":{"_Name":"SectionHeader0","AccessoryType":"None","UseTopPadding":true,"Caption":"Address"},"Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Layout":{"NumberOfColumns":2}},{"Header":{"_Name":"SectionHeader1","AccessoryType":"None","UseTopPadding":true,"Caption":"SalesOrders"},"_Type":"Section.Type.ObjectTable","Target":{"EntitySet":"{@odata.readLink}/SalesOrders","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"Caption":"No record found!","FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"ObjectCell":{"Title":"{LifeCycleStatusName}","Subhead":"{CreatedAt}","Footnote":"{CustomerID}","Description":"{CurrencyCode}","StatusText":"{GrossAmount}","SubstatusText":"{LifeCycleStatus}","PreserveIconStackSpacing":false,"AccessoryType":"DisclosureIndicator","Tags":[],"AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false,"ImageHasBorder":false},"AvatarGrid":{"ImageIsCircular":true},"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Detail.action","Selected":false,"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true,"LeadingItems":[],"TrailingItems":[]}},"HighlightSelectedItem":false}],"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"Customers_Detail","Caption":"Customer Detail","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"","SystemItem":"Edit","Position":"Right","IsIconCircular":false,"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_Edit.action"},{"_Name":"ActionBarItem1","Caption":"More","Position":"Right","IsIconCircular":false,"OnPress":"/MDK_Styling/Actions/Customers/Customers_DetailPopover.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_Edit.page":
-/*!***************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_Edit.page ***!
-  \***************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"Update Customer Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Customers","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/Customers/Customers_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"City","_Name":"City","Value":"{City}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Country","_Name":"Country","Value":"{Country}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","_Name":"CustomerID","Value":"{CustomerID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Mode":"Date","_Name":"DateOfBirth","Value":"{DateOfBirth}","Caption":"DateOfBirth","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"EmailAddress","_Name":"EmailAddress","Value":"{EmailAddress}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Gender","_Name":"Gender","Value":"{Gender}","Segments":["Male","Female","Other","None","Unknown"],"_Type":"Control.Type.FormCell.SegmentedControl"},{"Caption":"FirstName","_Name":"FirstName","Value":"{FirstName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"HouseNumber","_Name":"HouseNumber","Value":"{HouseNumber}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LastName","_Name":"LastName","Value":"{LastName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PhoneNumber","_Name":"PhoneNumber","Value":"{PhoneNumber}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PostalCode","_Name":"PostalCode","Value":"{PostalCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Street","_Name":"Street","Value":"{Street}","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Customers_Edit","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Customers/Customers_List.page":
-/*!***************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Customers/Customers_List.page ***!
-  \***************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"Header":{"_Name":"SectionHeader0","AccessoryType":"None","UseTopPadding":false},"_Type":"Section.Type.ObjectTable","Target":{"EntitySet":"Customers","Service":"/MDK_Styling/Services/SampleServiceV4.service","QueryOptions":""},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"Caption":"No record found!","FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"ObjectCell":{"Title":"{FirstName}","Subhead":"{City}","Footnote":"{CustomerID}","Description":"{Country}","StatusText":"{DateOfBirth}","SubstatusText":"{EmailAddress}","PreserveIconStackSpacing":false,"AccessoryType":"DisclosureIndicator","Tags":[],"AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false,"ImageHasBorder":false},"AvatarGrid":{"ImageIsCircular":true},"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_Detail.action","Styles":{"Title":"ObjectTableTitle"},"Selected":false,"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true,"LeadingItems":[],"TrailingItems":[]}},"Search":{"Enabled":true,"Placeholder":"Item Search","BarcodeScanner":true,"Delay":500,"MinimumCharacterThreshold":3},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Loading more items, please wait..."},"HighlightSelectedItem":false}],"LoadingIndicator":{"Enabled":true,"Text":"Loading, please wait..."},"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"Customers_List","Caption":"Customers","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"","SystemItem":"Add","Position":"Right","IsIconCircular":false,"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_Create.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_Detail.page":
-/*!***********************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_Detail.page ***!
-  \***********************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"KeyAndValues":[{"Value":"{Message}","_Name":"KeyValue0","KeyName":"Error","Visible":true},{"Value":"{RequestBody}","_Name":"KeyValue1","KeyName":"Request Body","Visible":true},{"Value":"{RequestURL}","_Name":"KeyValue2","KeyName":"Request URL","Visible":true},{"Value":"{HTTPStatusCode}","_Name":"KeyValue3","KeyName":"HTTP Status Code","Visible":true},{"Value":"{RequestMethod}","_Name":"KeyValue4","KeyName":"Request Method","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"ErrorArchive_Detail","Caption":"Details","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_List.page":
-/*!*********************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/ErrorArchive/ErrorArchive_List.page ***!
-  \*********************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ObjectTable","Target":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"ErrorArchive"},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"FooterVisible":false,"Caption":"No record found!"},"ObjectCell":{"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true},"Title":"{HTTPStatusCode}","Subhead":"{RequestURL}","Footnote":"{Message}","StatusText":"{RequestMethod}","AvatarStack":{"ImageIsCircular":false},"PreserveIconStackSpacing":false,"AccessoryType":"None","OnPress":"/MDK_Styling/Actions/ErrorArchive/NavToErrorArchive_Detail.action","Selected":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"HighlightSelectedItem":false,"Selection":{"ExitOnLastDeselect":true,"LongPressToEnable":"None","Mode":"None"}}]}],"_Type":"Page","_Name":"ErrorArchive_List","Caption":"Error List","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Main.page":
-/*!*******************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Main.page ***!
-  \*******************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ButtonTable","_Name":"SectionButtonTable0","Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Buttons":[{"_Name":"SectionButton0","Title":"Customers","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","FullWidth":false,"Visible":true,"Enabled":true,"Styles":{"Button":"MyCustomerButton"},"OnPress":"/MDK_Styling/Actions/Customers/NavToCustomers_List.action"},{"_Name":"SectionButton1","Title":"Products","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","FullWidth":false,"Visible":true,"Enabled":true,"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_List.action"}],"Layout":{"LayoutType":"Vertical","HorizontalAlignment":"Leading"}}]}],"_Type":"Page","_Name":"Main","Caption":"Main","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"User Menu","Icon":"sap-icon://customer","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDK_Styling/Actions/Application/UserMenuPopover.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_Create.page":
-/*!***************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_Create.page ***!
-  \***************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Rules/Products/Products_CreateEntity.js","Position":"Right","SystemItem":"Save"}]},"Caption":"Create $(L,PRODUCT_TYPE)","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"Category","_Name":"Category","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CategoryName","_Name":"CategoryName","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionDepth","KeyboardType":"Number","_Name":"DimensionDepth","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionHeight","KeyboardType":"Number","_Name":"DimensionHeight","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionUnit","_Name":"DimensionUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionWidth","KeyboardType":"Number","_Name":"DimensionWidth","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LongDescription","_Name":"LongDescription","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Name","_Name":"Name","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PictureUrl","_Name":"PictureUrl","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Price","KeyboardType":"Number","_Name":"Price","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","KeyboardType":"Number","_Name":"ProductID","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ShortDescription","_Name":"ShortDescription","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SupplierID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SupplierName}","ReturnValue":"{SupplierID}","Target":{"EntitySet":"Suppliers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"SupplierID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Weight","KeyboardType":"Number","_Name":"Weight","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"WeightUnit","_Name":"WeightUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"AttachmentTitle":"Picture","AttachmentAddTitle":"Browse","AttachmentActionType":["AddPhoto","TakePhoto","SelectFile"],"AllowedFileTypes":["jpg","png","gif"],"_Name":"Picture","_Type":"Control.Type.FormCell.Attachment"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_Create","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_CreatePurchaseOrderItem.page":
-/*!********************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_CreatePurchaseOrderItem.page ***!
-  \********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Products/Products_CreatePurchaseOrderItem.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create PurchaseOrderItem","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","KeyboardType":"Number","_Name":"ItemNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker","Value":"{ProductID}"},{"Caption":"PurchaseOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{PurchaseOrderID}","ReturnValue":"{PurchaseOrderID}","Target":{"EntitySet":"PurchaseOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"PurchaseOrderID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Quantity","KeyboardType":"Number","_Name":"Quantity","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_CreatePurchaseOrderItem","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_CreateSalesOrderItem.page":
-/*!*****************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_CreateSalesOrderItem.page ***!
-  \*****************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/Products/Products_CreateSalesOrderItem.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create SalesOrderItem","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DeliveryDate","Caption":"DeliveryDate","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","KeyboardType":"Number","_Name":"ItemNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker","Value":"{ProductID}"},{"Caption":"Quantity","KeyboardType":"Number","_Name":"Quantity","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SalesOrderID}","ReturnValue":"{SalesOrderID}","Target":{"EntitySet":"SalesOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"SalesOrderID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_CreateSalesOrderItem","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_Detail.page":
-/*!***************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_Detail.page ***!
-  \***************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"$(L,PRODUCT_TYPE)","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Actions/Products/Products_DetailPopover.action","Position":"Right","Caption":"More"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"/MDK_Styling/Services/SampleServiceV4.service/{@odata.readLink}/Picture","HeadlineText":"{Name}","Subhead":"{Category}","BodyText":"","Footnote":"{CurrencyCode}","Description":"{CategoryName}","StatusText":"{DimensionDepth}","StatusImage":"","SubstatusImage":"","SubstatusText":"{DimensionHeight}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"Category","Value":"{Category}"},{"KeyName":"CategoryName","Value":"{CategoryName}"},{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"DimensionDepth","Value":"{DimensionDepth}"},{"KeyName":"DimensionHeight","Value":"{DimensionHeight}"},{"KeyName":"DimensionUnit","Value":"{DimensionUnit}"},{"KeyName":"DimensionWidth","Value":"{DimensionWidth}"},{"KeyName":"LongDescription","Value":"{LongDescription}"},{"KeyName":"Name","Value":"{Name}"},{"KeyName":"PictureUrl","Value":"{PictureUrl}"},{"KeyName":"Price","Value":"{Price}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"ShortDescription","Value":"{ShortDescription}"},{"KeyName":"SupplierID","Value":"{SupplierID}"},{"KeyName":"Weight","Value":"{Weight}"},{"KeyName":"WeightUnit","Value":"{WeightUnit}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"PurchaseOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{GrossAmount}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{ItemNumber}","PreserveIconStackSpacing":false,"StatusText":"{NetAmount}","Subhead":"{CurrencyCode}","SubstatusText":"{PurchaseOrderID}","OnPress":"/MDK_Styling/Actions/PurchaseOrderItems/NavToPurchaseOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/PurchaseOrderItems","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"},{"Header":{"Caption":"SalesOrderItems"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{DeliveryDate}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{GrossAmount}","PreserveIconStackSpacing":false,"StatusText":"{ItemNumber}","Subhead":"{CurrencyCode}","SubstatusText":"{NetAmount}","OnPress":"/MDK_Styling/Actions/SalesOrderItems/NavToSalesOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/SalesOrderItems","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["PurchaseOrderItems","SalesOrderItems"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Products_Detail","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_Edit.page":
-/*!*************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_Edit.page ***!
-  \*************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"Update $(L,PRODUCT_TYPE)","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"Products","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/Products/Products_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"Category","_Name":"Category","Value":"{Category}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CategoryName","_Name":"CategoryName","Value":"{CategoryName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionDepth","_Name":"DimensionDepth","Value":"{DimensionDepth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionHeight","_Name":"DimensionHeight","Value":"{DimensionHeight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionUnit","_Name":"DimensionUnit","Value":"{DimensionUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"DimensionWidth","_Name":"DimensionWidth","Value":"{DimensionWidth}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LongDescription","_Name":"LongDescription","Value":"{LongDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Name","_Name":"Name","Value":"{Name}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"PictureUrl","_Name":"PictureUrl","Value":"{PictureUrl}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"Price","_Name":"Price","Value":"{Price}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","_Name":"ProductID","Value":"{ProductID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ShortDescription","_Name":"ShortDescription","Value":"{ShortDescription}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SupplierID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SupplierName}","ReturnValue":"{SupplierID}","Target":{"EntitySet":"Suppliers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{SupplierID}","_Name":"SupplierID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Weight","_Name":"Weight","Value":"{Weight}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"WeightUnit","_Name":"WeightUnit","Value":"{WeightUnit}","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"Products_Edit","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/Products/Products_List.page":
-/*!*************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/Products/Products_List.page ***!
-  \*************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"$(L,PRODUCT_TYPES)","ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_Create.action","Position":"Right","SystemItem":"Add"}]},"Controls":[{"Sections":[{"Header":{"UseTopPadding":false},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{CategoryName}","AvatarStack":{"Avatars":[{"Image":"/MDK_Styling/Services/SampleServiceV4.service/{@odata.readLink}/Picture"}],"ImageIsCircular":false},"Icons":[],"OnPress":"/MDK_Styling/Actions/Products/NavToProducts_Detail.action","StatusImage":"","Title":"{Name}","Footnote":"{CurrencyCode}","PreserveIconStackSpacing":false,"StatusText":"{DimensionDepth}","Subhead":"{Category}","SubstatusText":"{DimensionHeight}"},"EmptySection":{"Caption":"No record found!"},"Search":{"Enabled":true,"Placeholder":"Item Search","BarcodeScanner":true,"Delay":500,"MinimumCharacterThreshold":3},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Loading more items, please wait..."},"Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service","QueryOptions":""},"_Type":"Section.Type.ObjectTable"}],"LoadingIndicator":{"Enabled":true,"Text":"Loading, please wait..."},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"Products_List","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Detail.page":
-/*!***********************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Detail.page ***!
-  \***********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"PurchaseOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"PurchaseOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/PurchaseOrderItems/NavToPurchaseOrderItems_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Rules/PurchaseOrderItems/PurchaseOrderItems_DeleteConfirmation.js","Position":"Right","SystemItem":"Trash"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{ProductID}","Subhead":"{CurrencyCode}","BodyText":"","Footnote":"{ItemNumber}","Description":"{GrossAmount}","StatusText":"{NetAmount}","StatusImage":"","SubstatusImage":"","SubstatusText":"{PurchaseOrderID}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"GrossAmount","Value":"{GrossAmount}"},{"KeyName":"ItemNumber","Value":"{ItemNumber}"},{"KeyName":"NetAmount","Value":"{NetAmount}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"PurchaseOrderID","Value":"{PurchaseOrderID}"},{"KeyName":"Quantity","Value":"{Quantity}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"TaxAmount","Value":"{TaxAmount}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"}],"DataSubscriptions":[],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"PurchaseOrderItems_Detail","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Edit.page":
-/*!*********************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/PurchaseOrderItems/PurchaseOrderItems_Edit.page ***!
-  \*********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"Update PurchaseOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"PurchaseOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/PurchaseOrderItems/PurchaseOrderItems_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"GrossAmount","_Name":"GrossAmount","Value":"{GrossAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","_Name":"ItemNumber","Value":"{ItemNumber}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"NetAmount","_Name":"NetAmount","Value":"{NetAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{ProductID}","_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"PurchaseOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{PurchaseOrderID}","ReturnValue":"{PurchaseOrderID}","Target":{"EntitySet":"PurchaseOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{PurchaseOrderID}","_Name":"PurchaseOrderID","_Type":"Control.Type.FormCell.ListPicker","IsEditable":false},{"Caption":"Quantity","_Name":"Quantity","Value":"{Quantity}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"TaxAmount","_Name":"TaxAmount","Value":"{TaxAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"PurchaseOrderItems_Edit","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_CreateSalesOrderItem.page":
-/*!***********************************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_CreateSalesOrderItem.page ***!
-  \***********************************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action","Position":"Left","SystemItem":"Cancel"},{"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_CreateSalesOrderItem.action","Position":"Right","SystemItem":"Save"}]},"Caption":"Create SalesOrderItem","Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DeliveryDate","Caption":"DeliveryDate","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"GrossAmount","KeyboardType":"Number","_Name":"GrossAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","KeyboardType":"Number","_Name":"ItemNumber","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","KeyboardType":"Number","_Name":"NetAmount","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Quantity","KeyboardType":"Number","_Name":"Quantity","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsEditable":false,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SalesOrderID}","ReturnValue":"{SalesOrderID}","Target":{"EntitySet":"SalesOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"_Name":"SalesOrderID","_Type":"Control.Type.FormCell.ListPicker","Value":"{SalesOrderID}"},{"Caption":"TaxAmount","KeyboardType":"Number","_Name":"TaxAmount","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"SalesOrderHeaders_CreateSalesOrderItem","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page":
-/*!*********************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Detail.page ***!
-  \*********************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"SalesOrderHeader Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderHeaders","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/NavToSalesOrderHeaders_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_DetailPopover.action","Position":"Right","Caption":"More"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{LifeCycleStatusName}","Subhead":"{CreatedAt}","BodyText":"","Footnote":"{CustomerID}","Description":"{CurrencyCode}","StatusText":"{GrossAmount}","StatusImage":"","SubstatusImage":"","SubstatusText":"{LifeCycleStatus}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"CreatedAt","Value":"{CreatedAt}"},{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"CustomerID","Value":"{CustomerID}"},{"KeyName":"GrossAmount","Value":"{GrossAmount}"},{"KeyName":"LifeCycleStatus","Value":"{LifeCycleStatus}"},{"KeyName":"LifeCycleStatusName","Value":"{LifeCycleStatusName}"},{"KeyName":"NetAmount","Value":"{NetAmount}"},{"KeyName":"SalesOrderID","Value":"{SalesOrderID}"},{"KeyName":"TaxAmount","Value":"{TaxAmount}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"},{"Header":{"Caption":"Items"},"ObjectCell":{"AccessoryType":"DisclosureIndicator","Description":"{DeliveryDate}","AvatarStack":{"Avatars":[{"Image":""}],"ImageIsCircular":false},"Icons":[],"StatusImage":"","Title":"{ProductID}","Footnote":"{GrossAmount}","PreserveIconStackSpacing":false,"StatusText":"{ItemNumber}","Subhead":"{CurrencyCode}","SubstatusText":"{NetAmount}","OnPress":"/MDK_Styling/Actions/SalesOrderItems/NavToSalesOrderItems_Detail.action"},"EmptySection":{"Caption":"No record found!"},"Target":{"EntitySet":"{@odata.readLink}/Items","Service":"/MDK_Styling/Services/SampleServiceV4.service"},"_Type":"Section.Type.ObjectTable"}],"DataSubscriptions":["SalesOrderItems"],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"SalesOrderHeaders_Detail","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Edit.page":
-/*!*******************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderHeaders/SalesOrderHeaders_Edit.page ***!
-  \*******************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"Update SalesOrderHeader Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderHeaders","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/SalesOrderHeaders/SalesOrderHeaders_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Mode":"Datetime","_Name":"CreatedAt","Value":"{CreatedAt}","Caption":"CreatedAt","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"CustomerID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{CustomerID}","ReturnValue":"{CustomerID}","Target":{"EntitySet":"Customers","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{CustomerID}","_Name":"CustomerID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"GrossAmount","_Name":"GrossAmount","Value":"{GrossAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatus","_Name":"LifeCycleStatus","Value":"{LifeCycleStatus}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"LifeCycleStatusName","_Name":"LifeCycleStatusName","Value":"{LifeCycleStatusName}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"NetAmount","_Name":"NetAmount","Value":"{NetAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","_Name":"SalesOrderID","Value":"{SalesOrderID}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"TaxAmount","_Name":"TaxAmount","Value":"{TaxAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"SalesOrderHeaders_Edit","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Detail.page":
-/*!*****************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Detail.page ***!
-  \*****************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"SalesOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"OnPress":"/MDK_Styling/Actions/SalesOrderItems/NavToSalesOrderItems_Edit.action","Position":"Right","SystemItem":"Edit"},{"OnPress":"/MDK_Styling/Rules/SalesOrderItems/SalesOrderItems_DeleteConfirmation.js","Position":"Right","SystemItem":"Trash"}]},"Controls":[{"Sections":[{"ObjectHeader":{"Tags":[],"DetailImage":"","HeadlineText":"{ProductID}","Subhead":"{CurrencyCode}","BodyText":"","Footnote":"{GrossAmount}","Description":"{DeliveryDate}","StatusText":"{ItemNumber}","StatusImage":"","SubstatusImage":"","SubstatusText":"{NetAmount}"},"_Type":"Section.Type.ObjectHeader"},{"KeyAndValues":[{"KeyName":"CurrencyCode","Value":"{CurrencyCode}"},{"KeyName":"DeliveryDate","Value":"{DeliveryDate}"},{"KeyName":"GrossAmount","Value":"{GrossAmount}"},{"KeyName":"ItemNumber","Value":"{ItemNumber}"},{"KeyName":"NetAmount","Value":"{NetAmount}"},{"KeyName":"ProductID","Value":"{ProductID}"},{"KeyName":"Quantity","Value":"{Quantity}"},{"KeyName":"QuantityUnit","Value":"{QuantityUnit}"},{"KeyName":"SalesOrderID","Value":"{SalesOrderID}"},{"KeyName":"TaxAmount","Value":"{TaxAmount}"}],"Layout":{"NumberOfColumns":2},"MaxItemCount":1,"_Name":"SectionKeyValue0","_Type":"Section.Type.KeyValue"}],"DataSubscriptions":[],"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable"}],"_Type":"Page","_Name":"SalesOrderItems_Detail","PrefersLargeCaption":true}
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Edit.page":
-/*!***************************************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Pages/SalesOrderItems/SalesOrderItems_Edit.page ***!
-  \***************************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Caption":"Update SalesOrderItem Detail","DesignTimeTarget":{"Service":"/MDK_Styling/Services/SampleServiceV4.service","EntitySet":"SalesOrderItems","QueryOptions":""},"ActionBar":{"Items":[{"Position":"Left","SystemItem":"Cancel","OnPress":"/MDK_Styling/Actions/CloseModalPage_Cancel.action"},{"Position":"Right","SystemItem":"Save","OnPress":"/MDK_Styling/Actions/SalesOrderItems/SalesOrderItems_UpdateEntity.action"}]},"Controls":[{"Sections":[{"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Visible":true,"Controls":[{"Caption":"CurrencyCode","_Name":"CurrencyCode","Value":"{CurrencyCode}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Mode":"Date","_Name":"DeliveryDate","Value":"{DeliveryDate}","Caption":"DeliveryDate","_Type":"Control.Type.FormCell.DatePicker"},{"Caption":"GrossAmount","_Name":"GrossAmount","Value":"{GrossAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ItemNumber","_Name":"ItemNumber","Value":"{ItemNumber}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty","IsEditable":false},{"Caption":"NetAmount","_Name":"NetAmount","Value":"{NetAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"ProductID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{Name}","ReturnValue":"{ProductID}","Target":{"EntitySet":"Products","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{ProductID}","_Name":"ProductID","_Type":"Control.Type.FormCell.ListPicker"},{"Caption":"Quantity","_Name":"Quantity","Value":"{Quantity}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"QuantityUnit","_Name":"QuantityUnit","Value":"{QuantityUnit}","_Type":"Control.Type.FormCell.SimpleProperty"},{"Caption":"SalesOrderID","AllowMultipleSelection":false,"AllowEmptySelection":true,"IsPickerDismissedOnSelection":true,"IsSelectedSectionEnabled":true,"PickerItems":{"DisplayValue":"{SalesOrderID}","ReturnValue":"{SalesOrderID}","Target":{"EntitySet":"SalesOrderHeaders","Service":"/MDK_Styling/Services/SampleServiceV4.service"}},"Value":"{SalesOrderID}","_Name":"SalesOrderID","_Type":"Control.Type.FormCell.ListPicker","IsEditable":false},{"Caption":"TaxAmount","_Name":"TaxAmount","Value":"{TaxAmount}","KeyboardType":"Number","_Type":"Control.Type.FormCell.SimpleProperty"}]}],"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable"}],"_Type":"Page","_Name":"SalesOrderItems_Edit","PrefersLargeCaption":true}
-
-/***/ }),
-
 /***/ "./build.definitions/version.mdkbundlerversion":
 /*!*****************************************************!*\
   !*** ./build.definitions/version.mdkbundlerversion ***!
@@ -2618,51 +2583,10 @@ module.exports = "1.1\n";
 
 /***/ }),
 
-/***/ "webpack/container/entry/bundle.js":
-/*!***********************!*\
-  !*** container entry ***!
-  \***********************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-var moduleMap = {
-	".": () => {
-		return Promise.resolve().then(() => (() => ((__webpack_require__(/*! ./build.definitions/application-index.js */ "./build.definitions/application-index.js")))));
-	}
-};
-var get = (module, getScope) => {
-	__webpack_require__.R = getScope;
-	getScope = (
-		__webpack_require__.o(moduleMap, module)
-			? moduleMap[module]()
-			: Promise.resolve().then(() => {
-				throw new Error('Module "' + module + '" does not exist in container.');
-			})
-	);
-	__webpack_require__.R = undefined;
-	return getScope;
-};
-var init = (shareScope, initScope) => {
-	if (!__webpack_require__.S) return;
-	var name = "default"
-	var oldScope = __webpack_require__.S[name];
-	if(oldScope && oldScope !== shareScope) throw new Error("Container initialization failed as it has already been initialized with a different share scope");
-	__webpack_require__.S[name] = shareScope;
-	return __webpack_require__.I(name, initScope);
-};
-
-// This exports getters to disallow modifications
-__webpack_require__.d(exports, {
-	get: () => (get),
-	init: () => (init)
-});
-
-/***/ }),
-
-/***/ "./build.definitions/MDK_Styling/Styles/Styles.light.json":
-/*!****************************************************************!*\
-  !*** ./build.definitions/MDK_Styling/Styles/Styles.light.json ***!
-  \****************************************************************/
+/***/ "./build.definitions/MDK_Styling/Styles/Styles.json":
+/*!**********************************************************!*\
+  !*** ./build.definitions/MDK_Styling/Styles/Styles.json ***!
+  \**********************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2718,12 +2642,6 @@ module.exports = JSON.parse('{"compilerOptions":{"target":"es2015","module":"esn
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = __webpack_module_cache__;
-/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -2753,62 +2671,15 @@ module.exports = JSON.parse('{"compilerOptions":{"target":"es2015","module":"esn
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/sharing */
-/******/ 	(() => {
-/******/ 		__webpack_require__.S = {};
-/******/ 		var initPromises = {};
-/******/ 		var initTokens = {};
-/******/ 		__webpack_require__.I = (name, initScope) => {
-/******/ 			if(!initScope) initScope = [];
-/******/ 			// handling circular init calls
-/******/ 			var initToken = initTokens[name];
-/******/ 			if(!initToken) initToken = initTokens[name] = {};
-/******/ 			if(initScope.indexOf(initToken) >= 0) return;
-/******/ 			initScope.push(initToken);
-/******/ 			// only runs once
-/******/ 			if(initPromises[name]) return initPromises[name];
-/******/ 			// creates a new share scope if needed
-/******/ 			if(!__webpack_require__.o(__webpack_require__.S, name)) __webpack_require__.S[name] = {};
-/******/ 			// runs all init snippets from all modules reachable
-/******/ 			var scope = __webpack_require__.S[name];
-/******/ 			var warn = (msg) => {
-/******/ 				if (typeof console !== "undefined" && console.warn) console.warn(msg);
-/******/ 			};
-/******/ 			var uniqueName = undefined;
-/******/ 			var register = (name, version, factory, eager) => {
-/******/ 				var versions = scope[name] = scope[name] || {};
-/******/ 				var activeVersion = versions[version];
-/******/ 				if(!activeVersion || (!activeVersion.loaded && (!eager != !activeVersion.eager ? eager : uniqueName > activeVersion.from))) versions[version] = { get: factory, from: uniqueName, eager: !!eager };
-/******/ 			};
-/******/ 			var initExternal = (id) => {
-/******/ 				var handleError = (err) => (warn("Initialization of sharing external failed: " + err));
-/******/ 				try {
-/******/ 					var module = __webpack_require__(id);
-/******/ 					if(!module) return;
-/******/ 					var initFn = (module) => (module && module.init && module.init(__webpack_require__.S[name], initScope))
-/******/ 					if(module.then) return promises.push(module.then(initFn, handleError));
-/******/ 					var initResult = initFn(module);
-/******/ 					if(initResult && initResult.then) return promises.push(initResult['catch'](handleError));
-/******/ 				} catch(err) { handleError(err); }
-/******/ 			}
-/******/ 			var promises = [];
-/******/ 			switch(name) {
-/******/ 			}
-/******/ 			if(!promises.length) return initPromises[name] = 1;
-/******/ 			return initPromises[name] = Promise.all(promises).then(() => (initPromises[name] = 1));
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 /******/ 	
-/******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__("webpack/container/entry/bundle.js");
-/******/ 	var __webpack_export_target__ = exports;
-/******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
-/******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./build.definitions/application-index.js");
 /******/ 	
+/******/ 	return __webpack_exports__;
 /******/ })()
 ;
+});
 //# sourceMappingURL=bundle.js.map

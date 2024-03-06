@@ -11,6 +11,553 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./build.definitions/MDKOnlineApp/i18n/i18n.properties":
+/*!*************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/i18n/i18n.properties ***!
+  \*************************************************************/
+/***/ ((module) => {
+
+module.exports = "PRODUCT_NAME=PRODUCT_NAME\nPRODUCT_CATEGORY=PRODUCT_CATEGORY\nPRODUCT_SHORT_DESCRIPTION=PRODUCT_SHORT_DESCRIPTION\nPRODUCT_LONG_DESCRIPTION=PRODUCT_LONG_DESCRIPTION\nPRODUCT_PRICE=PRODUCT_PRICE\nPRODUCT_WEIGHT=PRODUCT_WEIGHT\nPRODUCT_HEIGHT=PRODUCT_HEIGHT\nPRODUCT_DEPTH=PRODUCT_DEPTH\nPRODUCT_WIDTH=PRODUCT_WIDTH\nPRODUCT_TYPE=PRODUCT_TYPE\nPRODUCT_TYPES=PRODUCT_TYPES\nPRODUCT_PRODUCT_ID=PRODUCT_PRODUCT_ID\nPRODUCT_UNIT=PRODUCT_UNIT\nPRODUCT_WEIGHT_UNIT=PRODUCT_WEIGHT_UNIT\nPRODUCT_QUANTITY_UNIT=PRODUCT_QUANTITY_UNIT\nPRODUCT_CATEGORY_NAME=PRODUCT_CATEGORY_NAME\nPRODUCT_CURENCY_CODE=PRODUCT_CURENCY_CODE\nPRODUCT_PICTURE_URL=PRODUCT_PICTURE_URL\nPRODUCT_SUPPLIER_ID=PRODUCT_SUPPLIER_ID\nPRODUCT_UPDATE_TIMESTAMP=PRODUCT_UPDATE_TIMESTAMP\n"
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateFailure.js":
+/*!******************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateFailure.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AppUpdateFailure)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function AppUpdateFailure(clientAPI) {
+    let result = clientAPI.actionResults.AppUpdate.error.toString();
+    var message;
+    console.log(result);
+    if (result.startsWith('Error: Uncaught app extraction failure:')) {
+        result = 'Error: Uncaught app extraction failure:';
+    }
+    if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body: 404 Not Found: Requested route')) {
+        result = 'Application instance is not up or running';
+    }
+    if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body')) {
+        result = 'Service instance not found.';
+    }
+
+    switch (result) {
+        case 'Service instance not found.':
+            message = 'Mobile App Update feature is not assigned or not running for your application. Please add the Mobile App Update feature, deploy your application, and try again.';
+            break;
+        case 'Error: LCMS GET Version Response Error Response Status: 404 | Body: Failed to find a matched endpoint':
+            message = 'Mobile App Update feature is not assigned to your application. Please add the Mobile App Update feature, deploy your application, and try again.';
+            break;
+        case 'Error: LCMS GET Version Response failed: Error: Optional(OAuth2Error.tokenRejected: The newly acquired or refreshed token got rejected.)':
+            message = 'The Mobile App Update feature is not assigned to your application or there is no Application metadata deployed. Please check your application in Mobile Services and try again.';
+            break;
+        case 'Error: Uncaught app extraction failure:':
+            message = 'Error extracting metadata. Please redeploy and try again.';
+            break;
+        case 'Application instance is not up or running':
+            message = 'Communication failure. Verify that the BindMobileApplicationRoutesToME Application route is running in your BTP space cockpit.';
+            break;
+        default:
+            message = result;
+            break;
+    }
+    return clientAPI.getPageProxy().executeAction({
+        "Name": "/MDKOnlineApp/Actions/Application/AppUpdateFailureMessage.action",
+        "Properties": {
+            "Duration": 0,
+            "Message": message
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateSuccess.js":
+/*!******************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateSuccess.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AppUpdateSuccess)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function sleep(ms) {
+    return (new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve();
+        }, ms);
+    }));
+}
+function AppUpdateSuccess(clientAPI) {
+    var message;
+    // Force a small pause to let the progress banner show in case there is no new version available
+    return sleep(500).then(function() {
+        let result = clientAPI.actionResults.AppUpdate.data;
+        console.log(result);
+
+        let versionNum = result.split(': ')[1];
+        if (result.startsWith('Current version is already up to date')) {
+            return clientAPI.getPageProxy().executeAction({
+                "Name": "/MDKOnlineApp/Actions/Application/AppUpdateSuccessMessage.action",
+                "Properties": {
+                    "Message": `You are already using the latest version: ${versionNum}`,
+                    "NumberOfLines": 2
+                }
+            });
+        } else if (result === 'AppUpdate feature is not enabled or no new revision found.') {
+            message = 'No Application metadata found. Please deploy your application and try again.';
+            return clientAPI.getPageProxy().executeAction({
+                "Name": "/MDKOnlineApp/Actions/Application/AppUpdateSuccessMessage.action",
+                "Properties": {
+                    "Duration": 5,
+                    "Message": message,
+                    "NumberOfLines": 2
+                }
+            });
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js":
+/*!***********************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ClientIsMultiUserMode)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function ClientIsMultiUserMode(clientAPI) {
+    return clientAPI.isAppInMultiUserMode();
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Application/GetClientSupportVersions.js":
+/*!**************************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Application/GetClientSupportVersions.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GetClientSupportVersions)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function GetClientSupportVersions(clientAPI) {
+    let versionInfo = clientAPI.getVersionInfo();
+    let versionStr = '';
+    Object.keys(versionInfo).forEach(function(key, index) {
+        // key: the name of the object key
+        // index: the ordinal position of the key within the object
+        //console.log(`Key: ${key}   Index: ${index}`);
+        if (key != 'Application Version') {
+            versionStr += `${key}: ${versionInfo[key]}\n`;
+        }
+    });
+    return versionStr;
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Application/GetClientVersion.js":
+/*!******************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Application/GetClientVersion.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GetClientVersion)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function GetClientVersion(clientAPI) {
+    let versionInfo = clientAPI.getVersionInfo();
+    if (versionInfo.hasOwnProperty('Application Version')) {
+        return versionInfo['Application Version'];
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Application/OnWillUpdate.js":
+/*!**************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Application/OnWillUpdate.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ OnWillUpdate)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function OnWillUpdate(clientAPI) {
+    return clientAPI.executeAction('/MDKOnlineApp/Actions/Application/OnWillUpdate.action').then((result) => {
+        if (result.data) {
+            return Promise.resolve();
+        } else {
+            return Promise.reject('User Deferred');
+        }
+    });
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Application/ResetAppSettingsAndLogout.js":
+/*!***************************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Application/ResetAppSettingsAndLogout.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ResetAppSettingsAndLogout)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function ResetAppSettingsAndLogout(clientAPI) {
+    let logger = clientAPI.getLogger();
+    let platform = clientAPI.nativescript.platformModule;
+    let appSettings = clientAPI.nativescript.appSettingsModule;
+    var appId;
+    if (platform && (platform.isIOS || platform.isAndroid)) {
+        appId = clientAPI.evaluateTargetPath('#Application/#AppData/MobileServiceAppId');
+    } else {
+        appId = 'WindowsClient';
+    }
+    try {
+        // Remove any other app specific settings
+        appSettings.getAllKeys().forEach(key => {
+            if (key.substring(0, appId.length) === appId) {
+                appSettings.remove(key);
+            }
+        });
+    } catch (err) {
+        logger.log(`ERROR: AppSettings cleanup failure - ${err}`, 'ERROR');
+    } finally {
+        // Logout 
+        return clientAPI.getPageProxy().executeAction('/MDKOnlineApp/Actions/Application/Reset.action');
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/LogLevels.js":
+/*!*******************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/LogLevels.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LogLevels)
+/* harmony export */ });
+function LogLevels(clientAPI) {
+    var levels = [];
+    levels.push({
+        'DisplayValue': 'Error',
+        'ReturnValue': 'Error',
+    });
+    levels.push({
+        'DisplayValue': 'Warning',
+        'ReturnValue': 'Warn',
+    });
+    levels.push({
+        'DisplayValue': 'Info',
+        'ReturnValue': 'Info',
+    });
+    levels.push({
+        'DisplayValue': 'Debug',
+        'ReturnValue': 'Debug',
+    });
+    levels.push({
+        'DisplayValue': 'Trace',
+        'ReturnValue': 'Trace',
+    });
+    return levels;
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/SetTraceCategories.js":
+/*!****************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/SetTraceCategories.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SetTraceCategories)
+/* harmony export */ });
+function SetTraceCategories(clientAPI) {
+    var logger = clientAPI.getLogger();
+    const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
+    const fcsection = sectionedTable.getSection('FormCellSection0');
+    const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
+    const odataTrace = fcsection.getControl('odataTrace');
+
+    try {
+        if (traceCategory.getValue()) {
+            var values = traceCategory.getValue();
+            var categories = [];
+
+            if (values && values.length) {
+                categories = values.map((value) => {
+                    return 'mdk.trace.' + value.ReturnValue;
+                });
+            }
+            clientAPI.setDebugSettings(odataTrace.getValue(), true, categories);
+        }
+    } catch (exception) {
+        logger.log(String(exception), 'Error');
+        return undefined;
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/SetUserLogLevel.js":
+/*!*************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/SetUserLogLevel.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SetUserLogLevel)
+/* harmony export */ });
+function SetUserLogLevel(clientAPI) {
+    try {
+        if (clientAPI.getValue() && clientAPI.getValue()[0]) {
+            var logger = clientAPI.getLogger();
+            var listPickerValue = clientAPI.getValue()[0].ReturnValue;
+            if (listPickerValue) {
+                switch (listPickerValue) {
+                    case 'Debug':
+                        logger.setLevel('Debug');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Error':
+                        logger.setLevel('Error');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Warn':
+                        logger.setLevel('Warn');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Info':
+                        logger.setLevel('Info');
+                        ShowTraceOptions(clientAPI, false);
+                        break;
+                    case 'Trace':
+                        logger.setLevel('Trace');
+                        ShowTraceOptions(clientAPI, true);
+                        break;
+                    default:
+                        // eslint-disable-next-line no-console
+                        console.log(`unrecognized key ${listPickerValue}`);
+                }
+                return listPickerValue;
+            }
+        }
+    } catch (exception) {
+        logger.log(String(exception), 'Error');
+        return undefined;
+    }
+}
+
+function ShowTraceOptions(clientAPI, tracingEnabled) {
+    let categories = clientAPI.getPageProxy().getControl('SectionedTable').getControl('TracingCategoriesListPicker');
+    let odataTrace = clientAPI.getPageProxy().getControl('SectionedTable').getControl('odataTrace');
+
+    categories.setVisible(tracingEnabled);
+    odataTrace.setVisible(tracingEnabled);
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/ToggleLogging.js":
+/*!***********************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/ToggleLogging.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ToggleLogging)
+/* harmony export */ });
+function ToggleLogging(clientAPI) {
+    try {
+        var logger = clientAPI.getLogger();
+        const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
+        const fcsection = sectionedTable.getSection('FormCellSection0');
+        const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
+        const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
+        let switchValue = enableLogSwitch.getValue();
+        if (switchValue) {
+            logger.on();
+            logLevelListPicker.setVisible(true);
+            logLevelListPicker.setEditable(true);
+            logLevelListPicker.redraw();
+        } else {
+            logger.off();
+            logLevelListPicker.setEditable(false);
+            logLevelListPicker.setVisible(false);
+            logLevelListPicker.redraw();
+        }
+        return switchValue;
+    } catch (exception) {
+        logger.log(String(exception), 'Error');
+        return undefined;
+    }
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/TraceCategories.js":
+/*!*************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/TraceCategories.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TraceCategories)
+/* harmony export */ });
+function TraceCategories(clientAPI) {
+    var categories = ['action', 'api', 'app', 'binding', 'branding',
+        'core', 'i18n', 'lcms', 'logging', 'odata', 'onboarding', 'profiling', 'push',
+        'restservice', 'settings', 'targetpath', 'ui'
+    ];
+
+    var values = [];
+    categories.forEach((category) => {
+        values.push({
+            'DisplayValue': category,
+            'ReturnValue': category,
+        });
+    });
+
+    return values;
+}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/UserLogSetting.js":
+/*!************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/UserLogSetting.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ UserLogSetting)
+/* harmony export */ });
+function UserLogSetting(clientAPI) {
+
+    try {
+        var logger = clientAPI.getLogger();
+
+        const sectionedTable = clientAPI.getControl('SectionedTable');
+        const fcsection = sectionedTable.getSection('FormCellSection0');
+        const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
+        const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
+        const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
+        const odataTrace = fcsection.getControl('odataTrace');
+
+
+        //Persist the user logging preferences
+        if (logger) {
+            console.log("in logger state");
+            if (logger.isTurnedOn()) {
+                if (enableLogSwitch) {
+                    enableLogSwitch.setValue(true);
+                }
+                if (logLevelListPicker) {
+                    logLevelListPicker.setEditable(true);
+                }
+            } else {
+                if (enableLogSwitch) {
+                    enableLogSwitch.setValue(false);
+                }
+                if (logLevelListPicker) {
+                    logLevelListPicker.setEditable(false);
+                }
+            }
+            var logLevel = logger.getLevel();
+            if (logLevel) {
+                if (logLevelListPicker) {
+                    logLevelListPicker.setValue([logLevel]);
+                }
+            }
+            if (logLevel === 'Trace') {
+                traceCategory.setVisible(true);
+                odataTrace.setVisible(true);
+            }
+
+            //Upon selecting a value in the List picker and clicking the back button 
+            //will enable the onload page rule. This will set the selected value
+            //in the control
+            if (logLevelListPicker.getValue()[0]) {
+                var returnValue = logLevelListPicker.getValue()[0].ReturnValue;
+                if (returnValue) {
+                    logLevelListPicker.setValue([returnValue]);
+                    logger.setLevel(returnValue);
+                }
+            }
+        }
+    } catch (exception) {
+        // eslint-disable-next-line no-console
+        console.log(String(exception), 'Error User Logger could not be set');
+    }
+}
+
+/***/ }),
+
 /***/ "./build.definitions/application-index.js":
 /*!************************************************!*\
   !*** ./build.definitions/application-index.js ***!
@@ -135,539 +682,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./build.definitions/MDKOnlineApp/i18n/i18n.properties":
-/*!*************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/i18n/i18n.properties ***!
-  \*************************************************************/
-/***/ ((module) => {
-
-module.exports = "PRODUCT_NAME=PRODUCT_NAME\nPRODUCT_CATEGORY=PRODUCT_CATEGORY\nPRODUCT_SHORT_DESCRIPTION=PRODUCT_SHORT_DESCRIPTION\nPRODUCT_LONG_DESCRIPTION=PRODUCT_LONG_DESCRIPTION\nPRODUCT_PRICE=PRODUCT_PRICE\nPRODUCT_WEIGHT=PRODUCT_WEIGHT\nPRODUCT_HEIGHT=PRODUCT_HEIGHT\nPRODUCT_DEPTH=PRODUCT_DEPTH\nPRODUCT_WIDTH=PRODUCT_WIDTH\nPRODUCT_TYPE=PRODUCT_TYPE\nPRODUCT_TYPES=PRODUCT_TYPES\nPRODUCT_PRODUCT_ID=PRODUCT_PRODUCT_ID\nPRODUCT_UNIT=PRODUCT_UNIT\nPRODUCT_WEIGHT_UNIT=PRODUCT_WEIGHT_UNIT\nPRODUCT_QUANTITY_UNIT=PRODUCT_QUANTITY_UNIT\nPRODUCT_CATEGORY_NAME=PRODUCT_CATEGORY_NAME\nPRODUCT_CURENCY_CODE=PRODUCT_CURENCY_CODE\nPRODUCT_PICTURE_URL=PRODUCT_PICTURE_URL\nPRODUCT_SUPPLIER_ID=PRODUCT_SUPPLIER_ID\nPRODUCT_UPDATE_TIMESTAMP=PRODUCT_UPDATE_TIMESTAMP\n"
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateFailure.js":
-/*!******************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateFailure.js ***!
-  \******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AppUpdateFailure)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function AppUpdateFailure(clientAPI) {
-  let result = clientAPI.actionResults.AppUpdate.error.toString();
-  var message;
-  console.log(result);
-  if (result.startsWith('Error: Uncaught app extraction failure:')) {
-    result = 'Error: Uncaught app extraction failure:';
-  }
-  if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body: 404 Not Found: Requested route')) {
-    result = 'Application instance is not up or running';
-  }
-  if (result.startsWith('Error: LCMS GET Version Response Error Response Status: 404 | Body')) {
-    result = 'Service instance not found.';
-  }
-  switch (result) {
-    case 'Service instance not found.':
-      message = 'Mobile App Update feature is not assigned or not running for your application. Please add the Mobile App Update feature, deploy your application, and try again.';
-      break;
-    case 'Error: LCMS GET Version Response Error Response Status: 404 | Body: Failed to find a matched endpoint':
-      message = 'Mobile App Update feature is not assigned to your application. Please add the Mobile App Update feature, deploy your application, and try again.';
-      break;
-    case 'Error: LCMS GET Version Response failed: Error: Optional(OAuth2Error.tokenRejected: The newly acquired or refreshed token got rejected.)':
-      message = 'The Mobile App Update feature is not assigned to your application or there is no Application metadata deployed. Please check your application in Mobile Services and try again.';
-      break;
-    case 'Error: Uncaught app extraction failure:':
-      message = 'Error extracting metadata. Please redeploy and try again.';
-      break;
-    case 'Application instance is not up or running':
-      message = 'Communication failure. Verify that the BindMobileApplicationRoutesToME Application route is running in your BTP space cockpit.';
-      break;
-    default:
-      message = result;
-      break;
-  }
-  return clientAPI.getPageProxy().executeAction({
-    "Name": "/MDKOnlineApp/Actions/Application/AppUpdateFailureMessage.action",
-    "Properties": {
-      "Duration": 0,
-      "Message": message
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateSuccess.js":
-/*!******************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Application/AppUpdateSuccess.js ***!
-  \******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AppUpdateSuccess)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function sleep(ms) {
-  return new Promise(function (resolve, reject) {
-    setTimeout(function () {
-      resolve();
-    }, ms);
-  });
-}
-function AppUpdateSuccess(clientAPI) {
-  var message;
-  // Force a small pause to let the progress banner show in case there is no new version available
-  return sleep(500).then(function () {
-    let result = clientAPI.actionResults.AppUpdate.data;
-    console.log(result);
-    let versionNum = result.split(': ')[1];
-    if (result.startsWith('Current version is already up to date')) {
-      return clientAPI.getPageProxy().executeAction({
-        "Name": "/MDKOnlineApp/Actions/Application/AppUpdateSuccessMessage.action",
-        "Properties": {
-          "Message": `You are already using the latest version: ${versionNum}`,
-          "NumberOfLines": 2
-        }
-      });
-    } else if (result === 'AppUpdate feature is not enabled or no new revision found.') {
-      message = 'No Application metadata found. Please deploy your application and try again.';
-      return clientAPI.getPageProxy().executeAction({
-        "Name": "/MDKOnlineApp/Actions/Application/AppUpdateSuccessMessage.action",
-        "Properties": {
-          "Duration": 5,
-          "Message": message,
-          "NumberOfLines": 2
-        }
-      });
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js":
-/*!***********************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Application/ClientIsMultiUserMode.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ClientIsMultiUserMode)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function ClientIsMultiUserMode(clientAPI) {
-  return clientAPI.isAppInMultiUserMode();
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Application/GetClientSupportVersions.js":
-/*!**************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Application/GetClientSupportVersions.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ GetClientSupportVersions)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function GetClientSupportVersions(clientAPI) {
-  let versionInfo = clientAPI.getVersionInfo();
-  let versionStr = '';
-  Object.keys(versionInfo).forEach(function (key, index) {
-    // key: the name of the object key
-    // index: the ordinal position of the key within the object
-    //console.log(`Key: ${key}   Index: ${index}`);
-    if (key != 'Application Version') {
-      versionStr += `${key}: ${versionInfo[key]}\n`;
-    }
-  });
-  return versionStr;
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Application/GetClientVersion.js":
-/*!******************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Application/GetClientVersion.js ***!
-  \******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ GetClientVersion)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function GetClientVersion(clientAPI) {
-  let versionInfo = clientAPI.getVersionInfo();
-  if (versionInfo.hasOwnProperty('Application Version')) {
-    return versionInfo['Application Version'];
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Application/OnWillUpdate.js":
-/*!**************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Application/OnWillUpdate.js ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ OnWillUpdate)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function OnWillUpdate(clientAPI) {
-  return clientAPI.executeAction('/MDKOnlineApp/Actions/Application/OnWillUpdate.action').then(result => {
-    if (result.data) {
-      return Promise.resolve();
-    } else {
-      return Promise.reject('User Deferred');
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Application/ResetAppSettingsAndLogout.js":
-/*!***************************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Application/ResetAppSettingsAndLogout.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ResetAppSettingsAndLogout)
-/* harmony export */ });
-/**
- * Describe this function...
- * @param {IClientAPI} clientAPI
- */
-function ResetAppSettingsAndLogout(clientAPI) {
-  let logger = clientAPI.getLogger();
-  let platform = clientAPI.nativescript.platformModule;
-  let appSettings = clientAPI.nativescript.appSettingsModule;
-  var appId;
-  if (platform && (platform.isIOS || platform.isAndroid)) {
-    appId = clientAPI.evaluateTargetPath('#Application/#AppData/MobileServiceAppId');
-  } else {
-    appId = 'WindowsClient';
-  }
-  try {
-    // Remove any other app specific settings
-    appSettings.getAllKeys().forEach(key => {
-      if (key.substring(0, appId.length) === appId) {
-        appSettings.remove(key);
-      }
-    });
-  } catch (err) {
-    logger.log(`ERROR: AppSettings cleanup failure - ${err}`, 'ERROR');
-  } finally {
-    // Logout 
-    return clientAPI.getPageProxy().executeAction('/MDKOnlineApp/Actions/Application/Reset.action');
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/LogLevels.js":
-/*!*******************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/LogLevels.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ LogLevels)
-/* harmony export */ });
-function LogLevels(clientAPI) {
-  var levels = [];
-  levels.push({
-    'DisplayValue': 'Error',
-    'ReturnValue': 'Error'
-  });
-  levels.push({
-    'DisplayValue': 'Warning',
-    'ReturnValue': 'Warn'
-  });
-  levels.push({
-    'DisplayValue': 'Info',
-    'ReturnValue': 'Info'
-  });
-  levels.push({
-    'DisplayValue': 'Debug',
-    'ReturnValue': 'Debug'
-  });
-  levels.push({
-    'DisplayValue': 'Trace',
-    'ReturnValue': 'Trace'
-  });
-  return levels;
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/SetTraceCategories.js":
-/*!****************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/SetTraceCategories.js ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ SetTraceCategories)
-/* harmony export */ });
-function SetTraceCategories(clientAPI) {
-  var logger = clientAPI.getLogger();
-  const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
-  const fcsection = sectionedTable.getSection('FormCellSection0');
-  const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
-  const odataTrace = fcsection.getControl('odataTrace');
-  try {
-    if (traceCategory.getValue()) {
-      var values = traceCategory.getValue();
-      var categories = [];
-      if (values && values.length) {
-        categories = values.map(value => {
-          return 'mdk.trace.' + value.ReturnValue;
-        });
-      }
-      clientAPI.setDebugSettings(odataTrace.getValue(), true, categories);
-    }
-  } catch (exception) {
-    logger.log(String(exception), 'Error');
-    return undefined;
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/SetUserLogLevel.js":
-/*!*************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/SetUserLogLevel.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ SetUserLogLevel)
-/* harmony export */ });
-function SetUserLogLevel(clientAPI) {
-  try {
-    if (clientAPI.getValue() && clientAPI.getValue()[0]) {
-      var logger = clientAPI.getLogger();
-      var listPickerValue = clientAPI.getValue()[0].ReturnValue;
-      if (listPickerValue) {
-        switch (listPickerValue) {
-          case 'Debug':
-            logger.setLevel('Debug');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Error':
-            logger.setLevel('Error');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Warn':
-            logger.setLevel('Warn');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Info':
-            logger.setLevel('Info');
-            ShowTraceOptions(clientAPI, false);
-            break;
-          case 'Trace':
-            logger.setLevel('Trace');
-            ShowTraceOptions(clientAPI, true);
-            break;
-          default:
-            // eslint-disable-next-line no-console
-            console.log(`unrecognized key ${listPickerValue}`);
-        }
-        return listPickerValue;
-      }
-    }
-  } catch (exception) {
-    logger.log(String(exception), 'Error');
-    return undefined;
-  }
-}
-function ShowTraceOptions(clientAPI, tracingEnabled) {
-  let categories = clientAPI.getPageProxy().getControl('SectionedTable').getControl('TracingCategoriesListPicker');
-  let odataTrace = clientAPI.getPageProxy().getControl('SectionedTable').getControl('odataTrace');
-  categories.setVisible(tracingEnabled);
-  odataTrace.setVisible(tracingEnabled);
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/ToggleLogging.js":
-/*!***********************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/ToggleLogging.js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ToggleLogging)
-/* harmony export */ });
-function ToggleLogging(clientAPI) {
-  try {
-    var logger = clientAPI.getLogger();
-    const sectionedTable = clientAPI.getPageProxy().getControl('SectionedTable');
-    const fcsection = sectionedTable.getSection('FormCellSection0');
-    const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
-    const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
-    let switchValue = enableLogSwitch.getValue();
-    if (switchValue) {
-      logger.on();
-      logLevelListPicker.setVisible(true);
-      logLevelListPicker.setEditable(true);
-      logLevelListPicker.redraw();
-    } else {
-      logger.off();
-      logLevelListPicker.setEditable(false);
-      logLevelListPicker.setVisible(false);
-      logLevelListPicker.redraw();
-    }
-    return switchValue;
-  } catch (exception) {
-    logger.log(String(exception), 'Error');
-    return undefined;
-  }
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/TraceCategories.js":
-/*!*************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/TraceCategories.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ TraceCategories)
-/* harmony export */ });
-function TraceCategories(clientAPI) {
-  var categories = ['action', 'api', 'app', 'binding', 'branding', 'core', 'i18n', 'lcms', 'logging', 'odata', 'onboarding', 'profiling', 'push', 'restservice', 'settings', 'targetpath', 'ui'];
-  var values = [];
-  categories.forEach(category => {
-    values.push({
-      'DisplayValue': category,
-      'ReturnValue': category
-    });
-  });
-  return values;
-}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Rules/Logging/UserLogSetting.js":
-/*!************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Rules/Logging/UserLogSetting.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ UserLogSetting)
-/* harmony export */ });
-function UserLogSetting(clientAPI) {
-  try {
-    var logger = clientAPI.getLogger();
-    const sectionedTable = clientAPI.getControl('SectionedTable');
-    const fcsection = sectionedTable.getSection('FormCellSection0');
-    const enableLogSwitch = fcsection.getControl('EnableLogSwitch');
-    const logLevelListPicker = fcsection.getControl('LogLevelListPicker');
-    const traceCategory = fcsection.getControl('TracingCategoriesListPicker');
-    const odataTrace = fcsection.getControl('odataTrace');
-
-    //Persist the user logging preferences
-    if (logger) {
-      console.log("in logger state");
-      if (logger.isTurnedOn()) {
-        if (enableLogSwitch) {
-          enableLogSwitch.setValue(true);
-        }
-        if (logLevelListPicker) {
-          logLevelListPicker.setEditable(true);
-        }
-      } else {
-        if (enableLogSwitch) {
-          enableLogSwitch.setValue(false);
-        }
-        if (logLevelListPicker) {
-          logLevelListPicker.setEditable(false);
-        }
-      }
-      var logLevel = logger.getLevel();
-      if (logLevel) {
-        if (logLevelListPicker) {
-          logLevelListPicker.setValue([logLevel]);
-        }
-      }
-      if (logLevel === 'Trace') {
-        traceCategory.setVisible(true);
-        odataTrace.setVisible(true);
-      }
-
-      //Upon selecting a value in the List picker and clicking the back button 
-      //will enable the onload page rule. This will set the selected value
-      //in the control
-      if (logLevelListPicker.getValue()[0]) {
-        var returnValue = logLevelListPicker.getValue()[0].ReturnValue;
-        if (returnValue) {
-          logLevelListPicker.setValue([returnValue]);
-          logger.setLevel(returnValue);
-        }
-      }
-    }
-  } catch (exception) {
-    // eslint-disable-next-line no-console
-    console.log(String(exception), 'Error User Logger could not be set');
-  }
-}
-
-/***/ }),
-
 /***/ "./build.definitions/MDKOnlineApp/Styles/Styles.css":
 /*!**********************************************************!*\
   !*** ./build.definitions/MDKOnlineApp/Styles/Styles.css ***!
@@ -675,8 +689,8 @@ function UserLogSetting(clientAPI) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
-var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/sourceMaps.js */ "../../../../css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/api.js */ "../../../../css-loader/dist/runtime/api.js");
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `/* The LESS stylesheet provides the ability to define styling styles that can be used to style the UI in the MDK app.
@@ -714,8 +728,8 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
-var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/sourceMaps.js */ "../../../../css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/api.js */ "../../../../css-loader/dist/runtime/api.js");
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `/* The LESS stylesheet provides the ability to define styling styles that can be used to style the UI in the MDK app.
@@ -752,8 +766,8 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
-var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js */ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/sourceMaps.js */ "../../../../css-loader/dist/runtime/sourceMaps.js");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/api.js */ "../../../../css-loader/dist/runtime/api.js");
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ``, "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
@@ -763,10 +777,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js":
-/*!**********************************************************************************************************************************************!*\
-  !*** ../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/api.js ***!
-  \**********************************************************************************************************************************************/
+/***/ "../../../../css-loader/dist/runtime/api.js":
+/*!**************************************************!*\
+  !*** ../../../../css-loader/dist/runtime/api.js ***!
+  \**************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -858,10 +872,10 @@ module.exports = function (cssWithMappingToString) {
 
 /***/ }),
 
-/***/ "../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js":
-/*!*****************************************************************************************************************************************************!*\
-  !*** ../../managed-content/vscode/unzipped/25__ext-mdkvsc-npm-rel___mde-vscweb@4.1.11/extension/node_modules/css-loader/dist/runtime/sourceMaps.js ***!
-  \*****************************************************************************************************************************************************/
+/***/ "../../../../css-loader/dist/runtime/sourceMaps.js":
+/*!*********************************************************!*\
+  !*** ../../../../css-loader/dist/runtime/sourceMaps.js ***!
+  \*********************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -881,6 +895,46 @@ module.exports = function (item) {
   }
   return [content].join("\n");
 };
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Pages/Application/About.page":
+/*!*********************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Pages/Application/About.page ***!
+  \*********************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"KeyAndValues":[{"_Name":"KeyValue0","KeyName":"User ID","Value":"#Application/#AppData/UserId","Visible":true},{"Value":"#Application/#AppData/DeviceId","_Name":"KeyValue1","KeyName":"Device ID","Visible":true},{"Value":"/MDKOnlineApp/Globals/Application/ApplicationName.global","_Name":"KeyValue2","KeyName":"Application","Visible":true},{"Value":"/MDKOnlineApp/Globals/Application/AppDefinition_Version.global","_Name":"KeyValue3","KeyName":"Application Metadata Version","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}},{"KeyAndValues":[{"Value":"/MDKOnlineApp/Rules/Application/GetClientVersion.js","_Name":"KeyValue4","KeyName":"Client Version","Visible":"$(PLT,true,true,false)"},{"Value":"/MDKOnlineApp/Rules/Application/GetClientSupportVersions.js","_Name":"KeyValue5","KeyName":"Client Support Versions","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue1","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"About","Caption":"About","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Pages/Application/Support.page":
+/*!***********************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Pages/Application/Support.page ***!
+  \***********************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ContactCell","_Name":"SectionContactCellTable1","EmptySection":{"FooterVisible":false},"ContactCells":[{"ContactCell":{"_Name":"ContactCellItem0","Headline":"Contact Support","ActivityItems":[{"ActivityType":"Phone","ActivityValue":"/MDKOnlineApp/Globals/Application/SupportPhone.global"},{"ActivityType":"Email","ActivityValue":"/MDKOnlineApp/Globals/Application/SupportEmail.global"},{"ActivityType":"Message","ActivityValue":"/MDKOnlineApp/Globals/Application/SupportPhone.global"}]}}]},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":false,"FooterSeparator":true,"ControlSeparator":true},"_Type":"Section.Type.SimplePropertyCollection","_Name":"SectionSimplePropertyCollection0","Visible":"$(PLT,true,true,false)","EmptySection":{"FooterVisible":false},"SimplePropertyCells":[{"SimplePropertyCell":{"_Name":"SectionSimplePropertyCell0","KeyName":"Activity Log","AccessoryType":"DisclosureIndicator","Visible":"$(PLT,true,true,false)","OnPress":"/MDKOnlineApp/Actions/Application/NavToActivityLog.action"}}],"Layout":{"NumberOfColumns":1,"MinimumInteritemSpacing":66}}]}],"_Type":"Page","_Name":"Settings","Caption":"Settings","PrefersLargeCaption":false,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Pages/Application/UserActivityLog.page":
+/*!*******************************************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Pages/Application/UserActivityLog.page ***!
+  \*******************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"Controls":[{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"EnableLogSwitch","IsVisible":true,"Separator":true,"Caption":"Enable Logging","OnValueChange":"/MDKOnlineApp/Rules/Logging/ToggleLogging.js","IsEditable":true},{"IsSearchEnabled":false,"_Type":"Control.Type.FormCell.ListPicker","_Name":"LogLevelListPicker","IsVisible":true,"Separator":true,"AllowMultipleSelection":false,"AllowEmptySelection":false,"Caption":"Log Level","OnValueChange":"/MDKOnlineApp/Rules/Logging/SetUserLogLevel.js","IsSelectedSectionEnabled":false,"IsPickerDismissedOnSelection":true,"AllowDefaultValueIfOneItem":false,"IsEditable":false,"PickerItems":"/MDKOnlineApp/Rules/Logging/LogLevels.js"},{"_Type":"Control.Type.FormCell.ListPicker","_Name":"TracingCategoriesListPicker","IsVisible":false,"Separator":true,"AllowMultipleSelection":true,"AllowEmptySelection":true,"Caption":"Tracing Categories","PickerPrompt":"Select Categories for Tracing","OnValueChange":"/MDKOnlineApp/Rules/Logging/SetTraceCategories.js","IsSelectedSectionEnabled":true,"IsPickerDismissedOnSelection":false,"IsSearchCancelledAfterSelection":false,"AllowDefaultValueIfOneItem":false,"IsEditable":true,"PickerItems":"/MDKOnlineApp/Rules/Logging/TraceCategories.js"},{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"odataTrace","IsVisible":false,"Separator":true,"Caption":"OData Tracing","OnValueChange":"/MDKOnlineApp/Rules/Logging/SetTraceCategories.js","IsEditable":true}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection0"},{"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"Send","IsVisible":true,"Separator":true,"Title":"Send Activity Log","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","Enabled":true,"OnPress":"/MDKOnlineApp/Actions/Logging/UploadLogProgress.action"}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection1"}]}],"_Type":"Page","_Name":"UserActivityLog","Caption":"Activity Log","PrefersLargeCaption":false,"OnLoaded":"/MDKOnlineApp/Rules/Logging/UserLogSetting.js"}
+
+/***/ }),
+
+/***/ "./build.definitions/MDKOnlineApp/Pages/Main.page":
+/*!********************************************************!*\
+  !*** ./build.definitions/MDKOnlineApp/Pages/Main.page ***!
+  \********************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable","Sections":[]}],"_Name":"Main","_Type":"Page","Caption":"Main","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"User Menu","Icon":"sap-icon://customer","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/Application/UserMenuPopover.action"}],"_Name":"ActionBar1"}}
 
 /***/ }),
 
@@ -1191,46 +1245,6 @@ module.exports = {"Value":"1-800-677-7271","_Type":"String"}
 /***/ ((module) => {
 
 module.exports = {"DestinationName":"SampleServiceV4","OfflineEnabled":false,"LanguageURLParam":"","OnlineOptions":{},"PathSuffix":"","SourceType":"Mobile","ServiceUrl":""}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/Application/About.page":
-/*!*********************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/Application/About.page ***!
-  \*********************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"KeyAndValues":[{"_Name":"KeyValue0","KeyName":"User ID","Value":"#Application/#AppData/UserId","Visible":true},{"Value":"#Application/#AppData/DeviceId","_Name":"KeyValue1","KeyName":"Device ID","Visible":true},{"Value":"/MDKOnlineApp/Globals/Application/ApplicationName.global","_Name":"KeyValue2","KeyName":"Application","Visible":true},{"Value":"/MDKOnlineApp/Globals/Application/AppDefinition_Version.global","_Name":"KeyValue3","KeyName":"Application Metadata Version","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue0","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}},{"KeyAndValues":[{"Value":"/MDKOnlineApp/Rules/Application/GetClientVersion.js","_Name":"KeyValue4","KeyName":"Client Version","Visible":"$(PLT,true,true,false)"},{"Value":"/MDKOnlineApp/Rules/Application/GetClientSupportVersions.js","_Name":"KeyValue5","KeyName":"Client Support Versions","Visible":true}],"MaxItemCount":1,"_Type":"Section.Type.KeyValue","_Name":"SectionKeyValue1","Visible":true,"EmptySection":{"FooterVisible":false},"Layout":{"NumberOfColumns":1}}]}],"_Type":"Page","_Name":"About","Caption":"About","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/Application/Support.page":
-/*!***********************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/Application/Support.page ***!
-  \***********************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ContactCell","_Name":"SectionContactCellTable1","EmptySection":{"FooterVisible":false},"ContactCells":[{"ContactCell":{"_Name":"ContactCellItem0","Headline":"Contact Support","ActivityItems":[{"ActivityType":"Phone","ActivityValue":"/MDKOnlineApp/Globals/Application/SupportPhone.global"},{"ActivityType":"Email","ActivityValue":"/MDKOnlineApp/Globals/Application/SupportEmail.global"},{"ActivityType":"Message","ActivityValue":"/MDKOnlineApp/Globals/Application/SupportPhone.global"}]}}]},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":false,"FooterSeparator":true,"ControlSeparator":true},"_Type":"Section.Type.SimplePropertyCollection","_Name":"SectionSimplePropertyCollection0","Visible":"$(PLT,true,true,false)","EmptySection":{"FooterVisible":false},"SimplePropertyCells":[{"SimplePropertyCell":{"_Name":"SectionSimplePropertyCell0","KeyName":"Activity Log","AccessoryType":"DisclosureIndicator","Visible":"$(PLT,true,true,false)","OnPress":"/MDKOnlineApp/Actions/Application/NavToActivityLog.action"}}],"Layout":{"NumberOfColumns":1,"MinimumInteritemSpacing":66}}]}],"_Type":"Page","_Name":"Settings","Caption":"Settings","PrefersLargeCaption":false,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Done","SystemItem":"Done","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/CloseModalPage_Complete.action"}],"_Name":"ActionBar1"}}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/Application/UserActivityLog.page":
-/*!*******************************************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/Application/UserActivityLog.page ***!
-  \*******************************************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable","Sections":[{"Controls":[{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"EnableLogSwitch","IsVisible":true,"Separator":true,"Caption":"Enable Logging","OnValueChange":"/MDKOnlineApp/Rules/Logging/ToggleLogging.js","IsEditable":true},{"IsSearchEnabled":false,"_Type":"Control.Type.FormCell.ListPicker","_Name":"LogLevelListPicker","IsVisible":true,"Separator":true,"AllowMultipleSelection":false,"AllowEmptySelection":false,"Caption":"Log Level","OnValueChange":"/MDKOnlineApp/Rules/Logging/SetUserLogLevel.js","IsSelectedSectionEnabled":false,"IsPickerDismissedOnSelection":true,"AllowDefaultValueIfOneItem":false,"IsEditable":false,"PickerItems":"/MDKOnlineApp/Rules/Logging/LogLevels.js"},{"_Type":"Control.Type.FormCell.ListPicker","_Name":"TracingCategoriesListPicker","IsVisible":false,"Separator":true,"AllowMultipleSelection":true,"AllowEmptySelection":true,"Caption":"Tracing Categories","PickerPrompt":"Select Categories for Tracing","OnValueChange":"/MDKOnlineApp/Rules/Logging/SetTraceCategories.js","IsSelectedSectionEnabled":true,"IsPickerDismissedOnSelection":false,"IsSearchCancelledAfterSelection":false,"AllowDefaultValueIfOneItem":false,"IsEditable":true,"PickerItems":"/MDKOnlineApp/Rules/Logging/TraceCategories.js"},{"Value":false,"_Type":"Control.Type.FormCell.Switch","_Name":"odataTrace","IsVisible":false,"Separator":true,"Caption":"OData Tracing","OnValueChange":"/MDKOnlineApp/Rules/Logging/SetTraceCategories.js","IsEditable":true}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection0"},{"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"Send","IsVisible":true,"Separator":true,"Title":"Send Activity Log","Alignment":"Center","ButtonType":"Text","Semantic":"Tint","ImagePosition":"Leading","Enabled":true,"OnPress":"/MDKOnlineApp/Actions/Logging/UploadLogProgress.action"}],"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"FormCellSection1"}]}],"_Type":"Page","_Name":"UserActivityLog","Caption":"Activity Log","PrefersLargeCaption":false,"OnLoaded":"/MDKOnlineApp/Rules/Logging/UserLogSetting.js"}
-
-/***/ }),
-
-/***/ "./build.definitions/MDKOnlineApp/Pages/Main.page":
-/*!********************************************************!*\
-  !*** ./build.definitions/MDKOnlineApp/Pages/Main.page ***!
-  \********************************************************/
-/***/ ((module) => {
-
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Name":"SectionedTable0","_Type":"Control.Type.SectionedTable","Sections":[]}],"_Name":"Main","_Type":"Page","Caption":"Main","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"User Menu","Icon":"sap-icon://customer","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/MDKOnlineApp/Actions/Application/UserMenuPopover.action"}],"_Name":"ActionBar1"}}
 
 /***/ }),
 

@@ -9,6 +9,13 @@
 			"_Name": "SectionedTable0",
 			"Sections": [
 				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
 					"_Type": "Section.Type.ObjectTable",
 					"Target": {
 						"Service": "/MDK_Petstore/Services/petstore.service",
@@ -22,14 +29,13 @@
 					"EmptySection": {
 						"FooterVisible": false
 					},
-					"Separators": {
-						"TopSectionSeparator": false,
-						"BottomSectionSeparator": true,
-						"HeaderSeparator": true,
-						"FooterSeparator": true,
-						"ControlSeparator": true
-					},
 					"ObjectCell": {
+						"ContextMenu": {
+							"Items": [],
+							"PerformFirstActionWithFullSwipe": true,
+							"LeadingItems": [],
+							"TrailingItems": []
+						},
 						"Title": "Pet ID: {id}",
 						"Subhead": "Pet Name: {name}",
 						"DisplayDescriptionInMobile": true,
@@ -46,13 +52,7 @@
 							"Avatars": [],
 							"ImageIsCircular": true
 						},
-						"Selected": false,
-						"ContextMenu": {
-							"Items": [],
-							"PerformFirstActionWithFullSwipe": true,
-							"LeadingItems": [],
-							"TrailingItems": []
-						}
+						"Selected": false
 					},
 					"DataPaging": {
 						"ShowLoadingIndicator": false,
@@ -82,6 +82,15 @@
 				"IsIconCircular": false,
 				"Visible": true,
 				"OnPress": "/MDK_Petstore/Actions/Application/UserMenuPopover.action"
+			},
+			{
+				"_Name": "ActionBarItem1",
+				"Caption": "Item",
+				"SystemItem": "Add",
+				"Position": "Right",
+				"IsIconCircular": false,
+				"Visible": true,
+				"OnPress": "/MDK_Petstore/Actions/NavToPet_Create.action"
 			}
 		],
 		"_Name": "ActionBar1"

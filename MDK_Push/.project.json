@@ -13,7 +13,8 @@
 				"Runtime": "production",
 				"URL": "https://mdk-webclient-runtime.cfapps.us10.hana.ondemand.com/runtime/"
 			},
-			"Auth": true
+			"Auth": true,
+			"URL": "https:///nsMDK_Push"
 		}
 	},
 	"MobileService": {
