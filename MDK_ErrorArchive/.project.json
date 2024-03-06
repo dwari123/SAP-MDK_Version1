@@ -12,16 +12,21 @@
 		"Deploy": {
 			"Description": "",
 			"WebClient": {
-				"Runtime": "",
-				"URL": ""
+				"Runtime": "production",
+				"URL": "https://mdk-webclient-runtime.cfapps.us10.hana.ondemand.com/runtime/"
 			},
 			"Destination": [
 				{
-					"CF": "",
+					"CF": "SampleServiceV4",
 					"MDK": "SampleServiceV4",
 					"URL": ""
 				}
-			]
+			],
+			"Name": "ns.MDK_ErrorArchive",
+			"Version": "1.0.0",
+			"AppRouter": "standalone",
+			"Auth": true,
+			"URL": "https://bccbdc89trial-dev-nsmdk-errorarchive-approuter.cfapps.us10-001.hana.ondemand.com/nsMDK_ErrorArchive"
 		}
 	},
 	"MobileService": {
