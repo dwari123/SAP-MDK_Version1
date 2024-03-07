@@ -1,2 +1,0 @@
-Pass:
-Generated bundle file /home/user/projects/MultiUserApp/.build/MultiUserApp/.build/uploadBundle.zip
