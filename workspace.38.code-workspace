@@ -1,1 +1,9 @@
-{"folders":[{"path":"MDK_Geolocation"}],"settings":{}}
+{"folders":[
+        {
+            "path": "MDK_Geolocation"
+        },
+        {
+            "name": "MDK_Maps",
+            "path": "MDK_Maps"
+        }
+    ],"settings":{}}
