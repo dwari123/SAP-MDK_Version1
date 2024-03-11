@@ -1,5 +1,5 @@
 {
 	"local": false,
 	"centralRouter": false,
-	"startUrl": "https:///nsMDK_Push"
+	"startUrl": "https:///nsMDK_Petstore"
 }
