@@ -1,5 +1,5 @@
 {
-	"xsappname": "nsMDK_Petstore",
+	"xsappname": "nsMDK_ErrorArchive",
 	"tenant-mode": "dedicated",
 	"description": "Security profile of called application",
 	"scopes": [
@@ -19,7 +19,7 @@
 	],
 	"oauth2-configuration": {
 		"redirect-uris": [
-			"https://nsmdk_petstore/**"
+			"https://bccbdc89trial-dev-nsmdk-errorarchive-approuter.cfapps.us10-001.hana.ondemand.com/**"
 		]
 	}
 }
