@@ -1,5 +1,5 @@
 {
 	"local": false,
 	"centralRouter": false,
-	"startUrl": "https://bccbdc89trial-dev-nsdemosampleapp-approuter.cfapps.us10-001.hana.ondemand.com/nsDemoSampleApp"
+	"startUrl": "https://bccbdc89trial-dev-nsmdk-annotations-approuter.cfapps.us10-001.hana.ondemand.com/nsMDK_Annotations"
 }
