@@ -26,7 +26,7 @@
 			"Version": "1.0.0",
 			"AppRouter": "standalone",
 			"Auth": true,
-			"URL": "https:///nsMDK_Annotations"
+			"URL": "https://bccbdc89trial-dev-nsmdk-annotations-approuter.cfapps.us10-001.hana.ondemand.com/nsMDK_Annotations"
 		}
 	},
 	"MobileService": {
