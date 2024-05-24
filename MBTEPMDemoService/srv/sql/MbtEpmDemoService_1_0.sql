@@ -15,7 +15,7 @@ create table "MbtEpmDemoService_xs_data_metrics_1_0"
     "unit" varchar(200) not null,
     "count" bigint null,
     "sum" bigint null,
-    "average" decimal(25,2) null,
+    "average" decimal null,
     "minimum" bigint null,
     "maximum" bigint null,
     primary key ("id")

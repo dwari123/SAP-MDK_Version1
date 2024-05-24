@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <odata-api.version>23.12.0</odata-api.version>
+        <odata-api.version>24.3.1</odata-api.version>
         <servlet-api.version>3.1.0</servlet-api.version>
         <slf4j-api.version>1.7.7</slf4j-api.version>
         <war-plugin.version>3.2.0</war-plugin.version>

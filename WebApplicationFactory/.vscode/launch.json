@@ -16,7 +16,7 @@
 		"env": {
 		  "PORT": "6004",
 		  "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-		  "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/WebApplicationFactory/MDKModule\"}"
+		  "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/SAP-MDK_Version1/WebApplicationFactory/MDKModule\"}"
 		},
 		"envFile": "${workspaceFolder}/.vscode/.envmdk"
 	  }

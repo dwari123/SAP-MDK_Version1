@@ -1,2 +1,2 @@
 Pass:
-Generated bundle file /home/user/projects/DemoSampleApp/.build/DemoSampleApp/.build/uploadBundle.zip
+Generated bundle file /home/user/projects/SAP-MDK_Version1/DemoSampleApp/.build/DemoSampleApp/.build/uploadBundle.zip

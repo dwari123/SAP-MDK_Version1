@@ -22,7 +22,7 @@ applications:
       # [console]
       # debug-opts
       # [none]
-    # services:
+    services:
       # db-service
       # [h2db]
       # destination-service

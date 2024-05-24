@@ -2,11 +2,11 @@
 	"Credential": "cf",
 	"CF": {
 		"Target": "https://api.cf.us10-001.hana.ondemand.com",
-		"Organization": "e2f9390d-5937-4124-8d68-115f0cfca6b0",
-		"Space": "27b4e7d1-f87e-4949-bd80-4cf5b61376c3"
+		"Organization": "08807ee1-3c08-456a-87d4-6d2fba6016c5",
+		"Space": "7f581bc2-2b53-409e-bbfb-805b014c66d5"
 	},
 	"MobileService": {
-		"AdminAPI": "https://mobile-service-cockpit-api.cfapps.us10.hana.ondemand.com/cockpit/v1/org/e2f9390d-5937-4124-8d68-115f0cfca6b0/space/27b4e7d1-f87e-4949-bd80-4cf5b61376c3",
+		"AdminAPI": "https://mobile-service-cockpit-api.cfapps.us10.hana.ondemand.com/cockpit/v1/org/08807ee1-3c08-456a-87d4-6d2fba6016c5/space/7f581bc2-2b53-409e-bbfb-805b014c66d5",
 		"AppId": "com.sap.mdk.demo",
 		"Destination": [],
 		"Type": "standard"

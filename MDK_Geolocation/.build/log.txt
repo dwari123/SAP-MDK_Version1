@@ -1,2 +1,47 @@
-Pass:
-Generated bundle file /home/user/projects/MDK_Geolocation/.build/MDK_Geolocation/.build/uploadBundle.zip
+Fail:
+Failed to bundle project with error: Command failed: "/extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/bin/mdkcli.sh" bundle --nativescript-project "/home/user/projects/SAP-MDK_Version1/MDK_Geolocation/.build/MDK_Geolocation/.build" --seam-project "/home/user/projects/SAP-MDK_Version1/MDK_Geolocation/.build/MDK_Geolocation" --externals  --filters /MDK_Geolocation/Web/ /MDK_Geolocation/MDK_Geolocation/Web --bundle-zip-target-path "/home/user/projects/SAP-MDK_Version1/MDK_Geolocation/.build/MDK_Geolocation/.build" --bundle-definition-path "out/MDK_Geolocation"  --devtool "source-map" --create-bundle --ts-target "es6" --wmf
+MDK Bundler - failed to create bundle 
+asset bundle.js 92.3 KiB [emitted] (name: bundle.js) (id hint: vendors) 1 related asset
+asset dummy.js 91.1 KiB [emitted] (name: dummy.js) 1 related asset
+runtime modules 21.6 KiB 12 modules
+modules by path ./build.definitions/MDK_Geolocation/ 30.3 KiB
+  javascript modules 30.3 KiB 49 modules
+  json modules 64 bytes
+    ./build.definitions/MDK_Geolocation/jsconfig.json 52 bytes [built] [code generated]
+    ./build.definitions/MDK_Geolocation/Styles/Styles.light.json 12 bytes [built] [code generated]
+modules by path ../../../../css-loader/dist/runtime/*.js 2.74 KiB
+  ../../../../css-loader/dist/runtime/sourceMaps.js 505 bytes [built] [code generated]
+  ../../../../css-loader/dist/runtime/api.js 2.25 KiB [built] [code generated]
+container entry 42 bytes [built] [code generated]
+./build.definitions/application-index.js 11.6 KiB [built] [code generated]
+./build.definitions/Application.app 580 bytes [built] [code generated]
+./build.definitions/tsconfig.json 397 bytes [built] [code generated]
+./build.definitions/version.mdkbundlerversion 16 bytes [built] [code generated]
+consume shared module (default) @nativescript/core@* (singleton) (eager) 42 bytes [built] [code generated]
+
+ERROR in ./build.definitions/MDK_Geolocation/Rules/GetCoordinates.js 5:0-57
+Module not found: Error: Can't resolve '@nativescript/geolocation' in '/extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/MDK_Geolocation/build.definitions/MDK_Geolocation/Rules'
+resolve '@nativescript/geolocation' in '/extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/MDK_Geolocation/build.definitions/MDK_Geolocation/Rules'
+  Parsed request is a module
+  using description file: /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/package.json (relative path: ./out/MDK_Geolocation/build.definitions/MDK_Geolocation/Rules)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/MDK_Geolocation/build.definitions/MDK_Geolocation/Rules/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/MDK_Geolocation/build.definitions/MDK_Geolocation/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/MDK_Geolocation/build.definitions/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/MDK_Geolocation/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/extensions/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/openvscode-server/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/local/__dummy_node_modules__ doesn't exist or is not a directory
+      /extbin/__dummy_node_modules__ doesn't exist or is not a directory
+      /__dummy_node_modules__ doesn't exist or is not a directory
+ @ ./build.definitions/application-index.js 41:46-98
+
+webpack 5.88.0 compiled with 1 error in 570 ms
+ModuleNotFoundError: Module not found: Error: Can't resolve '@nativescript/geolocation' in '/extbin/local/openvscode-server/extensions/mdk-vsc-wing-24.4.1/node_modules/@sap/mdk-tools/out/MDK_Geolocation/build.definitions/MDK_Geolocation/Rules'
+undefined
